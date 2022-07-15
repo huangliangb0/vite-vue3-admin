@@ -30,7 +30,9 @@ export default defineConfig({
         //  modifyVars: {
         //    hack: `true; @import (reference) "${path.resolve('src/assets/styles/base.less')}";`,
         //  },
-        // additionalData:  `@import "${path.resolve(__dirname, 'src/assets/styles/base.less')}";`
+        additionalData:  `
+          @import "${path.resolve(__dirname, 'src/styles/index.less')}";
+        `,
          javascriptEnabled: true
        }
     }

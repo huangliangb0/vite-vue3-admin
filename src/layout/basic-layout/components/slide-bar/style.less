@@ -1,0 +1,64 @@
+.app-slide-bar {
+  @appHeaderHeight: var(--app-header-height);
+  @width: var(--app-slidebar-width);
+  @bgColor: var(--app-slidebar-bg-color);
+  @deepColor: var(--app-slidebar-bg-deep-color);
+  @color: var(--app-slidebar-text-color);
+  @white: var(--el-color-white);
+
+  background-color: @bgColor;
+  height: 100%;
+  width: 0px;
+  position: relative;
+  box-sizing: border-box;
+  z-index: 11;
+  overflow-x: hidden;
+  transition: width 0.3s;
+  visibility: hidden;
+  &.is-show {
+    width: @width;
+    visibility: visible;
+  }
+  .scrollbar-wrapper {
+    height: 100%;
+  }
+  .app-title {
+    position: relative;
+    color: @white;
+    .title {
+      font-size: var(--app-title-size);
+      line-height: var(--app-header-height);
+      margin: 0;
+      text-align: center;
+    }
+  }
+  .el-menu {
+    background-color: @bgColor;
+    :deep(.el-icon) {
+      color: @white !important;
+    }
+    .el-sub-menu__title {
+      span {
+        color: @white;
+      }
+    }
+    .el-menu-item {
+      background-color: @bgColor;
+      min-width: auto;
+      width: 100%;
+      span {
+        color: @white;
+        filter: 0.1;
+      }
+      &:hover {
+        background: @white;
+        span {
+          color: var(--el-text-color-primary);
+        }
+      }
+      &.is-active-menu {
+        background-color: @deepColor;
+      }
+    }
+  }
+}
