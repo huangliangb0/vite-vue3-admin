@@ -1,5 +1,5 @@
 import { routesFlat } from "@/utils/routes";
-import { isExternal } from "util/types";
+import { isExternal } from "@/utils/validate";
 import { Router, RouteRecordRaw } from "vue-router";
 
 export class RouterHandle {
@@ -7,8 +7,8 @@ export class RouterHandle {
     private router: Router;
     constructor(router: Router) {
         this.router = router
-    }
-     addRoutes(dynamicRoutes: RouteRecordRaw[]) {
+    };
+     addRoutes = (dynamicRoutes: RouteRecordRaw[]) => {
         /**
          * 由于keep-alive 只支持二级路由的缓存，所以应该把二级以上（不包括二级）的路由都提升到二级路由中，
          * routesFlat就是对这个做出处理
@@ -19,13 +19,14 @@ export class RouterHandle {
         console.log('扁平后的路由', routes)
 
         routes.forEach((route: RouteRecordRaw) => {
-            if (!isExternal(route.path)) {
+            
+            if (!isExternal(route.path) && this.router) {
                 const removeRoute = this.router.addRoute(route)
                 this.removeRouteGroup.push(removeRoute)
             }
         })
      }
-     removeRoutes() {
+     removeRoutes = () => {
         this.removeRouteGroup.forEach(removeRoute => {
           removeRoute()
         })
