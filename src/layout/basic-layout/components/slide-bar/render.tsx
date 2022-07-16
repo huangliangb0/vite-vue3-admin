@@ -48,11 +48,6 @@ function renderLink({ path, title, icon }: RouteMeta & { path: string }) {
     <MenuItem
       index={path}
       key={path}
-      class={
-        route.path === path || route.meta.activePath === path
-          ? 'is-active-menu'
-          : ''
-      }
       onClick={() => jump(path)}
     >
       <route-content icon={icon} title={title} />

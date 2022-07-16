@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@ant-design/icons-vue': ^6.1.0
   '@types/js-cookie': ^3.0.2
   '@types/lodash': ^4.14.182
   '@types/node': ^18.0.4
@@ -23,6 +24,7 @@ specifiers:
   vue-tsc: ^0.34.7
 
 dependencies:
+  '@ant-design/icons-vue': registry.npmmirror.com/@ant-design/icons-vue/6.1.0_vue@3.2.37
   ant-design-vue: registry.npmmirror.com/ant-design-vue/3.2.10_vue@3.2.37
   js-cookie: registry.npmmirror.com/js-cookie/3.0.1
   lodash: registry.npmmirror.com/lodash/4.17.21

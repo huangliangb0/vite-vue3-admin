@@ -4,6 +4,7 @@ import '@/router/permissionRoutes'
 import 'virtual:svg-icons-register'; // 注册svg-icon脚本
 import { setupGlobalComponent } from './components';
 import { setupRouter } from './router';
+import '@/styles/index.less';
 
 const app = createApp(App)
 

@@ -9,6 +9,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@ant-design/icons-vue": "^6.1.0",
     "ant-design-vue": "^3.2.10",
     "js-cookie": "^3.0.1",
     "lodash": "^4.17.21",

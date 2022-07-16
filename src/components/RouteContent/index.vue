@@ -31,9 +31,9 @@
 </script>
 <template>
   <p class="route-content" @click="jump(path)">
-    <span class="route-icon" v-if="icon">
+    <!-- <span class="route-icon" v-if="icon">
       <svg-icon :icon="icon"></svg-icon>
-    </span>
+    </span> -->
     <span class="route-name">
       {{ title }}
     </span>
