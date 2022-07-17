@@ -18,17 +18,16 @@
         RouteRecordRaw,
       } from 'vue-router'
       import constantRoutes from './constantRoutes'
-      import { generatePermissionRoutes, routesFlat } from '../utils/routes'
-      import { isExternal } from '@/utils/validate'
+      import { generatePermissionRoutes } from '../utils/routes'
       export { constantRoutes }
       import permissionRoutes from './permissionRoutes'
       import menus from '@/models/MenusModel'
 import { RouterHandle } from './helper'
 
-      const asyncRoutes = generatePermissionRoutes(permissionRoutes, menus, null)
+      const asyncRoutes = generatePermissionRoutes(permissionRoutes, menus)
       console.log('asyncRoutes', asyncRoutes)
 
-      const routes = [/* ...constantRoutes */] as any[]
+      const routes = [...constantRoutes] as any[]
       
       
       

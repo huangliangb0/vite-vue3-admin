@@ -152,4 +152,4 @@ export default [
         }]
     },
 
-] as RoutesType
+] as MenusType
