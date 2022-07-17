@@ -1,8 +1,9 @@
 <template>
   <a-config-provider :locale="zhCN">
     <a-layout class="app-container" >
-        <a-layout-sider v-model:collapsed="collapsed" :trigger="null" collapsible>
-            <SlideBar 
+        <a-layout-sider class="app-sider" :collapsed="collapsed"  :trigger="null" collapsible>
+            <Title />
+            <Menu 
                 :routes="routes" 
                 :inline-collapsed="collapsed" 
                 mode="inline"
@@ -22,7 +23,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import zhCN from 'ant-design-vue/es/locale/zh_CN';
-import { SlideBar, Header } from './components'
+import { Menu, Header, Title } from './components'
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
 import { generatePermissionRoutes } from '@/utils/routes';
@@ -40,6 +41,10 @@ const collapsed = ref(false)
   .app-container {
     height: calc(100vh);
     overflow: hidden;
+  }
+  .app-sider {
+    height: 100%;
+    overflow-y: auto;
   }
 
   .main-container {

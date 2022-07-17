@@ -13,20 +13,27 @@ const collapseClick = () => {
 </script>
 <template>
     <a-layout-header class="app-header" >
-        <menu-unfold-outlined
-          v-if="collapsed"
-          class="trigger"
-          @click="collapseClick"
-        />
-        <menu-fold-outlined v-else class="trigger" @click="collapseClick" />
+        <div class="app-sider-collapsed" @click="collapseClick">
+            <menu-unfold-outlined
+            v-if="collapsed"
+            class="trigger"
+            
+            />
+            <menu-fold-outlined v-else class="trigger" />
+        </div>
     </a-layout-header>
 </template>
 <style lang="less" scoped>
 .app-header {
-    padding: 0 @margin;
+    // padding: 0 var(--app-margin);
+    padding: 0;
     background: #fff;
     color: @text-color;
     font-size: @font-size-base;
     box-shadow: @box-shadow-base;
+}
+.app-sider-collapsed {
+    padding: 0 12px;
+    cursor: pointer;
 }
 </style>
