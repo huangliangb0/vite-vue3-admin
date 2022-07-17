@@ -12,8 +12,10 @@
         </a-layout-sider>
         <a-layout theme="light">
             <Header v-model:collapsed="collapsed" />
-            <a-layout-content class="main-container">
-            <router-view /></a-layout-content>
+            <a-layout-content class="app-content">
+              11
+              <View />
+            </a-layout-content>
             <a-layout-footer>Footer</a-layout-footer>
         </a-layout>
     </a-layout>
@@ -23,7 +25,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import zhCN from 'ant-design-vue/es/locale/zh_CN';
-import { Menu, Header, Title } from './components'
+import { Menu, Header, Title, View } from './components'
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
 import { generatePermissionRoutes } from '@/utils/routes';
@@ -47,9 +49,10 @@ const collapsed = ref(false)
     overflow-y: auto;
   }
 
-  .main-container {
+  .app-content {
     flex: 1;
     background-color: #f6f8f9;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 </style>
