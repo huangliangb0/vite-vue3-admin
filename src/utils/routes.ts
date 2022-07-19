@@ -58,9 +58,13 @@ export const patchRoutes = (menuList: MenusType): MenusType => {
  * @returns RouteRecordRaw[]
  */
 export const generatePermissionRoutes = (permissionRoutesMap: RoutesMap, menuList: MenusType): RouteRecordRaw[] => {
+  // 给菜单排序
+  handleMenuListSort(menuList)
+
+  // 给路由补全路由，并且一级路由添加 BasicLayout 组件
   const list = patchRoutes(menuList)
 
-
+  // 递归生产线上 vue-router 的路由格式
   const rec = (permissionRoutesMap: RoutesMap, menuList: MenusType, p: MenuItemType | null = null): RouteRecordRaw[] => {
     return menuList.map(item => {
       const { name,path, redirect, children, component, ...meta } = item
@@ -78,7 +82,6 @@ export const generatePermissionRoutes = (permissionRoutesMap: RoutesMap, menuLis
   }
 
   return rec(permissionRoutesMap, list)
-    
 }
 
 
@@ -124,13 +127,28 @@ function flat(routes: RouteRecordRaw[]): RouteRecordRaw[] {
  * 菜单列表排序
  * @param menuList 从后端获取的菜单列表
  */
-const handleMunuListSort = (menuList: MenusType) => {
+export const handleMenuListSort = (menuList: MenusType) => {
   menuList.sort((a,b) => {
-    return a.sort - (b.sort ?? 9999999)
+    return (a.sort ?? 9999999) - (b.sort ?? 9999999)
   })
   menuList.forEach(item => {
     if (item.children) {
-      handleMunuListSort(item.children)
+      handleMenuListSort(item.children)
+    }
+  })
+}
+
+/**
+ * 路由排序
+ * @param routes （例如route.getRoutes())
+ */
+ export const handleRoutesSort = (routes: RouteRecordRaw[]) => {
+  routes.sort((a,b) => {
+    return (a?.meta?.sort ?? 9999999) - (a?.meta?.sort ?? 9999999)
+  })
+  routes.forEach(item => {
+    if (item.children) {
+      handleRoutesSort(item.children)
     }
   })
 }

@@ -27,7 +27,7 @@
 
 import { RouteMeta } from "vue-router";
 
-export interface MenuItemType extends RouteMeta {
+export type MenuItemType = RouteMeta & {
     /* 路由名称, 路由匹配将会根据name来匹配 */
     name?: string;
     /* 路由路径 */
@@ -44,7 +44,6 @@ export type MenusType = Array<MenuItemType>
 
 export default [
     {
-        
         name: 'Home',
         path: '/home',
         title: '首页',
@@ -62,7 +61,7 @@ export default [
         path: '/row',
         title: '分列布局',
         icon: 'home',
-        sort: 2,
+        sort: 5,
         isCache: false,
         hideInMenu: false,
         alwayShowChildInMenu: false,
@@ -113,7 +112,7 @@ export default [
         redirect: '/table/common-table',
         title: '表格',
         icon: 'table',
-        sort: 3,
+        sort: 2,
         isCache: false,
         hideInMenu: false,
         alwayShowChildInMenu: false,

@@ -1,7 +1,7 @@
 <!--
  * @Description: 
  * @Date: 2022-07-19 14:17:29
- * @LastEditTime: 2022-07-19 18:33:17
+ * @LastEditTime: 2022-07-19 18:34:40
  * @FilePath: \vite-vue3-admin\src\layout\basic-layout\components\header\index.vue
 -->
 
@@ -97,7 +97,7 @@ const logout = () => {
             width: 32px;
             height: 32px;
             font-size: 0;
-            margin-right: 12px;
+            margin-right: 6px;
             img {
                 width: 100%;
                 height: auto;
