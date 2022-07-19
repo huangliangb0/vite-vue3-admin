@@ -66,7 +66,7 @@ export default [
         hideInMenu: false,
         alwayShowChildInMenu: false,
         hideInTags: false,
-        tags_affix: true,
+        tags_affix: false,
     },
     {
         
@@ -80,7 +80,7 @@ export default [
         hideInMenu: false,
         alwayShowChildInMenu: false,
         hideInTags: false,
-        tags_affix: true,
+        tags_affix: false,
         children: [{
             name: 'EditForm',
             path: 'edit-form',
@@ -91,7 +91,7 @@ export default [
             hideInMenu: false,
             alwayShowChildInMenu: false,
             hideInTags: false,
-            tags_affix: true,
+            tags_affix: false,
         }, {
             name: 'FilterForm',
             path: 'filter-form',
@@ -102,7 +102,7 @@ export default [
             hideInMenu: false,
             alwayShowChildInMenu: false,
             hideInTags: false,
-            tags_affix: true,
+            tags_affix: false,
         }]
     },
     {
@@ -117,7 +117,7 @@ export default [
         hideInMenu: false,
         alwayShowChildInMenu: false,
         hideInTags: false,
-        tags_affix: true,
+        tags_affix: false,
         children: [{
             name: 'CommonTable',
             path: 'common-table',
@@ -127,7 +127,7 @@ export default [
             hideInMenu: false,
             alwayShowChildInMenu: false,
             hideInTags: false,
-            tags_affix: true,
+            tags_affix: false,
         }, {
             name: 'EditTable',
             path: 'edit-table',
@@ -137,7 +137,7 @@ export default [
             hideInMenu: false,
             alwayShowChildInMenu: false,
             hideInTags: false,
-            tags_affix: true,
+            tags_affix: false,
         }, {
             name: 'SpanRowTable',
             path: 'span-row-table',
@@ -147,7 +147,7 @@ export default [
             hideInMenu: false,
             alwayShowChildInMenu: false,
             hideInTags: false,
-            tags_affix: true,
+            tags_affix: false,
         }]
     },
 

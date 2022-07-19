@@ -31,7 +31,7 @@ const complementPath = (path: string, p: MenuItemType | null) => {
 export const patchRoutes = (menuList: MenusType): MenusType => {
   return menuList.map(item => {
     if (!item.children || item.children.length === 0) {
-      const { path, ...reset  } = item
+      const { path,tags_affix, ...reset  } = item
       return {
         ...reset,
         path: path,
@@ -39,6 +39,7 @@ export const patchRoutes = (menuList: MenusType): MenusType => {
         redirect: isExternal(item.path) ? undefined : item.path + '/index',
         children: [{
           ...reset,
+          tags_affix,
           path: 'index'
         }]
       }

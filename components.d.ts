@@ -20,14 +20,16 @@ declare module '@vue/runtime-core' {
     ALayoutHeader: typeof import('ant-design-vue/es')['LayoutHeader']
     ALayoutSider: typeof import('ant-design-vue/es')['LayoutSider']
     AMenu: typeof import('ant-design-vue/es')['Menu']
-    AMenuDivider: typeof import('ant-design-vue/es')['MenuDivider']
     AMenuItem: typeof import('ant-design-vue/es')['MenuItem']
     ARow: typeof import('ant-design-vue/es')['Row']
+    Bar: typeof import('./src/components/scrollbar/src/bar.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     Identify: typeof import('./src/components/Identify/index.vue')['default']
     RouteContent: typeof import('./src/components/RouteContent/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    Scrollbar: typeof import('./src/components/scrollbar/src/scrollbar.vue')['default']
     SvgIcon: typeof import('./src/components/SvgIcon/index.vue')['default']
+    Thumb: typeof import('./src/components/scrollbar/src/thumb.vue')['default']
   }
 }

@@ -1,6 +1,5 @@
 import router from '@/router'
 import { RouteRecordRaw } from 'vue-router'
-import { handleRoutesSort } from '@/utils/routes'
 import { defineStore } from 'pinia'
 
 interface State {
@@ -20,9 +19,11 @@ export const useTagsViewStore = defineStore('tagsView', {
      * @param {*} accessRoutes 授权路由
      */
     addAffixTags() {
-      const routes = router.getRoutes()
+      const routes = router.getRoutes() as RouteRecordRaw[]
       const tags = routes.filter(item => item.meta && item.meta.tags_affix)
-      handleRoutesSort(tags, false) // 排序处理
+
+      console.log('tagstags', tags)
+
       this.tagsList = tags
     },
     /**
@@ -83,7 +84,7 @@ export const useTagsViewStore = defineStore('tagsView', {
       this.tagsList = result
     },
     // 修改索引，该索引是当前路由显示的索引
-    changeActiveIndex(index) {
+    changeActiveIndex(index: number) {
       this.activeIndex = index ?? 0
     },
   },

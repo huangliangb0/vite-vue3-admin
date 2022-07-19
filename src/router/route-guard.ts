@@ -11,7 +11,7 @@ import 'nprogress/nprogress.css'
 import { getToken } from '@/utils/auth'
 import { useUserStore } from '@/store/modules/user'
 import { usePermissionStore } from '@/store/modules/permission'
-// import { useTagsViewStore } from '@/store/modules/tagsView'
+import { useTagsViewStore } from '@/store/modules/tagsView'
 import { message } from 'ant-design-vue'
 
 // 白名单
@@ -22,7 +22,7 @@ router.beforeEach(async (to, _from, next) => {
   const token = getToken()
   const userStore = useUserStore()
   const permissionStore = usePermissionStore()
-  // const TagsStore = useTagsViewStore()
+  const TagsStore = useTagsViewStore()
   if (token) {
     if (to.path === '/login') {
       next({ path: '/' })
@@ -37,7 +37,7 @@ router.beforeEach(async (to, _from, next) => {
           const accessRoutes = await permissionStore.setRoutes(res.menuList)
           addRoutes(accessRoutes)
 
-          // TagsStore.addAffixTags()
+          TagsStore.addAffixTags()
 
           next({ ...to, replace: true })
         } catch (error) {

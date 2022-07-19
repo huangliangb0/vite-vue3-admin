@@ -12,6 +12,7 @@
         </a-layout-sider>
         <a-layout theme="light">
             <Header v-model:collapsed="collapsed" />
+            <TagsView />
             <a-layout-content class="app-content">
               11
               <View />
@@ -25,7 +26,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import zhCN from 'ant-design-vue/es/locale/zh_CN';
-import { Menu, Header, Title, View } from './components'
+import { Menu, Header, Title, View, TagsView } from './components'
 import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
 import { generatePermissionRoutes } from '@/utils/routes';
