@@ -1,18 +1,18 @@
 
 <script lang="ts" setup>
 // import { User, Lock, FolderChecked, View } from '@element-plus/icons'
-  import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
+  import { UserOutlined, LockOutlined, EyeOutlined, EyeInvisibleOutlined, CodeOutlined } from '@ant-design/icons-vue'
   import Identify from '@/components/Identify/index.vue'
-  import { computed, defineComponent, reactive, ref } from 'vue'
+  import { computed, reactive, ref, toRaw } from 'vue'
   import { useRouter } from 'vue-router'
   import { useUserStore } from '@/store/modules/user'
   import { getImageUrl } from '@/assets'
+import { useForm } from 'ant-design-vue/lib/form'
   const bgImg = getImageUrl('login-bg.png')
-    const userstore = useUserStore()
+    const userStore = useUserStore()
 
       const router = useRouter()
       const passVisible = ref(false)
-      const formVm = ref()
       const loading = ref(false)
       const form = reactive({
         username: '',
@@ -20,43 +20,47 @@
         code: '',
       })
       const rules = reactive({
-        username: {
+        username: [{
           required: true,
           message: '用户名不能为空',
           trigger: 'blur',
-        },
-        password: {
+        }],
+        password: [{
           required: true,
           message: '密码不能为空',
           trigger: 'blur',
-        },
-        code: {
+        }],
+        code: [{
           required: true,
           message: '验证码不能为空',
           trigger: 'blur',
-        },
+        }],
       })
       const passInputType = computed(() =>
         passVisible.value ? 'text' : 'password',
       )
 
       // 密码查看切换
-      const passVisibleTaggleClick = () => {
+      const passVisibleToggleClick = () => {
         passVisible.value = !passVisible.value
       }
 
-      const submitForm = () => {
-        formVm.value.validate((valid: Boolean) => {
-          console.log('submitForm', valid)
-          if (!valid) return
+      const {  validate } = useForm(form, rules, {
+        onValidate: (...args) => console.log(...args),
+      });
 
+      const onSubmit = () => {
+        validate()
+        .then(() => {
           loading.value = true
-
-          userstore.login(form).then(() => {
+          userStore.login(toRaw(form)).then(() => {
             loading.value = false
             router.push({ path: '/' })
           })
         })
+        .catch(err => {
+          console.log('error', err);
+        });
       }
 </script>
 <template>
@@ -66,65 +70,55 @@
   >
     <div class="login-content">
       <div class="head">
-        <p class="wc">Welcome</p>
+        <p class="title">登录页</p>
         <p class="greet">欢迎来到平台管理中心</p>
       </div>
       <a-config-provider componentSize="large" :input="{size: 'large'}">
       <a-form
-        class="login-form-wrap"
+        class="login-form-box"
         :model="form"
         :rules="rules"
-        ref="formVm"
+        ref="formRef"
       >
-        <h1>登录页</h1>
-        <a-form-item prop="username">
-          <a-input placeholder="请输入用户名" v-model="form.username" size="large">
+        <a-form-item name="username">
+          <a-input placeholder="请输入用户名" v-model:value="form.username" size="large">
             <template #prefix>
               <user-outlined />
             </template>
           </a-input>
         </a-form-item>
-        <a-form-item prop="password">
+        <a-form-item name="password">
           <a-input
             :type="passInputType"
             placeholder="请输入密码"
             size="large"
-            v-model="form.password"
+            v-model:value="form.password"
           >
             <template #prefix>
               <lock-outlined />
             </template>
             <template #suffix>
-              <a-icon
-                ><View
-                  class="view-icon"
-                  :class="{ 'is-active': passVisible }"
-                  @click="passVisibleTaggleClick"
-              /></a-icon>
+              <eye-invisible-outlined  v-if="passVisible" @click="passVisibleToggleClick"/>
+              <eye-outlined v-else @click="passVisibleToggleClick"/>
             </template>
           </a-input>
         </a-form-item>
-        <a-form-item prop="code">
+        <a-form-item name="code">
           <a-input
             size="large"
             placeholder="请输入验证码"
-            autocomplete="off"
-            v-model="form.code"
+            v-model:value="form.code"
           >
             <template #prefix>
-              <a-icon><folder-checked /></a-icon>
+              <code-outlined />
             </template>
           </a-input>
-          <Identify class="identify"></Identify>
+          <div class="identify">
+            <Identify ></Identify>
+          </div>
         </a-form-item>
         <a-form-item>
-          <a-button
-            type="primary"
-            :loading="loading"
-            class="login-btn"
-            @click="submitForm"
-            >登录</a-button
-          >
+           <a-button type="primary" :loading="loading" @click.prevent="onSubmit">登录</a-button>
         </a-form-item>
       </a-form>
       </a-config-provider>
@@ -153,7 +147,7 @@
     box-shadow: 0 0 6px #999;
     padding: 36px;
     .head {
-      .wc {
+      .title {
         font-size: 30px;
         font-weight: 600;
         color: @primary-color;
@@ -168,57 +162,25 @@
       }
     }
   }
-</style>
-
-<style lang="less">
-  // 充值表单样式
-  .login-form-wrap {
+  .login-form-box {
     @height: 48px;
     position: relative;
     background-color:#fff;
     z-index: 111;
-    h1 {
-      font-size: 20px;
-      font-weight: 500;
-    }
     .ant-input-affix-wrapper-lg {
         padding-top: 11px;
         padding-bottom: 10.5px;
     }
-
-    .ant-col {
-      .a-input__inner {
-        height: @height !important;
-        line-height: @height !important;
-        outline: none !important;
-      }
-      .a-input__suffix {
-        right: 10px !important;
-        align-items: center;
-      }
-      .a-icon {
-        // font-size: 0;
-        // position: relative;
-        // top: -1px;
-        svg {
-          font-size: 18px;
-        }
-        .view-icon {
-          cursor: pointer;
-          &.is-active {
-            color: @primary-color;
-          }
-        }
-      }
-    }
-
     .identify {
       position: absolute;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      height: 100%;
+      right: 1px;
+      top: 1px;
+      bottom: 1px;
       z-index: 1;
+      overflow: hidden;
+      .s-canvas {
+        height: 100%;
+      }
     }
 
     .login-btn {
