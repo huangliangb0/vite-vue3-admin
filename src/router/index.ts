@@ -1,3 +1,9 @@
+/*
+ * @Description: 
+ * @Date: 2022-07-19 14:17:29
+ * @LastEditTime: 2022-07-19 16:08:16
+ * @FilePath: \vite-vue3-admin\src\router\index.ts
+ */
 /**
  * meta 参数说明
     sort： number        排序, 越小越靠前
@@ -18,18 +24,12 @@
         RouteRecordRaw,
       } from 'vue-router'
       import constantRoutes from './constantRoutes'
-      import { generatePermissionRoutes } from '../utils/routes'
       export { constantRoutes }
-      import permissionRoutes from './permissionRoutes'
-      import menus from '@/models/MenusModel'
-import { RouterHandle } from './helper'
+      import { RouterHandle } from './helper'
 
-      const asyncRoutes = generatePermissionRoutes(permissionRoutes, menus)
-      console.log('asyncRoutes', asyncRoutes)
+      
 
       const routes = [...constantRoutes] as any[]
-      
-      
       
       const router = createRouter({
         // history: createWebHashHistory(),
@@ -43,9 +43,7 @@ import { RouterHandle } from './helper'
       export const removeRoutes = handleRouter.removeRoutes
       
       export function setupRouter(app: AppInstance) {
-        addRoutes(asyncRoutes)
         app.use(router)
-        
       }
       
       export default router
