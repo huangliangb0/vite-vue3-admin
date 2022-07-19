@@ -1,12 +1,12 @@
 <!--
  * @Description: 
  * @Date: 2022-07-19 14:17:29
- * @LastEditTime: 2022-07-19 18:11:38
+ * @LastEditTime: 2022-07-19 18:33:17
  * @FilePath: \vite-vue3-admin\src\layout\basic-layout\components\header\index.vue
 -->
 
 <script  lang="ts" setup>
-import { MenuUnfoldOutlined, MenuFoldOutlined, UserOutlined, DownOutlined } from '@ant-design/icons-vue'
+import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue'
 import { getImageUrl } from '@/assets'
 import { useUserStore } from '@/store/modules/user';
 import { useRoute, useRouter } from 'vue-router'
@@ -19,8 +19,6 @@ const emit = defineEmits<{
 }>()
 const route = useRoute()
       const router = useRouter()
-      console.log(111, route.query)
-    //   console.log(2222, router.currentRoute.value)
 const userStore = useUserStore()
 const collapseClick = () => {
     emit('update:collapsed', !props.collapsed)
@@ -28,13 +26,6 @@ const collapseClick = () => {
 
 const logout = () => {
     userStore.logout().then(() => {
-        let redirect= `redirect=${route.path}`
-        Object.keys(route.query).forEach(key => {
-            redirect+= `&${key}=${route.query[key]}`
-        })
-
-        console.log('redirectredirect', redirect)
-
         router.push({
             path: `/login`,
             query: {
