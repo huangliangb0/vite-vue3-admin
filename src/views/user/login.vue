@@ -4,11 +4,14 @@
   import { UserOutlined, LockOutlined, EyeOutlined, EyeInvisibleOutlined, CodeOutlined } from '@ant-design/icons-vue'
   import Identify from '@/components/Identify/index.vue'
   import { computed, reactive, ref, toRaw } from 'vue'
-  import { useRouter } from 'vue-router'
+  import { useRoute, useRouter } from 'vue-router'
   import { useUserStore } from '@/store/modules/user'
   import { getImageUrl } from '@/assets'
 import { useForm } from 'ant-design-vue/lib/form'
   const bgImg = getImageUrl('login-bg.png')
+  const route = useRoute()
+  console.log(route.query)
+  console.log(route.params)
     const userStore = useUserStore()
 
       const router = useRouter()
@@ -55,7 +58,8 @@ import { useForm } from 'ant-design-vue/lib/form'
           loading.value = true
           userStore.login(toRaw(form)).then(() => {
             loading.value = false
-            router.push({ path: '/' })
+            const { redirect, ...query } = route.query
+            router.push({ path: redirect as string || '/', query })
           })
         })
         .catch(err => {

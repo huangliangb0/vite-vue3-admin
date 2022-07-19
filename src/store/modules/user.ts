@@ -1,7 +1,14 @@
+/*
+ * @Description: 
+ * @Date: 2022-07-19 14:17:29
+ * @LastEditTime: 2022-07-19 17:29:04
+ * @FilePath: \vite-vue3-admin\src\store\modules\user.ts
+ */
 import { defineStore } from 'pinia'
 import { setToken, removeToken } from '@/utils/auth'
 import { UserInfo } from '@/models/userModel'
 import menuList from '@/models/MenusModel'
+import { removeRoutes } from '@/router'
 
 interface State {
   token: string
@@ -57,9 +64,13 @@ export const useUserStore = defineStore({
     },
     // 退出登录
     logout() {
-      removeToken()
-      this.userInfo = null
-      window.location.reload()
+      return new Promise((resolve) => {
+        removeToken()
+        removeRoutes()
+        this.userInfo = null
+        // window.location.reload()
+        resolve(null)
+      })
     },
   },
 })

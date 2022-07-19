@@ -1,7 +1,7 @@
 /*
  * @Description: 路由守卫
  * @Date: 2022-07-19 15:31:45
- * @LastEditTime: 2022-07-19 16:11:00
+ * @LastEditTime: 2022-07-19 18:03:29
  * @FilePath: \vite-vue3-admin\src\router\route-guard.ts
  */
 import router, { addRoutes } from '.'
@@ -23,7 +23,6 @@ router.beforeEach(async (to, _from, next) => {
   const userStore = useUserStore()
   const permissionStore = usePermissionStore()
   // const TagsStore = useTagsViewStore()
-
   if (token) {
     if (to.path === '/login') {
       next({ path: '/' })
@@ -44,7 +43,13 @@ router.beforeEach(async (to, _from, next) => {
         } catch (error) {
           // await store.dispatch('user/resetToken')
           message.error((error as string) || 'Has Error')
-          next(`/login?redirect=${to.path}`)
+          next({
+            path: `/login`,
+            query: {
+              redirect: to.path,
+              ...to.query
+            },
+          })
           NProgress.done()
         }
       }
@@ -53,7 +58,13 @@ router.beforeEach(async (to, _from, next) => {
     if (WhiteList.includes(to.path)) {
       next()
     } else {
-      next(`/login?redirect=${to.path}`)
+      next({
+        path: `/login`,
+        query: {
+          redirect: to.path,
+          ...to.query
+        },
+      })
       NProgress.done()
     }
   }
