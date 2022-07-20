@@ -1,118 +1,91 @@
 <template>
   <div class="tags-view">
     <div class="scroll-bar-wrap">
-        <template v-for="(item, index) in tagsList" :key="item.path">
-          <a-dropdown>
-            <route-content
-              class="tags-item"
-              :class="{
-                'is-active': item.path === path,
-                'is-mouseenter':
-                  !item.meta?.tags_affix && activeIndex === index,
-              }"
-              :index="index"
-              :title="item.meta?.title"
-              @click="jump(item.path)"
-              @mouseenter="handleMouseenter(index)"
-              @mouseleave="handleMouseleave"
+      <a-tabs v-model:activeKey="activeIndex">
+        <a-tab-pane v-for="(item, index) in tagsList" :key="index"  :closable="!item.meta?.tags_affix && activeIndex === index">
+          <template #tab>
+                <Dropdown
+              :on-close="handleClose"
             >
-            <CloseOutlined
-              v-if="!item.meta?.tags_affix && activeIndex === index"
-              class="icon-cls"
-              @click="removeView($event, index, item.path)"
-            />
-            </route-content>
-        <template #overlay>
-          <a-menu>
-            <a-menu-item>
-              <a href="javascript:;" @click="closeClick('other', index)">
-                <CloseOutlined />
-                关闭其它
-              </a>
-            </a-menu-item>
-            <a-menu-item >
-              <a href="javascript:;" @click="closeClick('left', index)">
-                <SwapLeftOutlined />
-                关闭左则
-              </a>
-            </a-menu-item>
-            <a-menu-item @click="closeClick('right', index)">
-              <a href="javascript:;">
-                <SwapRightOutlined/>
-                关闭右侧
-              </a>
-            </a-menu-item>
-            <a-menu-item @click="closeClick('all', index)">
-              <a href="javascript:;">
-                <CloseSquareOutlined />
-                关闭全部
-              </a>
-            </a-menu-item>
-            
-          </a-menu>
+              <route-content
+                    class="tags-item"
+                    :class="{
+                      'is-active': item.path === path,
+                      'is-mouseenter':
+                        !item.meta?.tags_affix && activeIndex === index,
+                    }"
+                    :index="index"
+                    :title="item.meta?.title"
+                    @click="jump(item.path)"
+                    @mouseenter="handleMouseenter(index)"
+                    @mouseleave="handleMouseleave"
+                  >
+                  <CloseOutlined
+                    v-if="!item.meta?.tags_affix && activeIndex === index"
+                    class="icon-cls"
+                    @click="removeView($event, item.path)"
+                  />
+                  </route-content>
+          </Dropdown>
+          </template>
+        </a-tab-pane>
+      </a-tabs>
+        <!-- <a-space align="center" style="height: 100%">
+        <template v-for="(item, index) in tagsList" :key="item.path">
+            <Dropdown
+              :on-close="handleClose"
+            >
+              <route-content
+                    class="tags-item"
+                    :class="{
+                      'is-active': item.path === path,
+                      'is-mouseenter':
+                        !item.meta?.tags_affix && activeIndex === index,
+                    }"
+                    :index="index"
+                    :title="item.meta?.title"
+                    @click="jump(item.path)"
+                    @mouseenter="handleMouseenter(index)"
+                    @mouseleave="handleMouseleave"
+                  >
+                  <CloseOutlined
+                    v-if="!item.meta?.tags_affix && activeIndex === index"
+                    class="icon-cls"
+                    @click="removeView($event, item.path)"
+                  />
+                  </route-content>
+          </Dropdown>
         </template>
-      </a-dropdown>
-        </template>
+        </a-space> -->
     </div>
     <span class="action-box">
-      <a-dropdown>
+      <Dropdown
+        :on-close="handleClose"
+      >
         <a class="ant-dropdown-link" @click.prevent>
           <SmallDashOutlined class="menu-icon"/>
         </a>
-        <template #overlay>
-          <a-menu>
-            <a-menu-item>
-              <a href="javascript:;" @click="closeClick('other')">
-                <CloseOutlined />
-                关闭其它
-              </a>
-            </a-menu-item>
-            <a-menu-item >
-              <a href="javascript:;" @click="closeClick('left')">
-                <SwapLeftOutlined />
-                关闭左则
-              </a>
-            </a-menu-item>
-            <a-menu-item @click="closeClick('right')">
-              <a href="javascript:;">
-                <SwapRightOutlined/>
-                关闭右侧
-              </a>
-            </a-menu-item>
-            <a-menu-item @click="closeClick('all')">
-              <a href="javascript:;">
-                <CloseSquareOutlined />
-                关闭全部
-              </a>
-            </a-menu-item>
-            
-          </a-menu>
-        </template>
-      </a-dropdown>
+      </Dropdown>
     </span>
   </div>
 </template>
 
-<script lang="ts">
-  import { computed, defineComponent, ref, watch } from 'vue'
+<script lang="ts" setup>
+  import { computed,  inject,  ref, watch } from 'vue'
   import { useRoute, useRouter, RouteRecordRaw } from 'vue-router'
 
-  import { SwapLeftOutlined, SwapRightOutlined, CloseOutlined, CloseSquareOutlined, SmallDashOutlined } from '@ant-design/icons-vue'
+  import { CloseOutlined, SmallDashOutlined } from '@ant-design/icons-vue'
   import { useTagsViewStore } from '@/store/modules/tagsView'
-
-  export default defineComponent({
-    name: 'TagsView',
-    components: {
-      SwapLeftOutlined, SwapRightOutlined, CloseOutlined, CloseSquareOutlined, SmallDashOutlined
-    },
-    setup() {
-      const store = useTagsViewStore()
+import Dropdown from './Dropdown.vue';
+  const reload = inject('reload') as () => void
+const store = useTagsViewStore()
       const route = useRoute()
       const router = useRouter()
       const tagsList = computed(() => store.tagsList)
       const path = computed(() => route.path)
       const actionDropDownVisible = ref(false)
       const activeIndex = ref(-1)
+      const originIndex = ref(-1)
 
       // 添加路由的变化
       watch(
@@ -128,16 +101,17 @@
             item => item.path === path.value,
           )
           store.changeActiveIndex(index)
+          activeIndex.value = index
         },
         {
           immediate: true,
         },
       )
       // 移除当前标签页面
-      function removeView(e, index, _path) {
+      function removeView(e: MouseEvent, _path: string) {
         e.stopPropagation()
         e.stopPropagation()
-        store.delTag(index)
+        store.delTag()
         if (path.value === _path) {
           // 当你移除的标签是当前的视图标签，那么就切换到最后一个标签的视图
           const lastItem = tagsList.value[tagsList.value.length - 1]
@@ -147,16 +121,16 @@
           })
         }
       }
-      function closeClick(actionType: string, index?: number) {
+      function handleClose(actionType: string) {
         switch (actionType) {
           case 'other':
-            store.delOtherTag(index!)
+            store.delOtherTag()
             break
           case 'left':
-            store.delLeftTag(index!)
+            store.delLeftTag()
             break
           case 'right':
-            store.delRightTag(index!)
+            store.delRightTag()
             break
           case 'all':
             store.delAllTag()
@@ -170,7 +144,7 @@
         })
       }
       // 跳转
-      function jump(_path) {
+      function jump(_path: string) {
         if (path.value === _path) {
           return
         }
@@ -183,37 +157,67 @@
       }
 
       const handleMouseenter = (index: number) => {
+        originIndex.value = activeIndex.value
         activeIndex.value = index
       }
 
       const handleMouseleave = () => {
-        activeIndex.value = -1
-      }
+        activeIndex.value = originIndex.value
 
-      return {
-        activeIndex,
-        tagsList,
-        path,
-        actionDropDownVisible,
-        removeView,
-        closeClick,
-        jump,
-        handleActionDropDownVisibleChange,
-        handleMouseenter,
-        handleMouseleave,
+        console.log('activeIndex.valueactiveIndex.value', activeIndex.value)
+
       }
-    },
-  })
 </script>
 
 <style lang="less" scoped>
   @tagsHeight: var(--app-tags-height);
+  @tagItemHeight: 28px;
   .tags-view {
     height: @tagsHeight;
     background-color: #fff;
     display: flex;
-    padding: 0 20px;
     box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+  }
+  
+
+  .scroll-bar-wrap {
+    height: @tagsHeight;
+    line-height: height;
+    flex: 1;
+    overflow-x: auto;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    white-space: nowrap;
+    .tags-item {
+      vertical-align: middle;
+      cursor: pointer;
+      display: inline-block;
+      padding: 0 12px;
+      height: @tagItemHeight;
+      line-height: @tagItemHeight;
+      border: 1px solid @border-color-base;
+      color: @text-color;
+      transition: padding 0.3s cubic-bezier(0.645, 0.045, 0.355, 1) !important;
+      &.is-mouseenter {
+        padding-right: 30px;
+      }
+      &:hover,
+      &.is-active {
+        border-color: @primary-color;
+        color: @primary-color;
+      }
+      &.is-active {
+        background-color: lighten(@primary-color, 60%);
+      }
+      .icon-cls {
+        font-size: 16px;
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
   }
   .action-box {
     flex: 0 0 @tagsHeight;
@@ -238,47 +242,18 @@
       }
     }
   }
+</style>
 
-  .scroll-bar-wrap {
-    height: @tagsHeight;
-    display: flex;
-    flex: 1;
-     display: flex;
-    height: 100%;
-    width: 100%;
-    overflow-x: auto;
-    align-items: center;
-    width: 100%;
-    box-sizing: border-box;
-    white-space: nowrap;
-    .tags-item {
-      cursor: pointer;
-      display: inline-block;
-      padding: 0 20px;
-      height: 34px;
-      line-height: 34px;
-      border: 1px solid @border-color-base;
-      margin-right: 4px;
-      color: @text-color;
-      transition: padding 0.3s cubic-bezier(0.645, 0.045, 0.355, 1) !important;
-      &.is-mouseenter {
-        padding-right: 30px;
-      }
-      &:hover,
-      &.is-active {
-        border-color: @primary-color;
-        color: @primary-color;
-      }
-      &.is-active {
-        background-color: lighten(@primary-color, 60%);
-      }
-      .icon-cls {
-        font-size: 16px;
-        position: absolute;
-        right: 10px;
-        top: 50%;
-        transform: translateY(-50%);
-      }
-    }
+<style lang="less">
+.scroll-bar-wrap {
+  .ant-tabs-tab {
+    padding: 0;
   }
+  .ant-tabs-nav {
+    margin-bottom: 0;
+  }
+  .ant-tabs-content-holder {
+    display: none;
+  }
+}
 </style>

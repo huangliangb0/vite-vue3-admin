@@ -1,3 +1,9 @@
+<!--
+ * @Description: 
+ * @Date: 2022-07-20 09:09:38
+ * @LastEditTime: 2022-07-20 09:36:13
+ * @FilePath: \vite-vue3-admin\src\layout\basic-layout\index.vue
+-->
 <template>
   <a-config-provider :locale="zhCN">
     <a-layout class="app-container" >
@@ -14,8 +20,7 @@
             <Header v-model:collapsed="collapsed" />
             <TagsView />
             <a-layout-content class="app-content">
-              11
-              <View />
+              <View :isRouterAlive="isRouterAlive"/>
             </a-layout-content>
             <a-layout-footer>Footer</a-layout-footer>
         </a-layout>
@@ -24,7 +29,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { provide, ref } from 'vue'
 import zhCN from 'ant-design-vue/es/locale/zh_CN';
 import { Menu, Header, Title, View, TagsView } from './components'
 import dayjs from 'dayjs';
@@ -36,7 +41,15 @@ dayjs.locale('zh-cn');
 
 const routes = generatePermissionRoutes(permissionRoutes, MenusModel)
 const collapsed = ref(false)
+const isRouterAlive = ref(true)
+const reload = () => {
+  isRouterAlive.value = false
+  setTimeout(() => {
+    isRouterAlive.value = true
+  }, 10)
+}
 
+provide('reload', reload)
 
 </script>
 

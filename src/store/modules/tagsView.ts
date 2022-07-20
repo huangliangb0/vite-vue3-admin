@@ -22,8 +22,6 @@ export const useTagsViewStore = defineStore('tagsView', {
       const routes = router.getRoutes() as RouteRecordRaw[]
       const tags = routes.filter(item => item.meta && item.meta.tags_affix)
 
-      console.log('tagstags', tags)
-
       this.tagsList = tags
     },
     /**
@@ -44,16 +42,16 @@ export const useTagsViewStore = defineStore('tagsView', {
      * 删除当前标签
      * @param {*} index
      */
-    delTag(index: number) {
-      this.tagsList.splice(index, 1)
+    delTag() {
+      this.tagsList.splice(this.activeIndex, 1)
     },
 
     /**
      * 删除左边标签
      * @param {*} _index 当点击右键的时候，_index才存在
      */
-    delLeftTag(index: number) {
-      handleAction.call(this, index, function (list, index, affix_list) {
+    delLeftTag() {
+      handleAction.call(this, function (list, index, affix_list) {
         if (affix_list.length - 1 >= index) return affix_list
 
         // 固定标签 + 剩下的右边标签
@@ -61,8 +59,8 @@ export const useTagsViewStore = defineStore('tagsView', {
       })
     },
     // 删除右边标签
-    delRightTag(index: number) {
-      handleAction.call(this, index, function (list, index, affix_list) {
+    delRightTag() {
+      handleAction.call(this, function (list, index, affix_list) {
         if (affix_list.length - 1 >= index) return affix_list
 
         // 固定标签 + 剩下的右边标签
@@ -70,8 +68,8 @@ export const useTagsViewStore = defineStore('tagsView', {
       })
     },
     // 删除其他
-    delOtherTag(index: number) {
-      handleAction.call(this, index, function (list, index, affix_list) {
+    delOtherTag() {
+      handleAction.call(this,  function (list, index, affix_list) {
         if (affix_list.length - 1 >= index) return affix_list
 
         return [...affix_list, list[index]]
@@ -103,8 +101,8 @@ type Cb = (
   affix_list: RouteRecordRaw[],
 ) => RouteRecordRaw[]
 
-function handleAction(this: any, _index: number, cb: Cb) {
-  const index = _index ?? this.activeIndex
+function handleAction(this: ReturnType<typeof useTagsViewStore>,  cb: Cb) {
+  const index = this.activeIndex
   const affix_list = this.tagsList.filter(item => item?.meta?.tags_affix) // 固定标签不可删除
   const result = cb(this.tagsList, index, affix_list)
   this.tagsList = result

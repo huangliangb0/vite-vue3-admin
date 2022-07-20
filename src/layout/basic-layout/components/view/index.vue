@@ -1,24 +1,28 @@
+<!--
+ * @Description: 页面视图 router-view
+ * @Date: 2022-07-19 14:17:29
+ * @LastEditTime: 2022-07-20 09:37:20
+ * @FilePath: \vite-vue3-admin\src\layout\basic-layout\components\view\index.vue
+-->
 <template>
   <router-view v-slot="{ Component }">
     <transition mode="out-in" name="fade-slide">
       <keep-alive>
-        <component :is="Component" :key="activePath" />
+        <component v-if="isRouterAlive" :is="Component" :key="activePath" />
       </keep-alive>
     </transition>
   </router-view>
 </template>
-<script lang="ts">
-import { computed, defineComponent } from 'vue'
+<script lang="ts" setup>
+import { computed } from 'vue'
 import { useRoute } from 'vue-router'
-export default defineComponent({
-  name: 'AppRouterView',
-  setup() {
-    const route = useRoute()
-    const activePath = computed(() => route.path)
 
-    return {
-      activePath,
-    }
-  }
+defineProps({
+  isRouterAlive: Boolean
 })
+
+const route = useRoute()
+const activePath = computed(() => route.path)
+
+
 </script>
