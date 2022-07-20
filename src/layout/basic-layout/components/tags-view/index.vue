@@ -1,69 +1,48 @@
 <template>
   <div class="tags-view">
     <div class="scroll-bar-wrap">
-      <a-tabs v-model:activeKey="activeIndex">
+      <a-tabs
+        :animated="false"
+        :tabBarGutter="8"
+        :activeKey="activeIndex"
+      >
         <a-tab-pane v-for="(item, index) in tagsList" :key="index"  :closable="!item.meta?.tags_affix && activeIndex === index">
           <template #tab>
-                <Dropdown
+            <Dropdown
+              trigger="contextmenu"
               :on-close="handleClose"
+              @contextmenu="handleMouseenter(index)"
+                @mouseleave="handleMouseleave"
             >
-              <route-content
-                    class="tags-item"
-                    :class="{
-                      'is-active': item.path === path,
-                      'is-mouseenter':
-                        !item.meta?.tags_affix && activeIndex === index,
-                    }"
-                    :index="index"
-                    :title="item.meta?.title"
-                    @click="jump(item.path)"
-                    @mouseenter="handleMouseenter(index)"
-                    @mouseleave="handleMouseleave"
-                  >
-                  <CloseOutlined
-                    v-if="!item.meta?.tags_affix && activeIndex === index"
+              <a 
+                href="javascript:;"
+                class="tags-item"
+                :class="{
+                  'is-active': item.path === path,
+                  'is-closeable': !item.meta?.tags_affix
+                }"
+                @click="jump(item.path)"
+                
+              >
+                <span class="route-name">{{item.meta?.title}}</span>
+                <CloseOutlined
+                    v-if="!item.meta?.tags_affix"
                     class="icon-cls"
                     @click="removeView($event, item.path)"
                   />
-                  </route-content>
+              </a>
+              
           </Dropdown>
           </template>
         </a-tab-pane>
       </a-tabs>
-        <!-- <a-space align="center" style="height: 100%">
-        <template v-for="(item, index) in tagsList" :key="item.path">
-            <Dropdown
-              :on-close="handleClose"
-            >
-              <route-content
-                    class="tags-item"
-                    :class="{
-                      'is-active': item.path === path,
-                      'is-mouseenter':
-                        !item.meta?.tags_affix && activeIndex === index,
-                    }"
-                    :index="index"
-                    :title="item.meta?.title"
-                    @click="jump(item.path)"
-                    @mouseenter="handleMouseenter(index)"
-                    @mouseleave="handleMouseleave"
-                  >
-                  <CloseOutlined
-                    v-if="!item.meta?.tags_affix && activeIndex === index"
-                    class="icon-cls"
-                    @click="removeView($event, item.path)"
-                  />
-                  </route-content>
-          </Dropdown>
-        </template>
-        </a-space> -->
     </div>
     <span class="action-box">
       <Dropdown
         :on-close="handleClose"
       >
         <a class="ant-dropdown-link" @click.prevent>
-          <SmallDashOutlined class="menu-icon"/>
+          <MenuOutlined class="menu-icon"/>
         </a>
       </Dropdown>
     </span>
@@ -74,7 +53,7 @@
   import { computed,  inject,  ref, watch } from 'vue'
   import { useRoute, useRouter, RouteRecordRaw } from 'vue-router'
 
-  import { CloseOutlined, SmallDashOutlined } from '@ant-design/icons-vue'
+  import { CloseOutlined, SmallDashOutlined, MenuOutlined } from '@ant-design/icons-vue'
   import { useTagsViewStore } from '@/store/modules/tagsView'
 import Dropdown from './Dropdown.vue';
   const reload = inject('reload') as () => void
@@ -167,6 +146,17 @@ const store = useTagsViewStore()
         console.log('activeIndex.valueactiveIndex.value', activeIndex.value)
 
       }
+
+     
+
+     function handleChange(activeKey: any) {
+        console.log('activeKey', activeKey)
+      }
+      // Close the current tab
+      function handleEdit(targetKey: string) {
+        console.log('targetKey', targetKey)
+      }
+
 </script>
 
 <style lang="less" scoped>
@@ -184,22 +174,18 @@ const store = useTagsViewStore()
     height: @tagsHeight;
     line-height: height;
     flex: 1;
-    overflow-x: auto;
-    align-items: center;
     width: 100%;
-    box-sizing: border-box;
-    white-space: nowrap;
+    padding: 0 8px;
+    overflow: hidden;
     .tags-item {
-      vertical-align: middle;
-      cursor: pointer;
+      box-sizing: initial;
       display: inline-block;
       padding: 0 12px;
       height: @tagItemHeight;
       line-height: @tagItemHeight;
       border: 1px solid @border-color-base;
       color: @text-color;
-      transition: padding 0.3s cubic-bezier(0.645, 0.045, 0.355, 1) !important;
-      &.is-mouseenter {
+      &.is-closeable {
         padding-right: 30px;
       }
       &:hover,
@@ -210,9 +196,15 @@ const store = useTagsViewStore()
       &.is-active {
         background-color: lighten(@primary-color, 60%);
       }
+      .route-name {
+        font-size: 12px;
+        position: relative;
+        top: -2px;
+      }
       .icon-cls {
-        font-size: 16px;
+        font-size: 12px;
         position: absolute;
+        margin: 0;
         right: 10px;
         top: 50%;
         transform: translateY(-50%);
@@ -228,6 +220,7 @@ const store = useTagsViewStore()
     display: flex;
     align-items: center;
     justify-content: center;
+    border-left: 1px solid #f0f0f0;
     .menu-icon {
       position: relative;
       color: var(--a-text-color-regular);
@@ -246,14 +239,24 @@ const store = useTagsViewStore()
 
 <style lang="less">
 .scroll-bar-wrap {
-  .ant-tabs-tab {
-    padding: 0;
+  .ant-tabs {
+    .ant-tabs-tab {
+      padding: 0;
+    }
+    
+    .ant-tabs-nav {
+      margin-bottom: 0;
+      &::before {
+        display: none;
+      }
+    }
+    .ant-tabs-content-holder {
+      display: none;
+    }
+    .ant-tabs-ink-bar {
+      display: none;
+    }
   }
-  .ant-tabs-nav {
-    margin-bottom: 0;
-  }
-  .ant-tabs-content-holder {
-    display: none;
-  }
+  
 }
 </style>

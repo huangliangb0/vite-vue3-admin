@@ -18,10 +18,8 @@ import { inject, PropType } from 'vue';
 </script>
 
 <template>
-  <a-dropdown>
-    <a class="ant-dropdown-link" @click.prevent>
+  <a-dropdown v-bind="$attrs">
       <slot></slot>
-    </a>
     <template #overlay>
       <a-menu>
         <a-menu-item>
