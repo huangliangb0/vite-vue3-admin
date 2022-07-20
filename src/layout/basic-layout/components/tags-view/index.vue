@@ -1,7 +1,7 @@
 <template>
   <div class="tags-view">
     <div class="scroll-bar-wrap">
-      <a-tabs
+      <!-- <a-tabs
         :animated="false"
         :tabBarGutter="8"
         :activeKey="activeIndex"
@@ -35,7 +35,37 @@
           </Dropdown>
           </template>
         </a-tab-pane>
-      </a-tabs>
+      </a-tabs> -->
+      <WithArrowScroll >
+          <template v-for="(item, index) in tagsList" :key="index"  :closable="!item.meta?.tags_affix && activeIndex === index">
+            <Dropdown
+              trigger="contextmenu"
+              :on-close="handleClose"
+              @contextmenu="handleMouseenter(index)"
+                @mouseleave="handleMouseleave"
+            >
+              <a 
+                href="javascript:;"
+                class="tags-item"
+                :class="{
+                  'is-active': item.path === path,
+                  'is-closeable': !item.meta?.tags_affix
+                }"
+                @click="jump(item.path)"
+                
+              >
+                <span class="route-name">{{item.meta?.title}}</span>
+                <CloseOutlined
+                    v-if="!item.meta?.tags_affix"
+                    class="icon-cls"
+                    @click="removeView($event, item.path)"
+                  />
+              </a>
+              
+          </Dropdown>
+          </template>
+
+      </WithArrowScroll>
     </div>
     <span class="action-box">
       <Dropdown
@@ -52,6 +82,7 @@
 <script lang="ts" setup>
   import { computed,  inject,  ref, watch } from 'vue'
   import { useRoute, useRouter, RouteRecordRaw } from 'vue-router'
+  import WithArrowScroll from '@/components/with-arrow-scroll/index.vue'
 
   import { CloseOutlined, SmallDashOutlined, MenuOutlined } from '@ant-design/icons-vue'
   import { useTagsViewStore } from '@/store/modules/tagsView'
