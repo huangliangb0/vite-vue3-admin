@@ -95,7 +95,7 @@ export default [
         }, {
             name: 'FilterForm',
             path: 'filter-form',
-            title: '编辑表单',
+            title: '搜索表单',
             icon: 'form',
             sort: 2,
             isCache: false,
@@ -106,7 +106,6 @@ export default [
         }]
     },
     {
-        
         name: 'Table',
         path: '/table',
         redirect: '/table/common-table',

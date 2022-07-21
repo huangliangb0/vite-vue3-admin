@@ -1,28 +1,41 @@
 import router from '@/router'
-import { RouteRecordRaw } from 'vue-router'
+import { RouteLocationNormalizedLoaded } from 'vue-router'
 import { defineStore } from 'pinia'
 
 interface State {
-  tagsList: (RouteRecordRaw & Recordable)[]
+  tagsList: RouteLocationNormalizedLoaded[]
   activeIndex: number
+  currentIndex: number
 }
 
 export const useTagsViewStore = defineStore('tagsView', {
   state: (): State => ({
     tagsList: [],
     activeIndex: 0,
+    currentIndex: -1
   }),
-
+  getters: {
+    index(state): number {
+      return state.currentIndex > -1 ? state.currentIndex : state.activeIndex
+    }
+  },
   actions: {
+    // 修改索引，该索引是当前路由显示的索引
+    setActiveIndex(index: number) {
+      this.activeIndex = index ?? 0
+    },
+    // 修改索引，该索引是当前鼠标所在标签的索引
+    setCurrentIndex(index: number) {
+      this.currentIndex = index ?? -1
+    },
     /**
      * 添加固定的路由，当登录成功后添加
      * @param {*} accessRoutes 授权路由
      */
     addAffixTags() {
-      const routes = router.getRoutes() as RouteRecordRaw[]
+      const routes = router.getRoutes()
       const tags = routes.filter(item => item.meta && item.meta.tags_affix)
-
-      this.tagsList = tags
+      this.tagsList = tags as unknown as RouteLocationNormalizedLoaded[]
     },
     /**
      * 添加标签，当路由切换时，通过路由Path变更判断该标签是否需要添加
@@ -30,7 +43,7 @@ export const useTagsViewStore = defineStore('tagsView', {
      * @param {*} route  useRoute()返回值
      * @returns
      */
-    addTag(_route: RouteRecordRaw) {
+    addTag(_route: RouteLocationNormalizedLoaded) {
       const route = Object.assign({}, _route)
 
       // 如果存在，就不添加
@@ -42,8 +55,8 @@ export const useTagsViewStore = defineStore('tagsView', {
      * 删除当前标签
      * @param {*} index
      */
-    delTag() {
-      this.tagsList.splice(this.activeIndex, 1)
+    delTag(index: number) {
+      this.tagsList.splice(index, 1)
     },
 
     /**
@@ -81,10 +94,7 @@ export const useTagsViewStore = defineStore('tagsView', {
       const result = this.tagsList.filter(item => item?.meta?.tags_affix)
       this.tagsList = result
     },
-    // 修改索引，该索引是当前路由显示的索引
-    changeActiveIndex(index: number) {
-      this.activeIndex = index ?? 0
-    },
+    
   },
 })
 
@@ -96,13 +106,13 @@ export const useTagsViewStore = defineStore('tagsView', {
  * @return 返回新的标签栏列表
  */
 type Cb = (
-  tagsList: RouteRecordRaw[],
+  tagsList: RouteLocationNormalizedLoaded[],
   index: number,
-  affix_list: RouteRecordRaw[],
-) => RouteRecordRaw[]
+  affix_list: RouteLocationNormalizedLoaded[],
+) => RouteLocationNormalizedLoaded[]
 
 function handleAction(this: ReturnType<typeof useTagsViewStore>,  cb: Cb) {
-  const index = this.activeIndex
+  const index = this.index
   const affix_list = this.tagsList.filter(item => item?.meta?.tags_affix) // 固定标签不可删除
   const result = cb(this.tagsList, index, affix_list)
   this.tagsList = result

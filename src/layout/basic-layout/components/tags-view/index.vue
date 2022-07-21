@@ -2,27 +2,26 @@
   <div class="tags-view">
     <div class="scroll-bar-wrap">
       <WithArrowScroll >
-          <template v-for="(item, index) in tagsList" :key="index"  :closable="!item.meta?.tags_affix && activeIndex === index">
+          <template v-for="(route, index) in tagsList" :key="route.path">
             <Dropdown
               trigger="contextmenu"
               :on-close="handleClose"
-              @contextmenu="handleMouseenter(index)"
-                @mouseleave="handleMouseleave"
             >
-              <a 
+              <a
                 href="javascript:;"
                 class="tags-item"
                 :class="{
-                  'is-active': item.path === path,
-                  'is-closeable': !item.meta?.tags_affix
+                  'is-active': route.path === path,
+                  'is-closeable': !route.meta?.tags_affix
                 }"
-                @click="jump(item.path)"
+                @contextmenu="handleContextmenu(index)"
+                @click="jump(route)"
               >
-                <span class="route-name">{{item.meta?.title}}</span>
+                <span class="route-name">{{route.meta?.title}}</span>
                 <CloseOutlined
-                    v-if="!item.meta?.tags_affix"
+                    v-if="!route.meta?.tags_affix"
                     class="icon-cls"
-                    @click="removeView($event, item.path)"
+                    @click="removeTag($event,  index)"
                   />
               </a>
           </Dropdown>
@@ -42,8 +41,8 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, ref, watch } from 'vue'
-  import { useRoute, useRouter, RouteRecordRaw } from 'vue-router'
+  import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
+  import { useRoute, useRouter, RouteLocationNormalizedLoaded } from 'vue-router'
   import WithArrowScroll from '@/components/with-arrow-scroll/index.vue'
 
   import { CloseOutlined,  MenuOutlined } from '@ant-design/icons-vue'
@@ -53,10 +52,9 @@ const store = useTagsViewStore()
       const route = useRoute()
       const router = useRouter()
       const tagsList = computed(() => store.tagsList)
+      const activeIndex = computed(() => store.activeIndex)
       const path = computed(() => route.path)
-      const actionDropDownVisible = ref(false)
-      const activeIndex = ref(-1)
-      const originIndex = ref(-1)
+
 
       // 添加路由的变化
       watch(
@@ -65,35 +63,40 @@ const store = useTagsViewStore()
           if (route.meta.hideInTags) {
             return
           }
-          store.addTag(route as unknown as RouteRecordRaw)
+          store.addTag(route)
 
           // 获取当前触发路由的tags索引
           const index = tagsList.value.findIndex(
             item => item.path === path.value,
           )
-          store.changeActiveIndex(index)
-          activeIndex.value = index
+          store.setActiveIndex(index)
         },
         {
           immediate: true,
         },
       )
-      // 移除当前标签页面
-      function removeView(e: MouseEvent, _path: string) {
+      // 移除当前标签
+      function removeTag(e: MouseEvent, index: number) {
         e.stopPropagation()
-        e.stopPropagation()
-        store.delTag()
-        if (path.value === _path) {
-          // 当你移除的标签是当前的视图标签，那么就切换到最后一个标签的视图
-          const lastItem = tagsList.value[tagsList.value.length - 1]
-          router.push({
-            path: lastItem ? lastItem.path : '/',
-            replace: true,
-          })
+        store.delTag(index)
+
+        if (index === activeIndex.value) {
+          // 当你移除的标签是当前的视图标签，那么就切换到它上一个标签
+          const lastRoute = tagsList.value[activeIndex.value - 1]
+          if (lastRoute) {
+            jump(lastRoute)
+          } else {
+            router.push({
+              path: '/',
+              replace: true,
+            })
+          }
         }
       }
+      // 关闭
       function handleClose(actionType: string) {
         switch (actionType) {
+
           case 'other':
             store.delOtherTag()
             break
@@ -105,46 +108,43 @@ const store = useTagsViewStore()
             break
           case 'all':
             store.delAllTag()
+            router.push({
+              path: '/',
+              replace: true,
+            })
             break
         }
-        // 如果当前页的标签已关闭，那就跳转到首页
-        if (tagsList.value.some(item => item.path === path.value)) return
-        router.push({
-          path: '/',
-          replace: true,
-        })
       }
       // 跳转
-      function jump(_path: string) {
-        if (path.value === _path) {
+      function jump(route: RouteLocationNormalizedLoaded) {
+        if (path.value === route.path) {
           return
         }
-        router.push(_path)
+        router.push({
+            path: route.path,
+            query: route.query,
+            replace: true,
+          })
       }
 
-      // 右侧操作图标下拉菜单显示隐藏回调函数
-      function handleActionDropDownVisibleChange() {
-        actionDropDownVisible.value = !actionDropDownVisible.value
+      // 右键标签事件监听
+      const handleContextmenu = (index: number) => {
+        store.setCurrentIndex(index)
       }
 
-      const handleMouseenter = (index: number) => {
-        originIndex.value = activeIndex.value
-        activeIndex.value = index
+      // window click 处理
+      const handleWindowClick = () => {
+        setTimeout(() => {
+          store.setCurrentIndex(-1)
+        }, 0)
       }
 
-      const handleMouseleave = () => {
-        activeIndex.value = originIndex.value
-      }
-
-     
-
-     function handleChange(activeKey: any) {
-        console.log('activeKey', activeKey)
-      }
-      // Close the current tab
-      function handleEdit(targetKey: string) {
-        console.log('targetKey', targetKey)
-      }
+      onMounted(() => {
+        window.addEventListener('click', handleWindowClick, false)
+      })
+      onUnmounted(() => {
+        window.removeEventListener('click', handleWindowClick, false)
+      })
 
 </script>
 

@@ -1,7 +1,7 @@
 <!--
  * @Description: 
  * @Date: 2022-07-21 08:55:41
- * @LastEditTime: 2022-07-21 14:40:39
+ * @LastEditTime: 2022-07-21 15:12:15
  * @FilePath: \vite-vue3-admin\src\components\with-arrow-scroll\index.vue
 -->
 <script lang="ts" setup>
@@ -50,6 +50,7 @@ const moveRight = (dis?: number) => {
     const start = p_x - x
     // 当前需要滑动距离
     let moveDis = start + (dis ?? p_width)
+
     // 不能大于最大滑动距离
     if (moveDis > w_dif) {
         moveDis = w_dif
@@ -68,7 +69,7 @@ const moveLeft = () => {
     contentRef.value!.style.transform = `translateX(${-moveDis}px)`
 }
 
-const setVisibleArrow = debounce(() => {
+const onResize = debounce(() => {
     isVisibleArrow.value = getStyle().w_dif > 0
     if(!isVisibleArrow.value) {
         contentRef.value!.style.transform = `translateX(0px)`
@@ -78,22 +79,26 @@ const setVisibleArrow = debounce(() => {
 }, 100)
 
 onMounted(() => {
-
     erd.listenTo(contentRef.value!, function(element) {
+        isVisibleArrow.value = getStyle().w_dif > 0
+        const w = element.clientWidth
         if (width.value === 0) {
-            width.value = element.clientWidth
+            width.value = w
         } else {
-            const dis = element.clientWidth - width.value + 40
-            moveRight(dis)
-            width.value = element.clientWidth
+            const dis = w - width.value + 40
+            width.value = w
+            if (isVisibleArrow.value) {
+                moveRight(dis)
+            } else {
+                contentRef.value!.style.transform = `translateX(0px)`
+            }
         }
-        setVisibleArrow()
     });
-    window.addEventListener('resize', setVisibleArrow, false)
+    window.addEventListener('resize', onResize, false)
 })
 
 onUnmounted(() => {
-    window.removeEventListener('resize', setVisibleArrow, false)
+    window.removeEventListener('resize', onResize, false)
 })
 
 </script>
