@@ -17,6 +17,9 @@ export const useTagsViewStore = defineStore('tagsView', {
   getters: {
     index(state): number {
       return state.currentIndex > -1 ? state.currentIndex : state.activeIndex
+    },
+    affixTagsList(state): RouteLocationNormalizedLoaded[] {
+      return state.tagsList.filter(item => item?.meta?.tags_affix) // 固定标签不可删除
     }
   },
   actions: {
@@ -64,17 +67,19 @@ export const useTagsViewStore = defineStore('tagsView', {
      * @param {*} _index 当点击右键的时候，_index才存在
      */
     delLeftTag() {
-      handleAction.call(this, function (list, index, affix_list) {
-        if (affix_list.length - 1 >= index) return affix_list
+      let that = this
+      handleAction.call(this, function (list, index) {
+        if (that.affixTagsList.length - 1 >= index) return that.affixTagsList
 
         // 固定标签 + 剩下的右边标签
-        return [...affix_list, ...list.slice(index, list.length)]
+        return [...that.affixTagsList, ...list.slice(index, list.length)]
       })
     },
     // 删除右边标签
     delRightTag() {
-      handleAction.call(this, function (list, index, affix_list) {
-        if (affix_list.length - 1 >= index) return affix_list
+      let that = this
+      handleAction.call(this, function (list, index) {
+        if (that.affixTagsList.length - 1 >= index) return that.affixTagsList
 
         // 固定标签 + 剩下的右边标签
         return list.slice(0, index + 1)
@@ -82,17 +87,19 @@ export const useTagsViewStore = defineStore('tagsView', {
     },
     // 删除其他
     delOtherTag() {
-      handleAction.call(this,  function (list, index, affix_list) {
-        if (affix_list.length - 1 >= index) return affix_list
-
-        return [...affix_list, list[index]]
-      })
+      const route = this.tagsList[this.index]
+      if (this.index < this.affixTagsList.length) {
+        this.tagsList = [...this.affixTagsList]
+        this.setActiveIndex(this.index)
+      } else {
+        this.tagsList = [...this.affixTagsList, route]
+        this.setActiveIndex(this.tagsList.length - 1)
+      }
     },
 
     // 删除全部
     delAllTag() {
-      const result = this.tagsList.filter(item => item?.meta?.tags_affix)
-      this.tagsList = result
+      this.tagsList = [...this.affixTagsList]
     },
     
   },
@@ -107,13 +114,11 @@ export const useTagsViewStore = defineStore('tagsView', {
  */
 type Cb = (
   tagsList: RouteLocationNormalizedLoaded[],
-  index: number,
-  affix_list: RouteLocationNormalizedLoaded[],
+  index: number
 ) => RouteLocationNormalizedLoaded[]
 
 function handleAction(this: ReturnType<typeof useTagsViewStore>,  cb: Cb) {
   const index = this.index
-  const affix_list = this.tagsList.filter(item => item?.meta?.tags_affix) // 固定标签不可删除
-  const result = cb(this.tagsList, index, affix_list)
+  const result = cb(this.tagsList, index)
   this.tagsList = result
 }

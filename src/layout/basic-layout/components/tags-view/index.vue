@@ -11,7 +11,7 @@
                 href="javascript:;"
                 class="tags-item"
                 :class="{
-                  'is-active': route.path === path,
+                  'is-active': activeIndex === index,
                   'is-closeable': !route.meta?.tags_affix
                 }"
                 @contextmenu="handleContextmenu(index)"
@@ -33,7 +33,7 @@
         :on-close="handleClose"
       >
         <a class="ant-dropdown-link" @click.prevent>
-          <MenuOutlined class="menu-icon"/>
+          <DashOutlined class="menu-icon"/>
         </a>
       </Dropdown>
     </span>
@@ -45,7 +45,7 @@
   import { useRoute, useRouter, RouteLocationNormalizedLoaded } from 'vue-router'
   import WithArrowScroll from '@/components/with-arrow-scroll/index.vue'
 
-  import { CloseOutlined,  MenuOutlined } from '@ant-design/icons-vue'
+  import { CloseOutlined, DashOutlined } from '@ant-design/icons-vue'
   import { useTagsViewStore } from '@/store/modules/tagsView'
 import Dropdown from './Dropdown.vue';
 const store = useTagsViewStore()
@@ -53,6 +53,7 @@ const store = useTagsViewStore()
       const router = useRouter()
       const tagsList = computed(() => store.tagsList)
       const activeIndex = computed(() => store.activeIndex)
+      const currentIndex = computed(() => store.currentIndex)
       const path = computed(() => route.path)
 
 
@@ -83,6 +84,7 @@ const store = useTagsViewStore()
         if (index === activeIndex.value) {
           // 当你移除的标签是当前的视图标签，那么就切换到它上一个标签
           const lastRoute = tagsList.value[activeIndex.value - 1]
+          
           if (lastRoute) {
             jump(lastRoute)
           } else {
@@ -92,13 +94,15 @@ const store = useTagsViewStore()
             })
           }
         }
+        store.setActiveIndex(activeIndex.value - 1)
       }
       // 关闭
       function handleClose(actionType: string) {
         switch (actionType) {
-
           case 'other':
             store.delOtherTag()
+            const route = tagsList.value[activeIndex.value]
+            jump(route)
             break
           case 'left':
             store.delLeftTag()
@@ -167,14 +171,14 @@ const store = useTagsViewStore()
     .tags-item {
       position: relative;
       display: inline-block;
-      padding: 0 50px;
+      padding: 0 12px;
       margin: 0 4px;
       height: @tagItemHeight;
       line-height: @tagItemHeight;
       border: 1px solid @border-color-base;
       color: @text-color;
       &.is-closeable {
-        // padding-right: 30px;
+        padding-right: 30px;
       }
       &:hover,
       &.is-active {
@@ -203,8 +207,6 @@ const store = useTagsViewStore()
     flex: 0 0 @tagsHeight;
     width: @tagsHeight;
     height: 100%;
-    text-align: center;
-    font-size: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -212,39 +214,10 @@ const store = useTagsViewStore()
     .menu-icon {
       position: relative;
       color: var(--a-text-color-regular);
-      transition: all 0.3s;
-      transform: rotate(0deg);
+      color: #717171;
       font-size: 20px;
       cursor: pointer;
       padding: 6px;
-      &.is-active {
-        transform: rotate(180deg);
-        color: var(--a-color-primary);
-      }
     }
   }
-</style>
-
-<style lang="less">
-.scroll-bar-wrap {
-  .ant-tabs {
-    .ant-tabs-tab {
-      padding: 0;
-    }
-    
-    .ant-tabs-nav {
-      margin-bottom: 0;
-      &::before {
-        display: none;
-      }
-    }
-    .ant-tabs-content-holder {
-      display: none;
-    }
-    .ant-tabs-ink-bar {
-      display: none;
-    }
-  }
-  
-}
 </style>
