@@ -3,28 +3,22 @@
     <div class="scroll-bar-wrap">
       <WithArrowScroll >
           <template v-for="(route, index) in tagsList" :key="route.path">
-            <Dropdown
-              trigger="contextmenu"
-              :on-close="handleClose"
+            <a
+              href="javascript:;"
+              class="tags-item"
+              :class="{
+                'is-active': activeIndex === index,
+                'is-closeable': !route.meta?.tags_affix
+              }"
+              @click="jump(route)"
             >
-              <a
-                href="javascript:;"
-                class="tags-item"
-                :class="{
-                  'is-active': activeIndex === index,
-                  'is-closeable': !route.meta?.tags_affix
-                }"
-                @contextmenu="handleContextmenu(index)"
-                @click="jump(route)"
-              >
-                <span class="route-name">{{route.meta?.title}}</span>
-                <CloseOutlined
-                    v-if="!route.meta?.tags_affix"
-                    class="icon-cls"
-                    @click="removeTag($event,  index)"
-                  />
-              </a>
-          </Dropdown>
+              <span class="route-name">{{route.meta?.title}}</span>
+              <CloseOutlined
+                  v-if="!route.meta?.tags_affix"
+                  class="icon-cls"
+                  @click="removeTag($event,  index)"
+                />
+            </a>
           </template>
       </WithArrowScroll>
     </div>
@@ -53,7 +47,6 @@ const store = useTagsViewStore()
       const router = useRouter()
       const tagsList = computed(() => store.tagsList)
       const activeIndex = computed(() => store.activeIndex)
-      const currentIndex = computed(() => store.currentIndex)
       const path = computed(() => route.path)
 
 
@@ -101,8 +94,6 @@ const store = useTagsViewStore()
         switch (actionType) {
           case 'other':
             store.delOtherTag()
-            const route = tagsList.value[activeIndex.value]
-            jump(route)
             break
           case 'left':
             store.delLeftTag()
@@ -130,26 +121,6 @@ const store = useTagsViewStore()
             replace: true,
           })
       }
-
-      // 右键标签事件监听
-      const handleContextmenu = (index: number) => {
-        store.setCurrentIndex(index)
-      }
-
-      // window click 处理
-      const handleWindowClick = () => {
-        setTimeout(() => {
-          store.setCurrentIndex(-1)
-        }, 0)
-      }
-
-      onMounted(() => {
-        window.addEventListener('click', handleWindowClick, false)
-      })
-      onUnmounted(() => {
-        window.removeEventListener('click', handleWindowClick, false)
-      })
-
 </script>
 
 <style lang="less" scoped>
@@ -159,7 +130,7 @@ const store = useTagsViewStore()
     height: @tagsHeight;
     background-color: #fff;
     display: flex;
-    box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+    box-shadow: 0 0px 4px rgba(0, 21, 41, 0.08);
   }
 
   .scroll-bar-wrap {
