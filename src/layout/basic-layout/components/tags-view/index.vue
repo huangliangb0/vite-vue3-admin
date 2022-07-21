@@ -157,7 +157,6 @@ const store = useTagsViewStore()
     display: flex;
     box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
   }
-  
 
   .scroll-bar-wrap {
     height: @tagsHeight;
@@ -168,14 +167,14 @@ const store = useTagsViewStore()
     .tags-item {
       position: relative;
       display: inline-block;
-      padding: 0 12px;
+      padding: 0 50px;
       margin: 0 4px;
       height: @tagItemHeight;
       line-height: @tagItemHeight;
       border: 1px solid @border-color-base;
       color: @text-color;
       &.is-closeable {
-        padding-right: 30px;
+        // padding-right: 30px;
       }
       &:hover,
       &.is-active {
