@@ -10,20 +10,19 @@ interface State {
 export const useTagsViewStore = defineStore('tagsView', {
   state: (): State => ({
     tagsList: [],
-    activeIndex: 0
+    activeIndex: 0,
   }),
   getters: {
-    
     affixTagsList(state): RouteLocationNormalizedLoaded[] {
       return state.tagsList.filter(item => item?.meta?.tags_affix) // 固定标签不可删除
-    }
+    },
   },
   actions: {
     // 修改索引，该索引是当前路由显示的索引
     setActiveIndex(index: number) {
       this.activeIndex = index ?? 0
     },
-   
+
     /**
      * 添加固定的路由，当登录成功后添加
      * @param {*} accessRoutes 授权路由
@@ -93,7 +92,5 @@ export const useTagsViewStore = defineStore('tagsView', {
     delAllTag() {
       this.tagsList = [...this.affixTagsList]
     },
-    
   },
 })
-

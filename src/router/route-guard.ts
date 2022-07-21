@@ -47,7 +47,7 @@ router.beforeEach(async (to, _from, next) => {
             path: `/login`,
             query: {
               redirect: to.path,
-              ...to.query
+              ...to.query,
             },
           })
           NProgress.done()
@@ -62,7 +62,7 @@ router.beforeEach(async (to, _from, next) => {
         path: `/login`,
         query: {
           redirect: to.path,
-          ...to.query
+          ...to.query,
         },
       })
       NProgress.done()

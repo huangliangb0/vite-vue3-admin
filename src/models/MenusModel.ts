@@ -25,129 +25,131 @@
 //     children?: Array<RoutesItemType>
 // }
 
-import { RouteMeta } from "vue-router";
+import { RouteMeta } from 'vue-router'
 
 export type MenuItemType = RouteMeta & {
-    /* 路由名称, 路由匹配将会根据name来匹配 */
-    name?: string;
-    /* 路由路径 */
-    path: string;
-    /* 路由重定向 */
-    redirect?: string;
-    /* 子路由 */
-    children?: Array<MenuItemType>
+  /* 路由名称, 路由匹配将会根据name来匹配 */
+  name?: string
+  /* 路由路径 */
+  path: string
+  /* 路由重定向 */
+  redirect?: string
+  /* 子路由 */
+  children?: Array<MenuItemType>
 }
-
-
 
 export type MenusType = Array<MenuItemType>
 
 export default [
-    {
-        name: 'Home',
-        path: '/home',
-        title: '首页',
-        icon: 'home',
-        sort: 1,
-        isCache: false,
-        hideInMenu: false,
-        alwayShowChildInMenu: false,
-        hideInTags: false,
-        tags_affix: true,
-    },
-    {
-        
-        name: 'Row',
-        path: '/row',
-        title: '分列布局',
-        icon: 'home',
-        sort: 5,
-        isCache: false,
-        hideInMenu: false,
-        alwayShowChildInMenu: false,
-        hideInTags: false,
-        tags_affix: false,
-    },
-    {
-        
-        name: 'Form',
-        path: '/form',
-        redirect: '/form/edit-form',
-        title: '表单',
+  {
+    name: 'Home',
+    path: '/home',
+    title: '首页',
+    icon: 'home',
+    sort: 1,
+    isCache: false,
+    hideInMenu: false,
+    alwayShowChildInMenu: false,
+    hideInTags: false,
+    tags_affix: true,
+  },
+  {
+    name: 'Row',
+    path: '/row',
+    title: '分列布局',
+    icon: 'home',
+    sort: 5,
+    isCache: false,
+    hideInMenu: false,
+    alwayShowChildInMenu: false,
+    hideInTags: false,
+    tags_affix: false,
+  },
+  {
+    name: 'Form',
+    path: '/form',
+    redirect: '/form/edit-form',
+    title: '表单',
+    icon: 'form',
+    sort: 3,
+    isCache: false,
+    hideInMenu: false,
+    alwayShowChildInMenu: false,
+    hideInTags: false,
+    tags_affix: false,
+    children: [
+      {
+        name: 'EditForm',
+        path: 'edit-form',
+        title: '编辑表单',
         icon: 'form',
-        sort: 3,
-        isCache: false,
+        sort: 1,
+        isCache: true,
         hideInMenu: false,
         alwayShowChildInMenu: false,
         hideInTags: false,
         tags_affix: false,
-        children: [{
-            name: 'EditForm',
-            path: 'edit-form',
-            title: '编辑表单',
-            icon: 'form',
-            sort: 1,
-            isCache: true,
-            hideInMenu: false,
-            alwayShowChildInMenu: false,
-            hideInTags: false,
-            tags_affix: false,
-        }, {
-            name: 'FilterForm',
-            path: 'filter-form',
-            title: '搜索表单',
-            icon: 'form',
-            sort: 2,
-            isCache: false,
-            hideInMenu: false,
-            alwayShowChildInMenu: false,
-            hideInTags: false,
-            tags_affix: false,
-        }]
-    },
-    {
-        name: 'Table',
-        path: '/table',
-        redirect: '/table/common-table',
-        title: '表格',
-        icon: 'table',
+      },
+      {
+        name: 'FilterForm',
+        path: 'filter-form',
+        title: '搜索表单',
+        icon: 'form',
         sort: 2,
         isCache: false,
         hideInMenu: false,
         alwayShowChildInMenu: false,
         hideInTags: false,
         tags_affix: false,
-        children: [{
-            name: 'CommonTable',
-            path: 'common-table',
-            title: '普通表格',
-            sort: 1,
-            isCache: true,
-            hideInMenu: false,
-            alwayShowChildInMenu: false,
-            hideInTags: false,
-            tags_affix: false,
-        }, {
-            name: 'EditTable',
-            path: 'edit-table',
-            title: '编辑表格',
-            sort: 1,
-            isCache: true,
-            hideInMenu: false,
-            alwayShowChildInMenu: false,
-            hideInTags: false,
-            tags_affix: false,
-        }, {
-            name: 'SpanRowTable',
-            path: 'span-row-table',
-            title: '跨行表格',
-            sort: 1,
-            isCache: true,
-            hideInMenu: false,
-            alwayShowChildInMenu: false,
-            hideInTags: false,
-            tags_affix: false,
-        }]
-    },
-
+      },
+    ],
+  },
+  {
+    name: 'Table',
+    path: '/table',
+    redirect: '/table/common-table',
+    title: '表格',
+    icon: 'table',
+    sort: 2,
+    isCache: false,
+    hideInMenu: false,
+    alwayShowChildInMenu: false,
+    hideInTags: false,
+    tags_affix: false,
+    children: [
+      {
+        name: 'CommonTable',
+        path: 'common-table',
+        title: '普通表格',
+        sort: 1,
+        isCache: true,
+        hideInMenu: false,
+        alwayShowChildInMenu: false,
+        hideInTags: false,
+        tags_affix: false,
+      },
+      {
+        name: 'EditTable',
+        path: 'edit-table',
+        title: '编辑表格',
+        sort: 1,
+        isCache: true,
+        hideInMenu: false,
+        alwayShowChildInMenu: false,
+        hideInTags: false,
+        tags_affix: false,
+      },
+      {
+        name: 'SpanRowTable',
+        path: 'span-row-table',
+        title: '跨行表格',
+        sort: 1,
+        isCache: true,
+        hideInMenu: false,
+        alwayShowChildInMenu: false,
+        hideInTags: false,
+        tags_affix: false,
+      },
+    ],
+  },
 ] as MenusType

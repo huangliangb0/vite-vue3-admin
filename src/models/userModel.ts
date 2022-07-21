@@ -12,7 +12,7 @@ export type Roles = Array<'admin' | 'common'>
 export interface UserInfo {
   name: string
   roles: Roles
-  token: string,
+  token: string
   menuList: MenusType
 }
 
@@ -20,5 +20,5 @@ export default {
   name: '超级管理员',
   roles: ['admin'],
   token: uniqueId(),
-  menuList: menuList
+  menuList: menuList,
 } as UserInfo

@@ -31,26 +31,27 @@ const complementPath = (path: string, p: MenuItemType | null) => {
 export const patchRoutes = (menuList: MenusType): MenusType => {
   return menuList.map(item => {
     if (!item.children || item.children.length === 0) {
-      const { path,tags_affix, ...reset  } = item
+      const { path, tags_affix, ...reset } = item
       return {
         ...reset,
         path: path,
         component: BasicLayout,
         redirect: isExternal(item.path) ? undefined : item.path + '/index',
-        children: [{
-          ...reset,
-          tags_affix,
-          path: 'index'
-        }]
+        children: [
+          {
+            ...reset,
+            tags_affix,
+            path: 'index',
+          },
+        ],
       }
-    } 
+    }
     return {
       ...item,
-      component: BasicLayout
+      component: BasicLayout,
     }
   })
 }
-
 
 /**
  * 生成权限路由
@@ -58,7 +59,10 @@ export const patchRoutes = (menuList: MenusType): MenusType => {
  * @param menuList 后台返回的菜单列表
  * @returns RouteRecordRaw[]
  */
-export const generatePermissionRoutes = (permissionRoutesMap: RoutesMap, menuList: MenusType): RouteRecordRaw[] => {
+export const generatePermissionRoutes = (
+  permissionRoutesMap: RoutesMap,
+  menuList: MenusType,
+): RouteRecordRaw[] => {
   // 给菜单排序
   handleMenuListSort(menuList)
 
@@ -66,25 +70,31 @@ export const generatePermissionRoutes = (permissionRoutesMap: RoutesMap, menuLis
   const list = patchRoutes(menuList)
 
   // 递归生产线上 vue-router 的路由格式
-  const rec = (permissionRoutesMap: RoutesMap, menuList: MenusType, p: MenuItemType | null = null): RouteRecordRaw[] => {
+  const rec = (
+    permissionRoutesMap: RoutesMap,
+    menuList: MenusType,
+    p: MenuItemType | null = null,
+  ): RouteRecordRaw[] => {
     return menuList.map(item => {
-      const { name,path, redirect, children, component, ...meta } = item
+      const { name, path, redirect, children, component, ...meta } = item
       let _path = complementPath(path, p)
-  
+
       return {
         name,
         path: _path,
         redirect,
         meta,
-        component: component || (name && permissionRoutesMap[name]) || BasicLayout,
-        children: children ? rec(permissionRoutesMap, children, item) : undefined
+        component:
+          component || (name && permissionRoutesMap[name]) || BasicLayout,
+        children: children
+          ? rec(permissionRoutesMap, children, item)
+          : undefined,
       } as RouteRecordRaw
     })
   }
 
   return rec(permissionRoutesMap, list)
 }
-
 
 // 对最外层路由的children进行扁平处理
 export function routesFlat(routes: RouteRecordRaw[]) {
@@ -123,13 +133,12 @@ function flat(routes: RouteRecordRaw[]): RouteRecordRaw[] {
   return arr
 }
 
-
 /**
  * 菜单列表排序
  * @param menuList 从后端获取的菜单列表
  */
 export const handleMenuListSort = (menuList: MenusType) => {
-  menuList.sort((a,b) => {
+  menuList.sort((a, b) => {
     return (a.sort ?? 9999999) - (b.sort ?? 9999999)
   })
   menuList.forEach(item => {
@@ -143,9 +152,9 @@ export const handleMenuListSort = (menuList: MenusType) => {
  * 路由排序
  * @param routes （例如route.getRoutes())
  */
- export const handleRoutesSort = (routes: RouteRecordRaw[]) => {
-  routes.sort((a,b) => {
-    return (a?.meta?.sort ?? 9999999) - (a?.meta?.sort ?? 9999999)
+export const handleRoutesSort = (routes: RouteRecordRaw[]) => {
+  routes.sort((a, b) => {
+    return (a?.meta?.sort ?? 9999999) - (b?.meta?.sort ?? 9999999)
   })
   routes.forEach(item => {
     if (item.children) {

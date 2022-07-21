@@ -1,21 +1,20 @@
 <script lang="tsx">
-import { defineComponent } from "vue";
+  import { defineComponent } from 'vue'
 
-export default defineComponent({
+  export default defineComponent({
     name: 'AppTitle',
     setup() {
-        return () => 
-            <router-link to="/" class="app-title">
-              <h3 class="title">
-                后台管理系统
-              </h3>
-            </router-link>
-    }
-})
+      return () => (
+        <router-link to="/" class="app-title">
+          <h3 class="title">后台管理系统</h3>
+        </router-link>
+      )
+    },
+  })
 </script>
 
 <style lang="less" scoped>
-.app-title {
+  .app-title {
     width: 100%;
     height: var(--app-header-height);
     .title {

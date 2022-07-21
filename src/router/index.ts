@@ -1,5 +1,5 @@
 /*
- * @Description: 
+ * @Description:
  * @Date: 2022-07-19 14:17:29
  * @LastEditTime: 2022-07-19 16:08:16
  * @FilePath: \vite-vue3-admin\src\router\index.ts
@@ -17,34 +17,31 @@
     activePath: string    当路由设置了该属性，则会高亮相对应的侧边栏。
  */
 
-    import {
-        createRouter,
-        createWebHashHistory,
-        // createWebHistory,
-        RouteRecordRaw,
-      } from 'vue-router'
-      import constantRoutes from './constantRoutes'
-      export { constantRoutes }
-      import { RouterHandle } from './helper'
+import {
+  createRouter,
+  createWebHashHistory,
+  // createWebHistory,
+  RouteRecordRaw,
+} from 'vue-router'
+import constantRoutes from './constantRoutes'
+export { constantRoutes }
+import { RouterHandle } from './helper'
 
-      
+const routes = [...constantRoutes] as any[]
 
-      const routes = [...constantRoutes] as any[]
-      
-      const router = createRouter({
-        // history: createWebHashHistory(),
-        // history: createWebHistory(import.meta.env.BASE_URL),
-        history: createWebHashHistory(import.meta.env.BASE_URL),
-        routes: routes as RouteRecordRaw[],
-      })
-      const handleRouter = new RouterHandle(router)
+const router = createRouter({
+  // history: createWebHashHistory(),
+  // history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHashHistory(import.meta.env.BASE_URL),
+  routes: routes as RouteRecordRaw[],
+})
+const handleRouter = new RouterHandle(router)
 
-      export const addRoutes = handleRouter.addRoutes
-      export const removeRoutes = handleRouter.removeRoutes
-      
-      export function setupRouter(app: AppInstance) {
-        app.use(router)
-      }
-      
-      export default router
-      
+export const addRoutes = handleRouter.addRoutes
+export const removeRoutes = handleRouter.removeRoutes
+
+export function setupRouter(app: AppInstance) {
+  app.use(router)
+}
+
+export default router

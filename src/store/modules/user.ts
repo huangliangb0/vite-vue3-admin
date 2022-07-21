@@ -1,5 +1,5 @@
 /*
- * @Description: 
+ * @Description:
  * @Date: 2022-07-19 14:17:29
  * @LastEditTime: 2022-07-19 17:29:04
  * @FilePath: \vite-vue3-admin\src\store\modules\user.ts
@@ -21,7 +21,7 @@ const getUserInfo = (): UserInfo => {
     name: random > 0.5 ? '超级管理员' : '普通管理员',
     roles: random > 0.5 ? ['admin'] : ['admin'],
     token: 'sldkfhs892347293kfa234slkdh',
-    menuList: menuList
+    menuList: menuList,
   }
 }
 
@@ -64,7 +64,7 @@ export const useUserStore = defineStore({
     },
     // 退出登录
     logout() {
-      return new Promise((resolve) => {
+      return new Promise(resolve => {
         removeToken()
         removeRoutes()
         this.userInfo = null

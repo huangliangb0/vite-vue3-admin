@@ -7,8 +7,22 @@
 <script lang="tsx">
   import { renderMenuContent } from './render'
   // import { useStore } from 'vuex'
-  import { watch,  ref, defineComponent, PropType, computed, onMounted, useAttrs } from 'vue'
-  import { RouteLocationMatched, RouteLocationNormalizedLoaded, RouteRecordRaw, useRoute, useRouter } from 'vue-router'
+  import {
+    watch,
+    ref,
+    defineComponent,
+    PropType,
+    computed,
+    onMounted,
+    useAttrs,
+  } from 'vue'
+  import {
+    RouteLocationMatched,
+    RouteLocationNormalizedLoaded,
+    RouteRecordRaw,
+    useRoute,
+    useRouter,
+  } from 'vue-router'
 
   export default defineComponent({
     name: 'SlideBar',
@@ -17,14 +31,13 @@
         type: Array as PropType<RouteRecordRaw[]>,
         required: true,
       },
-  
     },
     setup(props) {
       const attrs = useAttrs()
       // const route = useRoute()
       const router = useRouter()
-      const selectedKeys =  ref<string[]>([])
-      const openKeys =  ref<string[]>([])
+      const selectedKeys = ref<string[]>([])
+      const openKeys = ref<string[]>([])
 
       /* const getOpenKeys = (routes: RouteRecordRaw[], path: string) : string[] => {
         const arr: string[] = []
@@ -44,27 +57,27 @@
         openKeys.value = [...paths]
       })
 
-      return () => 
+      return () => (
         <a-menu
           class="app-menu"
           style={{ border: 'none' }}
           v-model:openKeys={openKeys.value}
           v-model:selectedKeys={selectedKeys.value}
-          { ...attrs }
+          {...attrs}
         >
           {renderMenuContent(props.routes)}
         </a-menu>
+      )
     },
   })
 </script>
 
 <style lang="less" scoped>
-.app-menu{
-  width: 100%;
-  box-sizing: border-box;
-  z-index: 11;
-  overflow-x: hidden;
-  position: relative;
-}
-
+  .app-menu {
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 11;
+    overflow-x: hidden;
+    position: relative;
+  }
 </style>

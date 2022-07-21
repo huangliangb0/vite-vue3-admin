@@ -1,11 +1,5 @@
 <template>
-    <h3>
-        edit-table 页面
-    </h3>
+  <h3> edit-table 页面 </h3>
 </template>
-<script lang="ts" setup>
-
-</script>
-<style lang="less">
-    
-</style>
+<script lang="ts" setup></script>
+<style lang="less"></style>

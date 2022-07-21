@@ -3,20 +3,20 @@ export {}
 declare module 'vue-router' {
   interface RouteMeta extends Record<string | number | symbol, unknown> {
     /* 路由重定向 */
-    redirect?: string;
+    redirect?: string
 
     /* 路由标题 */
-    title?: string;
+    title?: string
 
     /* assets/icons */
-    icon?: string;
+    icon?: string
 
     /* 排序 */
     sort?: number
 
     /* 是否缓存 */
     isCache?: Boolean
-    
+
     /* 是否在菜单栏隐藏, 例如详情页 */
     hideInMenu?: boolean
 
@@ -27,6 +27,6 @@ declare module 'vue-router' {
     hideInTags?: Boolean
 
     /* 为true时， 一直显示在标签栏中 */
-    tags_affix?: Boolean,
+    tags_affix?: Boolean
   }
 }

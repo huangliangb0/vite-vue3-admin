@@ -5,21 +5,28 @@
  * @FilePath: \vite-vue3-admin\src\layout\basic-layout\components\tags-view\Dropdown.vue
 -->
 <script lang="ts" setup>
-import { SwapLeftOutlined, SwapRightOutlined, CloseOutlined, CloseSquareOutlined, RedoOutlined } from '@ant-design/icons-vue'
-import { inject, PropType } from 'vue';
+  import {
+    SwapLeftOutlined,
+    SwapRightOutlined,
+    CloseOutlined,
+    CloseSquareOutlined,
+    RedoOutlined,
+  } from '@ant-design/icons-vue'
+  import { inject, PropType } from 'vue'
   const reload = inject('reload') as () => void
   defineProps({
     onClose: {
-      type: Function as PropType<(arg: 'other' | 'left' | 'right' | 'all') => void>,
-      required: true
-    }
-
+      type: Function as PropType<
+        (arg: 'other' | 'left' | 'right' | 'all') => void
+      >,
+      required: true,
+    },
   })
 </script>
 
 <template>
   <a-dropdown v-bind="$attrs">
-      <slot></slot>
+    <slot></slot>
     <template #overlay>
       <a-menu>
         <a-menu-item>
@@ -34,7 +41,7 @@ import { inject, PropType } from 'vue';
             关闭其它
           </a>
         </a-menu-item>
-        <a-menu-item >
+        <a-menu-item>
           <a href="javascript:;" @click="onClose('left')">
             <SwapLeftOutlined />
             关闭左则
@@ -42,7 +49,7 @@ import { inject, PropType } from 'vue';
         </a-menu-item>
         <a-menu-item @click="onClose('right')">
           <a href="javascript:;">
-            <SwapRightOutlined/>
+            <SwapRightOutlined />
             关闭右侧
           </a>
         </a-menu-item>

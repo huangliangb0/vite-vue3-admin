@@ -1,33 +1,31 @@
 <template>
   <div class="tags-view">
     <div class="scroll-bar-wrap">
-      <WithArrowScroll >
-          <template v-for="(route, index) in tagsList" :key="route.path">
-            <a
-              href="javascript:;"
-              class="tags-item"
-              :class="{
-                'is-active': activeIndex === index,
-                'is-closeable': !route.meta?.tags_affix
-              }"
-              @click="jump(route)"
-            >
-              <span class="route-name">{{route.meta?.title}}</span>
-              <CloseOutlined
-                  v-if="!route.meta?.tags_affix"
-                  class="icon-cls"
-                  @click="removeTag($event,  index)"
-                />
-            </a>
-          </template>
+      <WithArrowScroll>
+        <template v-for="(route, index) in tagsList" :key="route.path">
+          <a
+            href="javascript:;"
+            class="tags-item"
+            :class="{
+              'is-active': activeIndex === index,
+              'is-closeable': !route.meta?.tags_affix,
+            }"
+            @click="jump(route)"
+          >
+            <span class="route-name">{{ route.meta?.title }}</span>
+            <CloseOutlined
+              v-if="!route.meta?.tags_affix"
+              class="icon-cls"
+              @click="removeTag($event, index)"
+            />
+          </a>
+        </template>
       </WithArrowScroll>
     </div>
     <span class="action-box">
-      <Dropdown
-        :on-close="handleClose"
-      >
+      <Dropdown :on-close="handleClose">
         <a class="ant-dropdown-link" @click.prevent>
-          <DashOutlined class="menu-icon"/>
+          <DashOutlined class="menu-icon" />
         </a>
       </Dropdown>
     </span>
@@ -36,91 +34,92 @@
 
 <script lang="ts" setup>
   import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
-  import { useRoute, useRouter, RouteLocationNormalizedLoaded } from 'vue-router'
+  import {
+    useRoute,
+    useRouter,
+    RouteLocationNormalizedLoaded,
+  } from 'vue-router'
   import WithArrowScroll from '@/components/with-arrow-scroll/index.vue'
 
   import { CloseOutlined, DashOutlined } from '@ant-design/icons-vue'
   import { useTagsViewStore } from '@/store/modules/tagsView'
-import Dropdown from './Dropdown.vue';
-const store = useTagsViewStore()
-      const route = useRoute()
-      const router = useRouter()
-      const tagsList = computed(() => store.tagsList)
-      const activeIndex = computed(() => store.activeIndex)
-      const path = computed(() => route.path)
+  import Dropdown from './Dropdown.vue'
+  const store = useTagsViewStore()
+  const route = useRoute()
+  const router = useRouter()
+  const tagsList = computed(() => store.tagsList)
+  const activeIndex = computed(() => store.activeIndex)
+  const path = computed(() => route.path)
 
-
-      // 添加路由的变化
-      watch(
-        () => route.path,
-        () => {
-          if (route.meta.hideInTags) {
-            return
-          }
-          store.addTag(route)
-
-          // 获取当前触发路由的tags索引
-          const index = tagsList.value.findIndex(
-            item => item.path === path.value,
-          )
-          store.setActiveIndex(index)
-        },
-        {
-          immediate: true,
-        },
-      )
-      // 移除当前标签
-      function removeTag(e: MouseEvent, index: number) {
-        e.stopPropagation()
-        store.delTag(index)
-
-        if (index === activeIndex.value) {
-          // 当你移除的标签是当前的视图标签，那么就切换到它上一个标签
-          const lastRoute = tagsList.value[activeIndex.value - 1]
-          
-          if (lastRoute) {
-            jump(lastRoute)
-          } else {
-            router.push({
-              path: '/',
-              replace: true,
-            })
-          }
-        }
-        store.setActiveIndex(activeIndex.value - 1)
+  // 添加路由的变化
+  watch(
+    () => route.path,
+    () => {
+      if (route.meta.hideInTags) {
+        return
       }
-      // 关闭
-      function handleClose(actionType: string) {
-        switch (actionType) {
-          case 'other':
-            store.delOtherTag()
-            break
-          case 'left':
-            store.delLeftTag()
-            break
-          case 'right':
-            store.delRightTag()
-            break
-          case 'all':
-            store.delAllTag()
-            router.push({
-              path: '/',
-              replace: true,
-            })
-            break
-        }
-      }
-      // 跳转
-      function jump(route: RouteLocationNormalizedLoaded) {
-        if (path.value === route.path) {
-          return
-        }
+      store.addTag(route)
+
+      // 获取当前触发路由的tags索引
+      const index = tagsList.value.findIndex(item => item.path === path.value)
+      store.setActiveIndex(index)
+    },
+    {
+      immediate: true,
+    },
+  )
+  // 移除当前标签
+  function removeTag(e: MouseEvent, index: number) {
+    e.stopPropagation()
+    store.delTag(index)
+
+    if (index === activeIndex.value) {
+      // 当你移除的标签是当前的视图标签，那么就切换到它上一个标签
+      const lastRoute = tagsList.value[activeIndex.value - 1]
+
+      if (lastRoute) {
+        jump(lastRoute)
+      } else {
         router.push({
-            path: route.path,
-            query: route.query,
-            replace: true,
-          })
+          path: '/',
+          replace: true,
+        })
       }
+    }
+    store.setActiveIndex(activeIndex.value - 1)
+  }
+  // 关闭
+  function handleClose(actionType: string) {
+    switch (actionType) {
+      case 'other':
+        store.delOtherTag()
+        break
+      case 'left':
+        store.delLeftTag()
+        break
+      case 'right':
+        store.delRightTag()
+        break
+      case 'all':
+        store.delAllTag()
+        router.push({
+          path: '/',
+          replace: true,
+        })
+        break
+    }
+  }
+  // 跳转
+  function jump(route: RouteLocationNormalizedLoaded) {
+    if (path.value === route.path) {
+      return
+    }
+    router.push({
+      path: route.path,
+      query: route.query,
+      replace: true,
+    })
+  }
 </script>
 
 <style lang="less" scoped>

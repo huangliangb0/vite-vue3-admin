@@ -1,3 +1,3 @@
 export default {
-    Home: () => import('@/views/home/index.vue')
+  Home: () => import('@/views/home/index.vue'),
 }

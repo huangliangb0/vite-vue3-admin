@@ -1,3 +1,3 @@
 export default {
-    Row: () => import('@/views/row/index.vue')
+  Row: () => import('@/views/row/index.vue'),
 }

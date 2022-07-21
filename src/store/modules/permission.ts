@@ -27,7 +27,10 @@ export const usePermissionStore = defineStore('permission', {
   actions: {
     setRoutes(menuList: MenusType): Promise<RouteRecordRaw[]> {
       return new Promise(resolve => {
-      const accessedRoutes = generatePermissionRoutes(permissionRoutes, menuList)
+        const accessedRoutes = generatePermissionRoutes(
+          permissionRoutes,
+          menuList,
+        )
 
         this.routes = constantRoutes.concat(accessedRoutes)
         this.dynamicRoutes = accessedRoutes

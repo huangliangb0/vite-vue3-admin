@@ -14,7 +14,7 @@ Object.keys(modules).forEach(path => {
   if (path !== './index.ts') {
     const routes = modules[path].default || modules[path]
     if (Array.isArray(routes)) {
-        constantRoutes = constantRoutes.concat(...routes)
+      constantRoutes = constantRoutes.concat(...routes)
     }
   }
 })

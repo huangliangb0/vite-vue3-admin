@@ -1,4 +1,3 @@
-
 import { useRoute, useRouter } from 'vue-router'
 import { isExternal } from '@/utils/validate'
 import { RouteRecordRaw, RouteMeta } from 'vue-router'
@@ -45,11 +44,7 @@ function renderLink({ path, title, icon }: RouteMeta & { path: string }) {
   }
 
   return (
-    <MenuItem
-      index={path}
-      key={path}
-      onClick={() => jump(path)}
-    >
+    <MenuItem index={path} key={path} onClick={() => jump(path)}>
       <route-content icon={icon} title={title} />
     </MenuItem>
   )

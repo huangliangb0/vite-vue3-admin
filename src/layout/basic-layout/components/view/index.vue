@@ -8,21 +8,19 @@
   <router-view v-slot="{ Component }">
     <transition mode="out-in" name="fade-slide">
       <keep-alive>
-        <component v-if="isRouterAlive" :is="Component" :key="activePath" />
+        <component :is="Component" v-if="isRouterAlive" :key="activePath" />
       </keep-alive>
     </transition>
   </router-view>
 </template>
 <script lang="ts" setup>
-import { computed } from 'vue'
-import { useRoute } from 'vue-router'
+  import { computed } from 'vue'
+  import { useRoute } from 'vue-router'
 
-defineProps({
-  isRouterAlive: Boolean
-})
+  defineProps({
+    isRouterAlive: Boolean,
+  })
 
-const route = useRoute()
-const activePath = computed(() => route.path)
-
-
+  const route = useRoute()
+  const activePath = computed(() => route.path)
 </script>
