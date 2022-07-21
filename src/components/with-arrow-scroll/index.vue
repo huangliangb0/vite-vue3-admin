@@ -1,7 +1,7 @@
 <!--
  * @Description: 
  * @Date: 2022-07-21 08:55:41
- * @LastEditTime: 2022-07-21 14:35:44
+ * @LastEditTime: 2022-07-21 14:40:39
  * @FilePath: \vite-vue3-admin\src\components\with-arrow-scroll\index.vue
 -->
 <script lang="ts" setup>
@@ -41,9 +41,10 @@ const getStyle = () => {
     }
 }
 
-const rightClick = (dis?: number) => {
+// 向右滑动
+const moveRight = (dis?: number) => {
     const { width,p_width,p_x, x } = getStyle()
-    // 父盒子和子盒子宽度的差, 也是滑动最大的距离
+    // 子盒子和父盒子宽度的差, 也是滑动最大的距离
     const w_dif = width - p_width
     // 已滑动距离
     const start = p_x - x
@@ -55,7 +56,9 @@ const rightClick = (dis?: number) => {
     }
     contentRef.value!.style.transform = `translateX(${-moveDis}px)`
 }
-const leftClick = () => {
+
+// 向左滑动
+const moveLeft = () => {
     const { p_width, p_x, x } = getStyle()
     const start = p_x - x
     let moveDis = start - p_width
@@ -70,7 +73,7 @@ const setVisibleArrow = debounce(() => {
     if(!isVisibleArrow.value) {
         contentRef.value!.style.transform = `translateX(0px)`
     } else {
-        rightClick()
+        moveRight()
     }
 }, 100)
 
@@ -81,7 +84,7 @@ onMounted(() => {
             width.value = element.clientWidth
         } else {
             const dis = element.clientWidth - width.value + 40
-            rightClick(dis)
+            moveRight(dis)
             width.value = element.clientWidth
         }
         setVisibleArrow()
@@ -97,7 +100,7 @@ onUnmounted(() => {
 
 <template>
 <div class="with-arrow-scroll">
-    <span v-if="isVisibleArrow" class="left-arrow arrow" @click="leftClick(undefined)">
+    <span v-if="isVisibleArrow" class="left-arrow arrow" @click="moveLeft(undefined)">
         <LeftOutlined class="icon"/>
     </span>
     <div class="scroll-wrapper" ref="wrapperRef">
@@ -105,7 +108,7 @@ onUnmounted(() => {
             <slot></slot>
         </div>
     </div>
-    <span v-if="isVisibleArrow" class="right-arrow arrow" @click="rightClick(undefined)">
+    <span v-if="isVisibleArrow" class="right-arrow arrow" @click="moveRight(undefined)">
         <RightOutlined class="icon"/>
     </span>
 </div>
