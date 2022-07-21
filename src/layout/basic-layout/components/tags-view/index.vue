@@ -1,41 +1,6 @@
 <template>
   <div class="tags-view">
     <div class="scroll-bar-wrap">
-      <!-- <a-tabs
-        :animated="false"
-        :tabBarGutter="8"
-        :activeKey="activeIndex"
-      >
-        <a-tab-pane v-for="(item, index) in tagsList" :key="index"  :closable="!item.meta?.tags_affix && activeIndex === index">
-          <template #tab>
-            <Dropdown
-              trigger="contextmenu"
-              :on-close="handleClose"
-              @contextmenu="handleMouseenter(index)"
-                @mouseleave="handleMouseleave"
-            >
-              <a 
-                href="javascript:;"
-                class="tags-item"
-                :class="{
-                  'is-active': item.path === path,
-                  'is-closeable': !item.meta?.tags_affix
-                }"
-                @click="jump(item.path)"
-                
-              >
-                <span class="route-name">{{item.meta?.title}}</span>
-                <CloseOutlined
-                    v-if="!item.meta?.tags_affix"
-                    class="icon-cls"
-                    @click="removeView($event, item.path)"
-                  />
-              </a>
-              
-          </Dropdown>
-          </template>
-        </a-tab-pane>
-      </a-tabs> -->
       <WithArrowScroll >
           <template v-for="(item, index) in tagsList" :key="index"  :closable="!item.meta?.tags_affix && activeIndex === index">
             <Dropdown
@@ -52,7 +17,6 @@
                   'is-closeable': !item.meta?.tags_affix
                 }"
                 @click="jump(item.path)"
-                
               >
                 <span class="route-name">{{item.meta?.title}}</span>
                 <CloseOutlined
@@ -61,10 +25,8 @@
                     @click="removeView($event, item.path)"
                   />
               </a>
-              
           </Dropdown>
           </template>
-
       </WithArrowScroll>
     </div>
     <span class="action-box">
@@ -80,14 +42,13 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed,  inject,  ref, watch } from 'vue'
+  import { computed, ref, watch } from 'vue'
   import { useRoute, useRouter, RouteRecordRaw } from 'vue-router'
   import WithArrowScroll from '@/components/with-arrow-scroll/index.vue'
 
-  import { CloseOutlined, SmallDashOutlined, MenuOutlined } from '@ant-design/icons-vue'
+  import { CloseOutlined,  MenuOutlined } from '@ant-design/icons-vue'
   import { useTagsViewStore } from '@/store/modules/tagsView'
 import Dropdown from './Dropdown.vue';
-  const reload = inject('reload') as () => void
 const store = useTagsViewStore()
       const route = useRoute()
       const router = useRouter()
@@ -173,9 +134,6 @@ const store = useTagsViewStore()
 
       const handleMouseleave = () => {
         activeIndex.value = originIndex.value
-
-        console.log('activeIndex.valueactiveIndex.value', activeIndex.value)
-
       }
 
      
@@ -203,15 +161,15 @@ const store = useTagsViewStore()
 
   .scroll-bar-wrap {
     height: @tagsHeight;
-    line-height: height;
+    line-height: @tagsHeight;
     flex: 1;
     width: 100%;
-    padding: 0 8px;
     overflow: hidden;
     .tags-item {
-      box-sizing: initial;
+      position: relative;
       display: inline-block;
       padding: 0 12px;
+      margin: 0 4px;
       height: @tagItemHeight;
       line-height: @tagItemHeight;
       border: 1px solid @border-color-base;
