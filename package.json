@@ -9,7 +9,8 @@
     "lint": "eslint src --ext .js,.ts,.jsx,.tsx,.vue --cache --fix",
     "prettier": "prettier --write  \"src/**/*.{js,json,tsx,css,less,scss,vue,html,md}\"",
     "lint-staged": "lint-staged",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "commit": "./node_modules/cz-customizable/standalone.js"
   },
   "dependencies": {
     "@ant-design/icons-vue": "^6.1.0",
@@ -36,6 +37,7 @@
     "@vitejs/plugin-vue": "^2.3.3",
     "@vitejs/plugin-vue-jsx": "1.3.10",
     "babel-eslint": "^10.1.0",
+    "cz-customizable": "^6.9.1",
     "eslint": "^8.20.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
@@ -58,5 +60,10 @@
   },
   "eslintConfig": {
     "parser": "babel-eslint"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-customizable"
+    }
   }
 }

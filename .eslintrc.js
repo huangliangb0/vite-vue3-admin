@@ -1,3 +1,9 @@
+/*
+ * @Description: eslint配置
+ * @Date: 2022-07-22 11:41:55
+ * @LastEditTime: 2022-07-22 11:50:13
+ * @FilePath: \vite-vue3-admin\.eslintrc.js
+ */
 module.exports = {
   root: true,
   env: {
@@ -26,5 +32,9 @@ module.exports = {
       jsx: true,
     },
   },
-  plugins: ['@typescript-eslint'],
+  // plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'prettier'],
+  rules: {
+    'prettier/prettier': 'error',
+  },
 }
