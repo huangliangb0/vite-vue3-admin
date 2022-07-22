@@ -9,8 +9,7 @@
     "lint": "eslint src --ext .js,.ts,.jsx,.tsx,.vue --cache --fix",
     "prettier": "prettier --write  \"src/**/*.{js,json,tsx,css,less,scss,vue,html,md}\"",
     "lint-staged": "lint-staged",
-    "prepare": "husky install",
-    "commit": "./node_modules/cz-customizable/standalone.js"
+    "prepare": "husky install"
   },
   "dependencies": {
     "@ant-design/icons-vue": "^6.1.0",
