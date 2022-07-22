@@ -1,3 +1,9 @@
+/*
+ * @Description:
+ * @Date: 2022-07-19 14:17:29
+ * @LastEditTime: 2022-07-22 16:30:21
+ * @FilePath: \vite-vue3-admin\src\components\index.ts
+ */
 // 导出组件
 // export { default as AppSearch } from './AppSearch/index.vue'
 // export { default as AppSetting } from './AppSetting/index.vue'
@@ -13,7 +19,7 @@
 export const setupGlobalComponent = (app: AppInstance) => {
   const modules = import.meta.globEager('./*/g.ts')
 
-  Object.keys(modules).forEach(path => {
+  Object.keys(modules).forEach((path) => {
     if (path.endsWith('/g.ts')) {
       let comp = modules[path].default || modules[path]
       if (!Array.isArray(comp)) {

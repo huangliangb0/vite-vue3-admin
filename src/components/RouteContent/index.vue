@@ -1,3 +1,9 @@
+<!--
+ * @Description: 
+ * @Date: 2022-07-19 14:17:29
+ * @LastEditTime: 2022-07-22 17:27:27
+ * @FilePath: \vite-vue3-admin\src\components\RouteContent\index.vue
+-->
 <script lang="ts">
   // 声明额外的选项
 

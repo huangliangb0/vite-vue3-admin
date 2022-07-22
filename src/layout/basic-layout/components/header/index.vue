@@ -57,7 +57,7 @@
           <template #overlay>
             <a-menu>
               <a-menu-item key="0">
-                <a-button type="text" @click="logout">退出登录</a-button>
+                <a-button type="text" @click="logout"> 退出登录 </a-button>
               </a-menu-item>
             </a-menu>
           </template>

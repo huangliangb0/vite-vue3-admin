@@ -1,5 +1,11 @@
+/*
+ * @Description: 标签栏
+ * @Date: 2022-07-22 11:41:55
+ * @LastEditTime: 2022-07-22 16:13:53
+ * @FilePath: \vite-vue3-admin\src\store\modules\tagsView.ts
+ */
 import router from '@/router'
-import { RouteLocationNormalizedLoaded, useRoute } from 'vue-router'
+import { RouteLocationNormalizedLoaded } from 'vue-router'
 import { defineStore } from 'pinia'
 
 interface State {
@@ -14,7 +20,7 @@ export const useTagsViewStore = defineStore('tagsView', {
   }),
   getters: {
     affixTagsList(state): RouteLocationNormalizedLoaded[] {
-      return state.tagsList.filter(item => item?.meta?.tags_affix) // 固定标签不可删除
+      return state.tagsList.filter((item) => item?.meta?.tags_affix) // 固定标签不可删除
     },
   },
   actions: {
@@ -29,7 +35,7 @@ export const useTagsViewStore = defineStore('tagsView', {
      */
     addAffixTags() {
       const routes = router.getRoutes()
-      const tags = routes.filter(item => item.meta && item.meta.tags_affix)
+      const tags = routes.filter((item) => item.meta && item.meta.tags_affix)
       this.tagsList = tags as unknown as RouteLocationNormalizedLoaded[]
     },
     /**
@@ -42,7 +48,7 @@ export const useTagsViewStore = defineStore('tagsView', {
       const route = Object.assign({}, _route)
 
       // 如果存在，就不添加
-      if (this.tagsList.some(item => item.path === route.path)) return
+      if (this.tagsList.some((item) => item.path === route.path)) return
 
       this.tagsList = [...this.tagsList, route]
     },

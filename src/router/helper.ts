@@ -1,3 +1,9 @@
+/*
+ * @Description:
+ * @Date: 2022-07-22 11:41:55
+ * @LastEditTime: 2022-07-22 16:30:42
+ * @FilePath: \vite-vue3-admin\src\router\helper.ts
+ */
 import { routesFlat } from '@/utils/routes'
 import { isExternal } from '@/utils/validate'
 import { Router, RouteRecordRaw } from 'vue-router'
@@ -26,7 +32,7 @@ export class RouterHandle {
     })
   }
   removeRoutes = () => {
-    this.removeRouteGroup.forEach(removeRoute => {
+    this.removeRouteGroup.forEach((removeRoute) => {
       removeRoute()
     })
     this.removeRouteGroup = []

@@ -1,7 +1,7 @@
 /*
  * @Description:
  * @Date: 2022-07-19 14:17:29
- * @LastEditTime: 2022-07-19 17:29:04
+ * @LastEditTime: 2022-07-22 16:35:29
  * @FilePath: \vite-vue3-admin\src\store\modules\user.ts
  */
 import { defineStore } from 'pinia'
@@ -30,7 +30,7 @@ const login = (form: {
   password: string
 }): Promise<UserInfo> => {
   console.log(form)
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     setTimeout(() => {
       resolve(getUserInfo())
     }, 1000)
@@ -46,16 +46,15 @@ export const useUserStore = defineStore({
   actions: {
     // 登录
     login(form: { username: string; password: string }) {
-      let that = this
-      return login(form).then(res => {
+      return login(form).then((res) => {
         setToken(res.token)
-        that.token = res.token
+        this.token = res.token
         return res
       })
     },
     // 获取用户信息
     getUserInfo(): Promise<UserInfo> {
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         const userInfo = getUserInfo()
         this.token = userInfo.token
         this.userInfo = userInfo
@@ -64,7 +63,7 @@ export const useUserStore = defineStore({
     },
     // 退出登录
     logout() {
-      return new Promise(resolve => {
+      return new Promise((resolve) => {
         removeToken()
         removeRoutes()
         this.userInfo = null

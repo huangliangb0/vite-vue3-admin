@@ -15,7 +15,7 @@ declare module 'vue-router' {
     sort?: number
 
     /* 是否缓存 */
-    isCache?: Boolean
+    isCache?: boolean
 
     /* 是否在菜单栏隐藏, 例如详情页 */
     hideInMenu?: boolean
@@ -24,9 +24,9 @@ declare module 'vue-router' {
     alwayShowChildInMenu?: boolean
 
     /* 为true时，不会出现在标签栏中 */
-    hideInTags?: Boolean
+    hideInTags?: boolean
 
     /* 为true时， 一直显示在标签栏中 */
-    tags_affix?: Boolean
+    tags_affix?: boolean
   }
 }

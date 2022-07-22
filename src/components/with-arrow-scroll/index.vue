@@ -1,11 +1,11 @@
 <!--
  * @Description: 
  * @Date: 2022-07-21 08:55:41
- * @LastEditTime: 2022-07-21 15:12:15
+ * @LastEditTime: 2022-07-22 17:25:38
  * @FilePath: \vite-vue3-admin\src\components\with-arrow-scroll\index.vue
 -->
 <script lang="ts" setup>
-  import { ref, onMounted, onUnmounted, nextTick } from 'vue'
+  import { ref, onMounted, onUnmounted } from 'vue'
   import { LeftOutlined, RightOutlined } from '@ant-design/icons-vue'
   import elementResizeDetectorMaker from 'element-resize-detector'
   import { debounce } from 'lodash'
@@ -104,8 +104,8 @@
     >
       <LeftOutlined class="icon" />
     </span>
-    <div class="scroll-wrapper" ref="wrapperRef">
-      <div class="scroll-content" ref="contentRef">
+    <div ref="wrapperRef" class="scroll-wrapper">
+      <div ref="contentRef" class="scroll-content">
         <slot></slot>
       </div>
     </div>

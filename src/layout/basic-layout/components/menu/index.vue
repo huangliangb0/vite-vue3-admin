@@ -1,28 +1,14 @@
 <!--
- * @Description: 
+ * @Description: 菜单栏
  * @Date: 2022-07-19 14:17:29
- * @LastEditTime: 2022-07-19 18:29:55
- * @FilePath: \vite-vue3-admin\src\layout\basic-layout\components\menu\index.vue
+ * @LastEditTime: 2022-07-22 17:09:04
+ * @FilePath: \vite-vue3-admin\src\layout\basic-layout\components\Menu\index.vue
 -->
 <script lang="tsx">
   import { renderMenuContent } from './render'
   // import { useStore } from 'vuex'
-  import {
-    watch,
-    ref,
-    defineComponent,
-    PropType,
-    computed,
-    onMounted,
-    useAttrs,
-  } from 'vue'
-  import {
-    RouteLocationMatched,
-    RouteLocationNormalizedLoaded,
-    RouteRecordRaw,
-    useRoute,
-    useRouter,
-  } from 'vue-router'
+  import { ref, defineComponent, PropType, onMounted, useAttrs } from 'vue'
+  import { RouteRecordRaw, useRouter } from 'vue-router'
 
   export default defineComponent({
     name: 'SlideBar',
@@ -50,7 +36,7 @@
       } */
 
       onMounted(() => {
-        const paths = router.currentRoute.value.matched.map(item => item.path)
+        const paths = router.currentRoute.value.matched.map((item) => item.path)
         selectedKeys.value = [...paths]
         // openKeys.value = getOpenKeys(props.routes, route.path)
 

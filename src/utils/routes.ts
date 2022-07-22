@@ -29,7 +29,7 @@ const complementPath = (path: string, p: MenuItemType | null) => {
  * @returns MenusType
  */
 export const patchRoutes = (menuList: MenusType): MenusType => {
-  return menuList.map(item => {
+  return menuList.map((item) => {
     if (!item.children || item.children.length === 0) {
       const { path, tags_affix, ...reset } = item
       return {
@@ -75,9 +75,9 @@ export const generatePermissionRoutes = (
     menuList: MenusType,
     p: MenuItemType | null = null,
   ): RouteRecordRaw[] => {
-    return menuList.map(item => {
+    return menuList.map((item) => {
       const { name, path, redirect, children, component, ...meta } = item
-      let _path = complementPath(path, p)
+      const _path = complementPath(path, p)
 
       return {
         name,
@@ -100,7 +100,7 @@ export const generatePermissionRoutes = (
 export function routesFlat(routes: RouteRecordRaw[]) {
   const _routes = cloneDeep(routes)
 
-  _routes.forEach(item => {
+  _routes.forEach((item) => {
     if (item.children && item.children.length >= 1) {
       item.children = flat(item.children)
     }
@@ -112,7 +112,7 @@ export function routesFlat(routes: RouteRecordRaw[]) {
 function flat(routes: RouteRecordRaw[]): RouteRecordRaw[] {
   let arr: RouteRecordRaw[] = []
 
-  routes.forEach(route => {
+  routes.forEach((route) => {
     const { children, ..._reset } = route
     const reset = _reset as unknown as RouteRecordRaw
 
@@ -141,7 +141,7 @@ export const handleMenuListSort = (menuList: MenusType) => {
   menuList.sort((a, b) => {
     return (a.sort ?? 9999999) - (b.sort ?? 9999999)
   })
-  menuList.forEach(item => {
+  menuList.forEach((item) => {
     if (item.children) {
       handleMenuListSort(item.children)
     }
@@ -156,7 +156,7 @@ export const handleRoutesSort = (routes: RouteRecordRaw[]) => {
   routes.sort((a, b) => {
     return (a?.meta?.sort ?? 9999999) - (b?.meta?.sort ?? 9999999)
   })
-  routes.forEach(item => {
+  routes.forEach((item) => {
     if (item.children) {
       handleRoutesSort(item.children)
     }

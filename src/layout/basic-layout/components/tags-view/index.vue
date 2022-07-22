@@ -2,19 +2,19 @@
   <div class="tags-view">
     <div class="scroll-bar-wrap">
       <WithArrowScroll>
-        <template v-for="(route, index) in tagsList" :key="route.path">
+        <template v-for="(r, index) in tagsList" :key="r.path">
           <a
             href="javascript:;"
             class="tags-item"
             :class="{
               'is-active': activeIndex === index,
-              'is-closeable': !route.meta?.tags_affix,
+              'is-closeable': !r.meta?.tags_affix,
             }"
-            @click="jump(route)"
+            @click="jump(r)"
           >
-            <span class="route-name">{{ route.meta?.title }}</span>
+            <span class="route-name">{{ r.meta?.title }}</span>
             <CloseOutlined
-              v-if="!route.meta?.tags_affix"
+              v-if="!r.meta?.tags_affix"
               class="icon-cls"
               @click="removeTag($event, index)"
             />
@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
+  import { computed, watch } from 'vue'
   import {
     useRoute,
     useRouter,
@@ -61,7 +61,7 @@
       store.addTag(route)
 
       // 获取当前触发路由的tags索引
-      const index = tagsList.value.findIndex(item => item.path === path.value)
+      const index = tagsList.value.findIndex((item) => item.path === path.value)
       store.setActiveIndex(index)
     },
     {
@@ -110,13 +110,13 @@
     }
   }
   // 跳转
-  function jump(route: RouteLocationNormalizedLoaded) {
-    if (path.value === route.path) {
+  function jump(r: RouteLocationNormalizedLoaded) {
+    if (path.value === r.path) {
       return
     }
     router.push({
-      path: route.path,
-      query: route.query,
+      path: r.path,
+      query: r.query,
       replace: true,
     })
   }

@@ -1,7 +1,7 @@
 /*
  * @Description: vite 配置
  * @Date: 2022-07-19 14:17:29
- * @LastEditTime: 2022-07-19 15:52:03
+ * @LastEditTime: 2022-07-22 17:38:05
  * @FilePath: \vite-vue3-admin\vite.config.ts
  */
 import { defineConfig } from 'vite'
@@ -47,6 +47,8 @@ export default defineConfig({
         'types/**/*.d.ts',
         'types/**/*.ts',
       ],
+      exclude: ['./node_modules/**'],
+      // cache: false,
     }),
   ],
   css: {

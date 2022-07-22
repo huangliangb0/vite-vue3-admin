@@ -34,6 +34,14 @@
         contentHeight: 48,
       }
     },
+    watch: {
+      identifyCode() {
+        this.drawPic()
+      },
+    },
+    mounted() {
+      this.drawPic()
+    },
     methods: {
       // 生成一个随机数
       randomNum(min: number, max: number) {
@@ -123,14 +131,6 @@
           ctx.fill() //通过填充路径的内容区域生成实心的图形。
         }
       },
-    },
-    watch: {
-      identifyCode() {
-        this.drawPic()
-      },
-    },
-    mounted() {
-      this.drawPic()
     },
   })
 </script>

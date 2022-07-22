@@ -73,7 +73,7 @@
           router.push({ path: (redirect as string) || '/', query })
         })
       })
-      .catch(err => {
+      .catch((err) => {
         console.log('error', err)
       })
   }
@@ -85,20 +85,20 @@
   >
     <div class="login-content">
       <div class="head">
-        <p class="title">登录页</p>
-        <p class="greet">欢迎来到平台管理中心</p>
+        <p class="title"> 登录页 </p>
+        <p class="greet"> 欢迎来到平台管理中心 </p>
       </div>
-      <a-config-provider componentSize="large" :input="{ size: 'large' }">
+      <a-config-provider component-size="large" :input="{ size: 'large' }">
         <a-form
+          ref="formRef"
           class="login-form-box"
           :model="form"
           :rules="rules"
-          ref="formRef"
         >
           <a-form-item name="username">
             <a-input
-              placeholder="请输入用户名"
               v-model:value="form.username"
+              placeholder="请输入用户名"
               size="large"
             >
               <template #prefix>
@@ -108,10 +108,10 @@
           </a-form-item>
           <a-form-item name="password">
             <a-input
+              v-model:value="form.password"
               :type="passInputType"
               placeholder="请输入密码"
               size="large"
-              v-model:value="form.password"
             >
               <template #prefix>
                 <lock-outlined />
@@ -127,16 +127,16 @@
           </a-form-item>
           <a-form-item name="code">
             <a-input
+              v-model:value="form.code"
               size="large"
               placeholder="请输入验证码"
-              v-model:value="form.code"
             >
               <template #prefix>
                 <code-outlined />
               </template>
             </a-input>
             <div class="identify">
-              <Identify></Identify>
+              <Identify />
             </div>
           </a-form-item>
           <a-form-item>
@@ -144,8 +144,9 @@
               type="primary"
               :loading="loading"
               @click.prevent="onSubmit"
-              >登录</a-button
             >
+              登录
+            </a-button>
           </a-form-item>
         </a-form>
       </a-config-provider>

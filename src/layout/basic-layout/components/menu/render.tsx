@@ -1,7 +1,8 @@
-import { useRoute, useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
 import { isExternal } from '@/utils/validate'
 import { RouteRecordRaw, RouteMeta } from 'vue-router'
 import { MenuItem, SubMenu } from 'ant-design-vue'
+import SvgIcon from '@/components/SvgIcon/index.vue'
 
 /**
  * 如果子级显示的数量是1，那就不显示子菜单，子菜单当作父级菜单显示
@@ -12,7 +13,7 @@ import { MenuItem, SubMenu } from 'ant-design-vue'
  */
 function showChildren(children: RouteRecordRaw[] | undefined) {
   if (children) {
-    const showChildren = children.filter(item => {
+    const showChildren = children.filter((item) => {
       return !(item.meta && item.meta.hideInMenu)
     })
     return {
@@ -34,7 +35,6 @@ function showChildren(children: RouteRecordRaw[] | undefined) {
  */
 function renderLink({ path, title, icon }: RouteMeta & { path: string }) {
   const router = useRouter()
-  const route = useRoute()
   const jump = (path: string) => {
     if (isExternal(path)) {
       window.open(path, '_blank')
@@ -44,9 +44,20 @@ function renderLink({ path, title, icon }: RouteMeta & { path: string }) {
   }
 
   return (
-    <MenuItem index={path} key={path} onClick={() => jump(path)}>
-      <route-content icon={icon} title={title} />
-    </MenuItem>
+    <MenuItem
+      key={path}
+      onClick={() => jump(path)}
+      v-slots={{
+        default: () => title,
+        icon: () =>
+          icon ? (
+            <SvgIcon
+              name={icon}
+              style={{ width: '1.2em', height: '1.2em' }}
+            ></SvgIcon>
+          ) : null,
+      }}
+    ></MenuItem>
   )
 }
 
@@ -59,7 +70,7 @@ export const renderMenuContent = (
   menus: RouteRecordRaw[],
   parent?: RouteRecordRaw,
 ) => {
-  return menus.map(route => {
+  return menus.map((route) => {
     return recursive(route, parent)
   })
 }
@@ -71,7 +82,7 @@ function recursive(route: RouteRecordRaw, parent?: RouteRecordRaw) {
 
   let alwayShowChildInMenu = false
 
-  let _route = parent || route
+  const _route = parent || route
   if (_route) {
     alwayShowChildInMenu = Boolean(_route.meta?.alwayShowChildInMenu)
   }
@@ -87,13 +98,19 @@ function recursive(route: RouteRecordRaw, parent?: RouteRecordRaw) {
   ) {
     return (
       <SubMenu
-        index={path}
         key={path}
         v-slots={{
-          title: () => <route-content icon={meta?.icon} title={meta?.title} />,
+          title: () => meta?.title,
+          icon: () =>
+            meta?.icon ? (
+              <SvgIcon
+                name={meta?.icon}
+                style={{ width: '1.2em', height: '1.2em' }}
+              ></SvgIcon>
+            ) : null,
         }}
       >
-        {children!.map(item => {
+        {children!.map((item) => {
           return recursive(item, route)
         })}
       </SubMenu>

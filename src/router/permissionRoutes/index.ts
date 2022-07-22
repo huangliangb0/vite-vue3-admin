@@ -3,12 +3,12 @@ import { Component } from 'vue'
 
 export type RoutesMap = Record<string, Component>
 
-let permissionRoutes: RoutesMap = {}
-let keys = [] as string[]
+const permissionRoutes: RoutesMap = {}
+const keys = [] as string[]
 
 const modules = import.meta.globEager('./*.ts')
 
-Object.keys(modules).forEach(path => {
+Object.keys(modules).forEach((path) => {
   if (path !== './index.ts') {
     const routes = modules[path].default || modules[path]
     for (const [key, component] of Object.entries(routes)) {
