@@ -9,7 +9,7 @@ import { isExternal } from '@/utils/validate'
 import { Router, RouteRecordRaw } from 'vue-router'
 
 export class RouterHandle {
-  private removeRouteGroup: Array<() => void> = ([] = [])
+  private removeRouteGroup: Array<() => void> = []
   private router: Router
   constructor(router: Router) {
     this.router = router

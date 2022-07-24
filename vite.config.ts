@@ -7,13 +7,14 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
-import path from 'path' // ts如果报错 npm i @types/node -D
+// import path from 'path' // ts如果报错 npm i @types/node -D
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import { createHtmlPlugin } from 'vite-plugin-html'
 import Components from 'unplugin-vue-components/vite'
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 import { getThemeVariables } from 'ant-design-vue/dist/theme'
 import eslintPlugin from 'vite-plugin-eslint' //导入包
+const path = require('path')
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -49,6 +50,11 @@ export default defineConfig({
       ],
       exclude: ['./node_modules/**'],
       // cache: false,
+      // emitWarning: false,
+      // emitError: false,
+      // failOnWarning: false,
+      // failOnError: false,
+      // throwOnWarning: false,
     }),
   ],
   css: {

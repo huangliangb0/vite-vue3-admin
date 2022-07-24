@@ -1,5 +1,55 @@
 <template>
-  <h3> filter-form 页面 </h3>
+  <div>
+    <h3> filter-form 页面 </h3>
+    <FilterSearch :schemas="schemas" />
+  </div>
 </template>
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+  import FilterSearch from '@/components/form/FilterSearch.vue'
+  import { FilterSearchSchemas } from '@/components/form/type'
+  const schemas: FilterSearchSchemas = [
+    {
+      field: 'classLevel',
+      label: '班级',
+      component: 'Select',
+      componentProps: () => ({
+        placeholder: '请选择',
+        options: [
+          {
+            label: '一年级',
+            value: 1,
+          },
+          {
+            label: '二年级',
+            value: 2,
+          },
+          {
+            label: '三年级',
+            value: 3,
+          },
+        ],
+      }),
+    },
+    {
+      field: 'className',
+      label: '班名',
+      componentProps: () => ({
+        placeholder: '请输入',
+        modifier: {
+          trim: true,
+        },
+      }),
+    },
+    {
+      field: 'name',
+      label: '学生姓名',
+      componentProps: () => ({
+        placeholder: '请输入',
+        modifier: {
+          trim: true,
+        },
+      }),
+    },
+  ]
+</script>
 <style lang="less"></style>

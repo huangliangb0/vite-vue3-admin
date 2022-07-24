@@ -22,11 +22,18 @@ declare module '@vue/runtime-core' {
     AMenu: typeof import('ant-design-vue/es')['Menu']
     AMenuItem: typeof import('ant-design-vue/es')['MenuItem']
     ARow: typeof import('ant-design-vue/es')['Row']
+    ExpandToggle: typeof import('./src/components/form/ExpandToggle.vue')['default']
+    FilterSearch: typeof import('./src/components/form/FilterSearch.vue')['default']
+    HospitalDictSearch: typeof import('./src/components/form/widgets/hospital-dict-search.vue')['default']
     Identify: typeof import('./src/components/Identify/index.vue')['default']
+    PeriodTimeSelect: typeof import('./src/components/form/widgets/period-time-select.vue')['default']
     RouteContent: typeof import('./src/components/RouteContent/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    RowWrapper: typeof import('./src/components/row-layout/RowWrapper.vue')['default']
     SvgIcon: typeof import('./src/components/SvgIcon/index.vue')['default']
+    ToggleExpand: typeof import('./src/components/form/toggle-expand.vue')['default']
+    Widgets: typeof import('./src/components/form/widgets/index.vue')['default']
     WithArrowScroll: typeof import('./src/components/with-arrow-scroll/index.vue')['default']
   }
 }

@@ -97,11 +97,7 @@
 
 <template>
   <div class="with-arrow-scroll">
-    <span
-      v-if="isVisibleArrow"
-      class="left-arrow arrow"
-      @click="moveLeft(undefined)"
-    >
+    <span v-if="isVisibleArrow" class="left-arrow arrow" @click="moveLeft">
       <LeftOutlined class="icon" />
     </span>
     <div ref="wrapperRef" class="scroll-wrapper">

@@ -6,6 +6,7 @@
  */
 /**
  * 参考地址 https://juejin.cn/post/7118294114734440455
+ * https://blog.csdn.net/mrhaoxiaojun/article/details/124734723
  *
  * 配置相关地址
  * https://eslint.vuejs.org/rules/multi-word-component-names.html
@@ -18,6 +19,7 @@ module.exports = defineConfig({
     browser: true,
     node: true,
     es2021: true,
+    'vue/setup-compiler-macros': true,
   },
   parser: 'vue-eslint-parser',
   parserOptions: {
@@ -29,15 +31,23 @@ module.exports = defineConfig({
       jsx: true,
     },
   },
+  plugins: ['vue', '@typescript-eslint'],
   extends: [
+    'eslint:recommended',
     'plugin:vue/vue3-recommended',
     // 'plugin:vue/vue3-essential',
     'plugin:@typescript-eslint/recommended',
-    'prettier',
+    // 'prettier',
     'plugin:prettier/recommended',
   ],
-  plugins: ['vue', '@typescript-eslint'],
-
+  overrides: [
+    {
+      files: ['*.ts', '*.tsx', '*.vue'],
+      rules: {
+        'no-undef': 'off',
+      },
+    },
+  ],
   rules: {
     'vue/script-setup-uses-vars': 'error',
     '@typescript-eslint/ban-ts-ignore': 'off',
