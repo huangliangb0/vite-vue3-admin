@@ -16,20 +16,22 @@ export type WidgetModifier = {
   trim?: Boolean
 }
 
-export type ComponentProps = InputProps &
+export type WidgetProps = InputProps &
   SelectProps &
   DatePickerProps & {
     modifier?: WidgetModifier
   }
 
+export type WidgetKeys = keyof typeof widgets
+
 export interface FilterSearchSchemaItem {
   field: string
-  component?: keyof typeof widgets
+  component?: WidgetKeys
   label?: string
   width?: string
   defaultValue?: any
   initialValue?: any
-  componentProps?: ComponentProps | ((arg: unknown) => ComponentProps)
+  componentProps?: WidgetProps | ((arg: unknown) => WidgetProps)
   FormItemProps?: FormItemProps
 }
 

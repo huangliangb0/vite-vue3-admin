@@ -1,7 +1,8 @@
 <template>
-  <div>
-    <h3> filter-form 页面 </h3>
-    <FilterSearch :schemas="schemas" />
+  <div class="page--container">
+    <div class="page--container_header">
+      <FilterSearch :schemas="schemas" />
+    </div>
   </div>
 </template>
 <script lang="ts" setup>
@@ -10,7 +11,7 @@
   const schemas: FilterSearchSchemas = [
     {
       field: 'classLevel',
-      label: '班级',
+      label: '年级',
       component: 'Select',
       componentProps: () => ({
         placeholder: '请选择',
@@ -32,7 +33,7 @@
     },
     {
       field: 'className',
-      label: '班名',
+      label: '班级',
       componentProps: () => ({
         placeholder: '请输入',
         modifier: {

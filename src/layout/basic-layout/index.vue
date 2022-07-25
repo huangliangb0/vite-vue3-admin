@@ -68,6 +68,7 @@
   }
 
   .app-content {
+    padding: @margin;
     flex: 1;
     background-color: #f6f8f9;
     overflow-y: auto;

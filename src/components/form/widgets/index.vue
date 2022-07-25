@@ -8,6 +8,7 @@
   import { defineComponent, PropType } from 'vue'
   import widgets from './index'
   import type { WidgetModifier } from '../type'
+
   export default defineComponent({
     name: 'Widget',
     props: {
@@ -44,10 +45,19 @@
       }
       const Widget = widgets[props.component]
       return () => (
-        <Widget {...reset} value={props.value} onChange={handleChange}></Widget>
+        <Widget
+          {...reset}
+          value={props.value}
+          onChange={handleChange}
+          class="form-widget"
+        ></Widget>
       )
     },
   })
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+  .form-widget {
+    width: 100%;
+  }
+</style>
