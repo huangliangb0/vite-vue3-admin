@@ -1,9 +1,18 @@
 <script lang="tsx">
-  import { defineComponent, reactive, toRaw, ref, PropType } from 'vue'
+  import {
+    defineComponent,
+    reactive,
+    toRaw,
+    ref,
+    PropType,
+    watch,
+    computed,
+  } from 'vue'
   import { FormInstance } from 'ant-design-vue'
   import { Widget } from './widgets'
   import FormList from './FormList.vue'
-  import type { FilterSearchSchemas } from './type'
+  import type { FormSchemas } from './type'
+
   export default defineComponent({
     name: 'FilterSearch',
     components: {
@@ -12,7 +21,7 @@
     },
     props: {
       schemas: {
-        type: Array as PropType<FilterSearchSchemas>,
+        type: Array as PropType<FormSchemas>,
         default: () => [],
       },
       initialValue: {
@@ -23,15 +32,52 @@
         type: Boolean,
         default: false,
       },
+      labelCol: {
+        type: Object as PropType<Recordable>,
+        default: () => ({}),
+      },
     },
     emits: ['submit', 'reset'],
     setup(props, { emit, attrs, expose }) {
       const o: Recordable = {}
       props.schemas.forEach((item) => {
-        o[item.field] = item.defaultValue
+        if (item.type === 'array') {
+          o[item.field] = item.defaultValue || []
+        } else {
+          o[item.field] = item.defaultValue
+        }
       })
       const formState = reactive({ ...o, ...props.initialValue })
       const formRef = ref<FormInstance>()
+
+      const btnWrapperCol = computed(() => {
+        const o: Recordable = {}
+
+        Object.keys(props.labelCol).forEach((k) => {
+          const v = props.labelCol[k]
+          if (typeof v === 'object') {
+            Object.keys(v).forEach((i) => {
+              if (i === 'span') {
+                o[k] = {
+                  span: 24 - (v[i] || 0),
+                  offset: v[k] || 0,
+                }
+              }
+            })
+          } else if (k === 'span') {
+            o.span = 24 - (v || 0)
+            o.offset = v || 0
+          }
+        })
+
+        console.log(o)
+
+        return o
+      })
+
+      // {span: 3, offset: 12} 或 sm: {span: 3, offset: 12}
+
+      // :wrapper-col="{ span: 14, offset: 4 }"
 
       // 提交
       const submit = (e: Event) => {
@@ -52,6 +98,18 @@
         })
       }
 
+      watch(
+        () => props.initialValue,
+        (value) => {
+          Object.keys(value).forEach((k) => {
+            formState[k] = value[k]
+          })
+        },
+        {
+          deep: true,
+        },
+      )
+
       expose({
         formState,
         change,
@@ -60,7 +118,13 @@
       })
 
       return () => (
-        <a-form ref={formRef} model={formState} autocomplete="off" {...attrs}>
+        <a-form
+          ref={formRef}
+          model={formState}
+          labelCol={props.labelCol}
+          autocomplete="off"
+          {...attrs}
+        >
           {props.schemas.map((item) => (
             <a-form-item
               key={item.field}
@@ -71,7 +135,9 @@
               {item.type === 'array' ? (
                 <FormList
                   component={item.component}
-                  value={formState[item.field]}
+                  initialValue={props.initialValue[item.field]}
+                  value-format={item.valueFormat}
+                  schemas={item.schemas}
                   change={(value: any) => {
                     formState[item.field] = value
                   }}
@@ -95,13 +161,13 @@
               )}
             </a-form-item>
           ))}
-          <a-form-item>
-            <a-button type="primary" onClick={submit}>
-              查询
-            </a-button>
-            <a-button style="margin-left: 10px;width: 60px;" onClick={reset}>
-              重置
-            </a-button>
+          <a-form-item wrapperCol={btnWrapperCol.value}>
+            <a-space>
+              <a-button type="primary" onClick={submit}>
+                提交
+              </a-button>
+              <a-button onClick={reset}>重置</a-button>
+            </a-space>
           </a-form-item>
         </a-form>
       )

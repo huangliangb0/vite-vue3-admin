@@ -7,8 +7,8 @@
 </template>
 <script lang="ts" setup>
   import FilterSearch from '@/components/form/FilterSearch.vue'
-  import { FilterSearchSchemas } from '@/components/form/type'
-  const schemas: FilterSearchSchemas = [
+  import { FormSchemas } from '@/components/form/type'
+  const schemas: FormSchemas = [
     {
       field: 'classLevel',
       label: '年级',

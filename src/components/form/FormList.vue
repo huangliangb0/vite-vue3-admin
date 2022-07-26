@@ -1,18 +1,29 @@
 <script lang="tsx">
-  import { defineComponent, ref, PropType, toRaw } from 'vue'
+  import { defineComponent, ref, PropType, watch } from 'vue'
   import widgets, { Widget } from './widgets'
-  import type { FilterSearchSchemas, WidgetProps } from './type'
+  import type { FormSchemas, WidgetProps } from './type'
   import { cloneDeep } from 'lodash'
+  import { MinusOutlined } from '@ant-design/icons-vue'
   export default defineComponent({
     name: 'FormList',
+    components: {
+      MinusOutlined,
+      Widget,
+    },
     props: {
       schemas: {
-        type: Array as PropType<FilterSearchSchemas>,
+        type: Array as PropType<FormSchemas>,
         default: () => [],
       },
       initialValue: {
         type: Array as PropType<any[]>,
         default: () => [],
+      },
+      valueFormat: {
+        type: [String, Number, Boolean, Object] as PropType<
+          string | number | boolean | Recordable
+        >,
+        default: () => '',
       },
       component: {
         type: String as PropType<keyof typeof widgets>,
@@ -28,63 +39,115 @@
       },
     },
     setup(props) {
-      const formState = ref<any[]>(cloneDeep(props.initialValue))
+      const formListState = ref<any[]>(cloneDeep(props.initialValue))
       const handleAdd = () => {
-        formState.value.push(cloneDeep(props.initialValue))
-        console.log('formState.valueformState.value', formState.value)
+        formListState.value.push(cloneDeep(props.valueFormat))
+      }
+      const handleRemove = (index: number) => {
+        formListState.value.splice(index, 1)
       }
 
       const handleChange = () => {
-        props.change(toRaw(formState))
+        props.change(formListState.value)
       }
 
-      return () => (
-        <a-row gutter={[20, 20]}>
-          {typeof props.initialValue[0] === 'object'
-            ? formState.value.map((_p, p_index) => (
-                <>
-                  {props.schemas.map((item) => (
-                    <a-col
-                      key={item.field}
-                      span={item.span || 24 / props.schemas.length}
-                    >
-                      <a-form-item label={item.label} name={item.field}>
-                        <Widget
-                          component={item.component}
-                          value={formState.value[p_index][item.field]}
-                          change={(value) => {
-                            formState.value[p_index][item.field] = value
-                            handleChange()
-                          }}
-                          componentProps={
-                            typeof item.componentProps === 'function'
-                              ? item.componentProps(formState)
-                              : item.componentProps
-                          }
-                        ></Widget>
-                      </a-form-item>
-                    </a-col>
-                  ))}
-                </>
-              ))
-            : formState.value.map((_item, index) => (
-                <a-col span={24}>
-                  <Widget
-                    component={props.component}
-                    value={formState.value[index]}
-                    change={(value) => {
-                      formState.value[index] = value
-                      handleChange()
-                    }}
-                    {...props.componentProps}
-                  ></Widget>
-                </a-col>
-              ))}
-          <a-col span={24}>
-            <a-button onClick={handleAdd}>添加字段</a-button>
-          </a-col>
-        </a-row>
+      watch(
+        () => props.initialValue,
+        (value) => {
+          formListState.value = cloneDeep(value)
+        },
       )
+
+      return () =>
+        typeof props.valueFormat === 'object' ? (
+          <>
+            {formListState.value.map((_p, p_index) => (
+              <a-row gutter={[20, 0]}>
+                <a-col key={p_index} style="flex: 1">
+                  <a-row gutter={[20, 0]}>
+                    {props.schemas.map((item) => (
+                      <a-col
+                        key={item.field}
+                        span={item.span || 24 / props.schemas.length}
+                        lg={item.span || 24 / props.schemas.length}
+                        md={24}
+                      >
+                        <a-form-item label={item.label} name={item.field}>
+                          <Widget
+                            component={item.component}
+                            value={formListState.value[p_index][item.field]}
+                            change={(value) => {
+                              formListState.value[p_index][item.field] = value
+                              handleChange()
+                            }}
+                            {...(typeof item.componentProps === 'function'
+                              ? item.componentProps(formListState)
+                              : item.componentProps)}
+                            placeholder="请选择"
+                          ></Widget>
+                        </a-form-item>
+                      </a-col>
+                    ))}
+                  </a-row>
+                </a-col>
+                <a-col>
+                  <a-form-item>
+                    <a-button
+                      shape="circle"
+                      v-slots={{
+                        icon: () => (
+                          <MinusOutlined
+                            style={{ color: '#999' }}
+                          ></MinusOutlined>
+                        ),
+                      }}
+                      onClick={() => handleRemove(p_index)}
+                    ></a-button>
+                  </a-form-item>
+                </a-col>
+              </a-row>
+            ))}
+            <a-button onClick={handleAdd} style="width: 100%">
+              添加字段
+            </a-button>
+          </>
+        ) : (
+          <>
+            {formListState.value.map((_item, index) => (
+              <a-form-item key={index}>
+                <a-row gutter={[20, 20]}>
+                  <a-col style="flex: 1">
+                    <Widget
+                      component={props.component}
+                      value={formListState.value[index]}
+                      change={(value) => {
+                        formListState.value[index] = value
+                        handleChange()
+                      }}
+                      {...props.componentProps}
+                    ></Widget>
+                  </a-col>
+                  <a-col>
+                    <a-button
+                      shape="circle"
+                      v-slots={{
+                        icon: () => (
+                          <MinusOutlined
+                            style={{ color: '#999' }}
+                          ></MinusOutlined>
+                        ),
+                      }}
+                      onClick={() => handleRemove(index)}
+                    ></a-button>
+                  </a-col>
+                </a-row>
+              </a-form-item>
+            ))}
+            <a-button onClick={handleAdd} style="width: 100%">
+              添加字段
+            </a-button>
+          </>
+        )
     },
   })
 </script>

@@ -24,16 +24,17 @@ export type WidgetProps = InputProps &
 
 export type WidgetKeys = keyof typeof widgets
 
-export interface FilterSearchSchemaItem {
+export interface FormSchemaItem {
   type?: 'default' | 'array'
   field: string
   component?: WidgetKeys
   label?: string
   span?: number
   defaultValue?: any
-  initialValue?: any
+  valueFormat?: string | number | boolean | Recordable
   componentProps?: WidgetProps | ((arg: unknown) => WidgetProps)
   FormItemProps?: FormItemProps
+  schemas?: Array<FormSchemaItem>
 }
 
-export type FilterSearchSchemas = Array<FilterSearchSchemaItem>
+export type FormSchemas = Array<FormSchemaItem>

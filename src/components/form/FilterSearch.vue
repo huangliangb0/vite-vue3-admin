@@ -10,18 +10,15 @@
   import { ConfigProvider, FormInstance } from 'ant-design-vue'
   import { Widget } from './widgets'
   import ExpandToggle from './ExpandToggle.vue'
-  import type { FilterSearchSchemas } from './type'
+  import type { FormSchemas } from './type'
   import { RowWrapper } from '@/components/row-layout'
   import { useAppStore } from '@/store/modules/app'
   export default defineComponent({
     name: 'FilterSearch',
     // expose: ['formState', 'change', 'reset', 'submit'],
     props: {
-      width: {
-        type: String,
-      },
       schemas: {
-        type: Array as PropType<FilterSearchSchemas>,
+        type: Array as PropType<FormSchemas>,
         default: () => [],
       },
       showCount: {
