@@ -9,7 +9,7 @@
       children: [
         {
           class: '一班',
-          classId: 11,
+          classId: 1,
           children: [
             {
               name: '小花',
@@ -23,7 +23,7 @@
         },
         {
           class: '二班',
-          classId: 1,
+          classId: 2,
           children: [
             {
               name: '小丽',
@@ -129,6 +129,27 @@
     },
   ]
 
-  console.log('data', data)
+  const handleSpanData = (data: any[]): any[] => {
+    const result: any[] = []
+    let o = {}
+    const r = (data: any[]) => {
+      data.forEach((item) => {
+        const { children, ...reset } = item
+        o = {
+          ...o,
+          ...reset,
+        }
+        if (children && children.length > 0) {
+          r(children)
+        } else {
+          result.push(o)
+        }
+      })
+    }
+    r(data)
+    return result
+  }
+
+  console.log(handleSpanData(data))
 </script>
 <style lang="less"></style>
