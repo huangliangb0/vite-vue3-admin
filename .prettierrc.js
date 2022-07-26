@@ -18,7 +18,6 @@ module.exports = {
   proseWrap: 'never',
   htmlWhitespaceSensitivity: 'strict',
   endOfLine: 'lf',
-  jsxBracketSameLine: true,
 }
 
 /* 
