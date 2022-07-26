@@ -1,0 +1,112 @@
+<script lang="tsx">
+  import { defineComponent, reactive, toRaw, ref, PropType } from 'vue'
+  import { FormInstance } from 'ant-design-vue'
+  import { Widget } from './widgets'
+  import FormList from './FormList.vue'
+  import type { FilterSearchSchemas } from './type'
+  export default defineComponent({
+    name: 'FilterSearch',
+    components: {
+      Widget,
+      FormList,
+    },
+    props: {
+      schemas: {
+        type: Array as PropType<FilterSearchSchemas>,
+        default: () => [],
+      },
+      initialValue: {
+        type: Object as PropType<Recordable>,
+        default: () => ({}),
+      },
+      colon: {
+        type: Boolean,
+        default: false,
+      },
+    },
+    emits: ['submit', 'reset'],
+    setup(props, { emit, attrs, expose }) {
+      const o: Recordable = {}
+      props.schemas.forEach((item) => {
+        o[item.field] = item.defaultValue
+      })
+      const formState = reactive({ ...o, ...props.initialValue })
+      const formRef = ref<FormInstance>()
+
+      // 提交
+      const submit = (e: Event) => {
+        e.preventDefault()
+        emit('submit', toRaw(formState))
+      }
+
+      // 重置
+      const reset = () => {
+        formRef.value?.resetFields()
+
+        emit('reset', toRaw(formState))
+      }
+
+      const change = (o: Record<string, any>) => {
+        Object.keys(o).forEach((key) => {
+          formState[key] = o[key]
+        })
+      }
+
+      expose({
+        formState,
+        change,
+        reset,
+        submit,
+      })
+
+      return () => (
+        <a-form ref={formRef} model={formState} autocomplete="off" {...attrs}>
+          {props.schemas.map((item) => (
+            <a-form-item
+              key={item.field}
+              label={item.label}
+              colon={props.colon}
+              name={item.field}
+            >
+              {item.type === 'array' ? (
+                <FormList
+                  component={item.component}
+                  value={formState[item.field]}
+                  change={(value: any) => {
+                    formState[item.field] = value
+                  }}
+                  componentProps={
+                    typeof item.componentProps === 'function'
+                      ? item.componentProps(formState)
+                      : item.componentProps
+                  }
+                ></FormList>
+              ) : (
+                <Widget
+                  component={item.component}
+                  value={formState[item.field]}
+                  change={(value) => {
+                    formState[item.field] = value
+                  }}
+                  {...(typeof item.componentProps === 'function'
+                    ? item.componentProps(formState)
+                    : item.componentProps)}
+                ></Widget>
+              )}
+            </a-form-item>
+          ))}
+          <a-form-item>
+            <a-button type="primary" onClick={submit}>
+              查询
+            </a-button>
+            <a-button style="margin-left: 10px;width: 60px;" onClick={reset}>
+              重置
+            </a-button>
+          </a-form-item>
+        </a-form>
+      )
+    },
+  })
+</script>
+
+<style lang="less" scoped></style>

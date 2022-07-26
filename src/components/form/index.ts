@@ -5,3 +5,4 @@
  * @FilePath: \vite-vue3-admin\src\components\form\index.ts
  */
 export { default as FilterSearch } from './FilterSearch.vue'
+export { default as EditForm } from './EditForm.vue'

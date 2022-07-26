@@ -50,7 +50,7 @@
             .concat({
               dataIndex: 'my--action',
               title: '编辑',
-              width: 150,
+              width: 76,
               fixed: 'right',
               slot: ({ record }) => (
                 <a-space>
@@ -60,9 +60,6 @@
                     onClick={() => onFinish(record)}
                   >
                     完成
-                  </a-button>
-                  <a-button size="small" onClick={() => onIsEdit(false)}>
-                    取消
                   </a-button>
                 </a-space>
               ),

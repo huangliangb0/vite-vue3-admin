@@ -4,8 +4,6 @@
     reactive,
     toRaw,
     ref,
-    onMounted,
-    nextTick,
     computed,
     PropType,
   } from 'vue'
@@ -29,14 +27,6 @@
       showCount: {
         type: Number,
         default: 0,
-      },
-      showSubmitBtn: {
-        type: Boolean,
-        default: true,
-      },
-      showResetBtn: {
-        type: Boolean,
-        default: true,
       },
       col: {
         type: [Number, Array] as PropType<number | number[]>,
@@ -115,16 +105,6 @@
         isExpand.value = !isExpand.value
       }
 
-      onMounted(() => {
-        nextTick(() => {
-          props.schemas.forEach((item) => {
-            if (item.initialValue !== undefined) {
-              formState[item.field] = item.initialValue
-            }
-          })
-        })
-      })
-
       expose({
         formState,
         change,
@@ -137,7 +117,7 @@
           ref={formRef}
           model={formState}
           autocomplete="off"
-          class="bo--form"
+          class="filter--search--form"
           {...attrs}
         >
           <RowWrapper
@@ -175,19 +155,15 @@
               ))}
             <ConfigProvider autoInsertSpaceInButton={false}>
               <a-form-item style={btnBoxStyle.value}>
-                {props.showSubmitBtn && (
-                  <a-button type="primary" onClick={submit}>
-                    查询
-                  </a-button>
-                )}
-                {props.showResetBtn && (
-                  <a-button
-                    style="margin-left: 10px;width: 60px;"
-                    onClick={reset}
-                  >
-                    重置
-                  </a-button>
-                )}
+                <a-button type="primary" onClick={submit}>
+                  查询
+                </a-button>
+                <a-button
+                  style="margin-left: 10px;width: 60px;"
+                  onClick={reset}
+                >
+                  重置
+                </a-button>
                 {props.showCount > 0 ? (
                   <ExpandToggle
                     isExpand={isExpand.value}
@@ -204,24 +180,7 @@
 </script>
 
 <style lang="less" scoped>
-  .bo--form {
+  .filter--search--form {
     width: 100%;
-    :deep(.ant-row.ant-form-item) {
-      margin-bottom: 0;
-    }
-    :deep(.ant-btn-primary) {
-      width: 90px;
-      height: 32px;
-      background: #2265d1;
-      background: #2265d1;
-      border-color: #2265d1;
-    }
-    :deep(.ant-btn-default) {
-      width: 90px;
-      height: 32px;
-      border-radius: 2px;
-      color: #2265d1;
-      border: 1px solid #2265d1;
-    }
   }
 </style>

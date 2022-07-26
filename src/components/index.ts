@@ -26,7 +26,7 @@ export const setupGlobalComponent = (app: AppInstance) => {
         comp = [comp]
       }
       comp.forEach((item: any) => {
-        app.component(item.name || item.diaplayName, item)
+        app.component(item.name || item.displayName, item)
       })
     }
   })

@@ -25,10 +25,11 @@ export type WidgetProps = InputProps &
 export type WidgetKeys = keyof typeof widgets
 
 export interface FilterSearchSchemaItem {
+  type?: 'default' | 'array'
   field: string
   component?: WidgetKeys
   label?: string
-  width?: string
+  span?: number
   defaultValue?: any
   initialValue?: any
   componentProps?: WidgetProps | ((arg: unknown) => WidgetProps)
