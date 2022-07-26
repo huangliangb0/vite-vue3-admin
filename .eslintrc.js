@@ -100,5 +100,6 @@ module.exports = defineConfig({
       },
     ],
     'vue/multi-word-component-names': 'off',
+    useTabs: 'off',
   },
 })
