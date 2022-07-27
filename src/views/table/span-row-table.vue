@@ -2,6 +2,8 @@
   <h3> span-row-table 页面 </h3>
 </template>
 <script lang="ts" setup>
+  import { cloneDeep } from 'lodash'
+
   const data = [
     {
       grade: '一年级',
@@ -131,21 +133,51 @@
 
   const handleSpanData = (data: any[]): any[] => {
     const result: any[] = []
-    let o = {}
-    const r = (data: any[]) => {
-      data.forEach((item) => {
+    let counts: Recordable = {}
+    let level = 0
+
+    const r = (data: any[], p: Recordable = {}) => {
+      let total = 0
+      data.forEach((item, i) => {
         const { children, ...reset } = item
-        o = {
-          ...o,
+        p = {
+          ...p,
           ...reset,
         }
+
         if (children && children.length > 0) {
-          r(children)
+          if (counts[level] === undefined) {
+            counts[level] = 0
+          }
+          level++
+          r(children, p)
+
+          level--
+          console.log(level, cloneDeep(result))
         } else {
-          result.push(o)
+          total++
+          result.push(p)
         }
       })
+      const index = counts[level] || 0
+      result[index][`row_span_${level}`] = result[index][`row_span_${level}`]
+        ? result[index][`row_span_${level}`] + total
+        : total
+      counts[level] = index + total
+
+      // if (result[index]) {
+      //   const pre = level - 1
+      //   if (result[index][`rowSpan_${pre}`] === undefined) {
+      //     result[index][`rowSpan_${pre}`] = 0
+      //   }
+      //   result[index][`rowSpan_${pre}`] += total
+      //   index = index + result[index][`rowSpan_${pre}`]
+      // }
+
+      // console.log('counts', counts)
+      // console.log('resultresult', result.length)
     }
+
     r(data)
     return result
   }
