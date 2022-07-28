@@ -16,7 +16,8 @@
     "paths": {
       "@/*": ["src/*"],
       "#/*": ["types/*"]
-    }
+    },
+    "types": ["node", "vite/client", "unplugin-vue-define-options"]
   },
   "include": [
     "src/**/*.ts",

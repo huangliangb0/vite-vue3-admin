@@ -1,9 +1,15 @@
 <template>
-  <div class="page--container">
-    <div class="page--container_header">
-      <FilterSearch :schemas="schemas" />
-    </div>
-  </div>
+  <page-layout>
+    <template #header>
+      <EditForm
+        :schemas="schemas"
+        :initialValue="initialValue"
+        :label-col="{ span: 4 }"
+        :wrapper-col="{ span: 20 }"
+        @submit="handleSubmit"
+      />
+    </template>
+  </page-layout>
 </template>
 <script lang="ts" setup>
   import FilterSearch from '@/components/form/FilterSearch.vue'

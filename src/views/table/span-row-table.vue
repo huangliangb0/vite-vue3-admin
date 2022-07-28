@@ -1,12 +1,10 @@
 <template>
-  <a-layout>
-    <a-layout-header>
+  <page-layout>
+    <template #header>
       <h3> span-row-table 页面 </h3>
-    </a-layout-header>
-    <a-layout-content>
-      <basic-table bordered :columns="columns" :data="data" />
-    </a-layout-content>
-  </a-layout>
+    </template>
+    <basic-table bordered :columns="columns" :data="data" />
+  </page-layout>
 </template>
 <script lang="ts" setup>
   import { cloneDeep } from 'lodash'

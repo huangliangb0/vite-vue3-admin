@@ -17,7 +17,7 @@ module.exports = {
   vueIndentScriptAndStyle: true,
   proseWrap: 'never',
   htmlWhitespaceSensitivity: 'strict',
-  endOfLine: 'lf',
+  endOfLine: 'auto',
 }
 
 /* 

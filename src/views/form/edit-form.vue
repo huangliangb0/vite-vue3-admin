@@ -102,16 +102,14 @@
   })
 </script>
 <template>
-  <div class="page--container">
-    <div class="page--container_header">
-      <EditForm
-        :schemas="schemas"
-        :initialValue="initialValue"
-        :label-col="{ span: 4 }"
-        :wrapper-col="{ span: 20 }"
-        @submit="handleSubmit"
-      />
-    </div>
-  </div>
+  <page-layout>
+    <EditForm
+      :schemas="schemas"
+      :initialValue="initialValue"
+      :label-col="{ span: 4 }"
+      :wrapper-col="{ span: 20 }"
+      @submit="handleSubmit"
+    />
+  </page-layout>
 </template>
 <style lang="less"></style>

@@ -84,39 +84,51 @@
       )
       return () => (
         <div class="edit-table">
-          <div class="edit-table-header page--container_header">
-            <div>{slots.header ? slots.header() : null}</div>
-            <div class="edit-table-action">
-              <a-space>
-                {!isEdit.value ? (
-                  <a-button
-                    size="small"
-                    type="primary"
-                    onClick={() => onIsEdit(true)}
-                  >
-                    编辑
-                  </a-button>
-                ) : (
-                  <>
-                    <a-button size="small" type="primary" onClick={onFinish}>
-                      完成
-                    </a-button>
-                    <a-button size="small" onClick={() => onIsEdit(false)}>
-                      取消
-                    </a-button>
-                  </>
-                )}
-              </a-space>
-            </div>
-          </div>
-          <div class="page--container_content">
+          <page-layout
+            v-slots={{
+              header: () => (
+                <div class="edit-table-header">
+                  <div>{slots.header ? slots.header() : null}</div>
+                  <div class="edit-table-action">
+                    <a-space>
+                      {!isEdit.value ? (
+                        <a-button
+                          size="small"
+                          type="primary"
+                          onClick={() => onIsEdit(true)}
+                        >
+                          编辑
+                        </a-button>
+                      ) : (
+                        <>
+                          <a-button
+                            size="small"
+                            type="primary"
+                            onClick={onFinish}
+                          >
+                            完成
+                          </a-button>
+                          <a-button
+                            size="small"
+                            onClick={() => onIsEdit(false)}
+                          >
+                            取消
+                          </a-button>
+                        </>
+                      )}
+                    </a-space>
+                  </div>
+                </div>
+              ),
+            }}
+          >
             <basic-table
               class="basic-table"
               columns={columns.value}
               data={_data.value}
               {...attrs}
             />
-          </div>
+          </page-layout>
         </div>
       )
     },

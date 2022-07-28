@@ -14,6 +14,7 @@ import Components from 'unplugin-vue-components/vite'
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 import { getThemeVariables } from 'ant-design-vue/dist/theme'
 import eslintPlugin from 'vite-plugin-eslint' //导入包
+import DefineOptions from 'unplugin-vue-define-options/vite'
 const path = require('path')
 
 // https://vitejs.dev/config/
@@ -21,6 +22,7 @@ export default defineConfig({
   plugins: [
     vue(),
     vueJsx(),
+    DefineOptions(),
     Components({
       resolvers: [AntDesignVueResolver({ importStyle: 'less' })],
     }),

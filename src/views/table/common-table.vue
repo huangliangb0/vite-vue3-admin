@@ -1,12 +1,10 @@
 <template>
-  <div class="page--container">
-    <div class="page--container_header">
+  <page-layout>
+    <template #header>
       <h3> 普通表格 </h3>
-    </div>
-    <div class="page--container_content">
-      <basic-table :columns="columns" :data="data" :pagination="pagination" />
-    </div>
-  </div>
+    </template>
+    <basic-table :columns="columns" :data="data" :pagination="pagination" />
+  </page-layout>
 </template>
 <script lang="ts" setup>
   import { reactive } from 'vue'
