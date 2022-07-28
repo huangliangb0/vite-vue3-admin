@@ -5,7 +5,7 @@ export interface BodyCellType<T = any> {
   column: TableColumnItem<T>
   index: number
   record: T
-  text: string
+  text: string | Element | JSX.Element
   value: any
 }
 // InstanceType<typeof TableColumn>

@@ -26,6 +26,7 @@ declare module '@vue/runtime-core' {
     ARow: typeof import('ant-design-vue/es')['Row']
     ASpace: typeof import('ant-design-vue/es')['Space']
     ATable: typeof import('ant-design-vue/es')['Table']
+    ATag: typeof import('ant-design-vue/es')['Tag']
     ATooltip: typeof import('ant-design-vue/es')['Tooltip']
     BasicTable: typeof import('./src/components/basic-table/index.vue')['default']
     EditForm: typeof import('./src/components/form/EditForm.vue')['default']

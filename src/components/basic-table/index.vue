@@ -85,13 +85,21 @@
             bodyCell: (arg: BodyCellType) => {
               let { column, text, value } = arg
 
+              /**
+               * 渲染某个状态对应的文本内容
+               */
               const { options } = column
-
               if (options) {
                 const o = options.find((item) => item.value === value)
-                text = o?.label || text
+                if (o) {
+                  text = o.label || text
+                  return o.color ? <a-tag color={o.color}>{text}</a-tag> : text
+                }
               }
 
+              /**
+               * 优先渲染插槽
+               */
               const element = column.slot ? column.slot(arg) : text
 
               if (column.ellipsis) {

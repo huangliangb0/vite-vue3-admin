@@ -7,6 +7,7 @@
   </page-layout>
 </template>
 <script lang="ts" setup>
+  import { TableColumns } from '@/components/basic-table'
   import { reactive } from 'vue'
 
   const pagination = reactive<PaginationType>({
@@ -14,11 +15,10 @@
     current: 1,
     total: 100,
   })
-  const columns = [
+  const columns: TableColumns = [
     {
       title: '年级',
       dataIndex: 'grade',
-      ellipsis: true,
       options: [
         {
           label: '一年级',
@@ -37,7 +37,6 @@
     {
       title: '班级',
       dataIndex: 'class',
-      ellipsis: true,
       options: [
         {
           label: '一班',
@@ -65,15 +64,16 @@
     {
       title: '性别',
       dataIndex: 'sex',
-      ellipsis: true,
       options: [
         {
           label: '男',
           value: 1,
+          color: 'success',
         },
         {
           label: '女',
           value: 0,
+          color: 'processing',
         },
       ],
     },
