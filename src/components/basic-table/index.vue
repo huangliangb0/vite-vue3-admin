@@ -77,6 +77,9 @@
                 }
               : false
           }
+          scroll={{
+            x: true,
+          }}
           {...attrs}
           v-slots={{
             bodyCell: (arg: BodyCellType) => {

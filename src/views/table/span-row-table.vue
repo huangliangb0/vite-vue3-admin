@@ -3,7 +3,7 @@
     <template #header>
       <h3> span-row-table 页面 </h3>
     </template>
-    <basic-table bordered :columns="columns" :data="data" />
+    <basic-table bordered :columns="columns" :data="data" :pagination="null" />
   </page-layout>
 </template>
 <script lang="ts" setup>

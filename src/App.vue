@@ -34,6 +34,7 @@
             return true
           }
         })
+        appStore.setWindowWidth(width)
       }, 300),
     )
   })

@@ -1,13 +1,8 @@
-<!--
- * @Description: 
- * @Date: 2022-07-20 09:09:38
- * @LastEditTime: 2022-07-20 09:36:13
- * @FilePath: \vite-vue3-admin\src\layout\basic-layout\index.vue
--->
 <template>
   <a-config-provider :locale="zhCN">
     <a-layout class="app-container">
       <a-layout-sider
+        v-if="isShowLayoutSider"
         class="app-sider"
         :collapsed="collapsed"
         :trigger="null"
@@ -21,13 +16,30 @@
           theme="dark"
         />
       </a-layout-sider>
+      <a-drawer
+        v-else
+        placement="left"
+        :width="200"
+        :visible="collapsed"
+        @close="collapsed = false"
+        :headerStyle="{ display: 'none' }"
+        :bodyStyle="{ padding: 0 }"
+      >
+        <Menu
+          style="height: 100%"
+          :routes="routes"
+          mode="inline"
+          theme="dark"
+        />
+      </a-drawer>
+
       <a-layout theme="light">
         <Header v-model:collapsed="collapsed" />
         <TagsView />
         <a-layout-content class="app-content">
           <View :is-router-alive="isRouterAlive" />
         </a-layout-content>
-        <a-layout-footer>Footer</a-layout-footer>
+        <!-- <a-layout-footer>Footer</a-layout-footer> -->
       </a-layout>
     </a-layout>
   </a-config-provider>
@@ -42,17 +54,17 @@
   import { generatePermissionRoutes } from '@/utils/routes'
   import permissionRoutes from '@/router/permissionRoutes'
   import MenusModel from '@/models/MenusModel'
+  import { useReload, useShowLayoutSider } from './hook'
   dayjs.locale('zh-cn')
 
   const routes = generatePermissionRoutes(permissionRoutes, MenusModel)
   const collapsed = ref(false)
-  const isRouterAlive = ref(true)
-  const reload = () => {
-    isRouterAlive.value = false
-    setTimeout(() => {
-      isRouterAlive.value = true
-    }, 10)
-  }
+
+  // 是否显示侧边栏
+  const isShowLayoutSider = useShowLayoutSider()
+
+  // 是否刷新页面
+  const { isRouterAlive, reload } = useReload()
 
   provide('reload', reload)
 </script>
