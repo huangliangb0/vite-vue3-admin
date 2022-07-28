@@ -23,17 +23,16 @@
             appStore.setWindowSize('xs')
             return true
           }
-
           if (index === array.length - 1 && width > w) {
             appStore.setWindowSize('xxxl')
             return true
           }
-
           if (width >= w && width < array[index + 1]) {
             appStore.setWindowSize(GridEnum[w] as GridKey)
             return true
           }
         })
+
         appStore.setWindowWidth(width)
       }, 300),
     )

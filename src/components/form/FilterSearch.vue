@@ -6,8 +6,9 @@
     ref,
     computed,
     PropType,
+    StyleValue,
   } from 'vue'
-  import { ConfigProvider, FormInstance } from 'ant-design-vue'
+  import { FormInstance } from 'ant-design-vue'
   import { Widget } from './widgets'
   import ExpandToggle from './ExpandToggle.vue'
   import type { FormSchemas } from './type'
@@ -43,11 +44,10 @@
       grid: {
         type: Object as PropType<Record<GridKey, number>>,
         default: () => ({
-          // 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xx1' | 'xxx1'
           xs: 12,
           sm: 12,
-          md: 8,
-          lg: 6,
+          md: 12,
+          lg: 8,
           xl: 6,
           xxl: 4,
           xxxl: 4,
@@ -74,7 +74,7 @@
         return remainder.value === 0 ? 'end' : 'start'
       })
 
-      const btnBoxStyle = computed(() => {
+      const btnBoxStyle = computed<StyleValue>(() => {
         return { textAlign: remainder.value === 0 ? 'right' : 'left' }
       })
 
@@ -114,6 +114,7 @@
           ref={formRef}
           model={formState}
           autocomplete="off"
+          colon={props.colon}
           class="filter--search--form"
           {...attrs}
         >
@@ -135,7 +136,6 @@
                 <a-form-item
                   key={item.field}
                   label={item.label}
-                  colon={props.colon}
                   name={item.field}
                 >
                   <Widget
@@ -150,8 +150,8 @@
                   ></Widget>
                 </a-form-item>
               ))}
-            <ConfigProvider autoInsertSpaceInButton={false}>
-              <a-form-item style={btnBoxStyle.value}>
+            <a-form-item>
+              <div style={btnBoxStyle.value}>
                 <a-button type="primary" onClick={submit}>
                   查询
                 </a-button>
@@ -167,8 +167,8 @@
                     onClick={toggleExpand}
                   ></ExpandToggle>
                 ) : null}
-              </a-form-item>
-            </ConfigProvider>
+              </div>
+            </a-form-item>
           </RowWrapper>
         </a-form>
       )
@@ -179,5 +179,8 @@
 <style lang="less" scoped>
   .filter--search--form {
     width: 100%;
+    .ant-form-item {
+      margin-bottom: 0;
+    }
   }
 </style>

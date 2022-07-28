@@ -1,18 +1,11 @@
 <template>
   <page-layout>
     <template #header>
-      <EditForm
-        :schemas="schemas"
-        :initialValue="initialValue"
-        :label-col="{ span: 4 }"
-        :wrapper-col="{ span: 20 }"
-        @submit="handleSubmit"
-      />
+      <filter-search :schemas="schemas" @submit="handleSubmit" />
     </template>
   </page-layout>
 </template>
 <script lang="ts" setup>
-  import FilterSearch from '@/components/form/FilterSearch.vue'
   import { FormSchemas } from '@/components/form/type'
   const schemas: FormSchemas = [
     {
@@ -58,5 +51,8 @@
       }),
     },
   ]
+  const handleSubmit = (arg: Recordable) => {
+    console.log('搜索参数', arg)
+  }
 </script>
 <style lang="less"></style>
