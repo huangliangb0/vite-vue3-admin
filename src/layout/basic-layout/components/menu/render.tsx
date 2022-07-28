@@ -2,7 +2,7 @@ import { useRouter } from 'vue-router'
 import { isExternal } from '@/utils/validate'
 import { RouteRecordRaw, RouteMeta } from 'vue-router'
 import { MenuItem, SubMenu } from 'ant-design-vue'
-import SvgIcon from '@/components/SvgIcon/index.vue'
+import SvgIcon from '@/components/svg-icon/index.vue'
 
 /**
  * 如果子级显示的数量是1，那就不显示子菜单，子菜单当作父级菜单显示

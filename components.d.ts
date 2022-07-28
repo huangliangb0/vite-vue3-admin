@@ -8,6 +8,7 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AButton: typeof import('ant-design-vue/es')['Button']
+    ACard: typeof import('ant-design-vue/es')['Card']
     ACol: typeof import('ant-design-vue/es')['Col']
     AConfigProvider: typeof import('ant-design-vue/es')['ConfigProvider']
     ADropdown: typeof import('ant-design-vue/es')['Dropdown']
@@ -38,11 +39,10 @@ declare module '@vue/runtime-core' {
     PageHeader: typeof import('./src/components/page-layout/PageHeader.vue')['default']
     PageLayout: typeof import('./src/components/page-layout/index.vue')['default']
     PageLayoutHeader: typeof import('./src/components/page-layout/PageLayoutHeader.vue')['default']
-    RouteContent: typeof import('./src/components/RouteContent/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     RowWrapper: typeof import('./src/components/row-layout/RowWrapper.vue')['default']
-    SvgIcon: typeof import('./src/components/SvgIcon/index.vue')['default']
+    SvgIcon: typeof import('./src/components/svg-icon/index.vue')['default']
     Widgets: typeof import('./src/components/form/widgets/index.vue')['default']
     WithArrowScroll: typeof import('./src/components/with-arrow-scroll/index.vue')['default']
   }
