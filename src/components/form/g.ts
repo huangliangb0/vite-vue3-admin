@@ -1,2 +1,4 @@
-export { default as FilterSearch } from './FilterSearch.vue'
-export { default as EditForm } from './EditForm.vue'
+import FilterSearch from './FilterSearch.vue'
+import EditForm from './EditForm.vue'
+
+export default [FilterSearch, EditForm]

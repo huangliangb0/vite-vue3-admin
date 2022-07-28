@@ -7,6 +7,7 @@
     PropType,
     watch,
     computed,
+    onMounted,
   } from 'vue'
   import { FormInstance } from 'ant-design-vue'
   import { Widget } from './widgets'
@@ -14,7 +15,7 @@
   import type { FormSchemas } from './type'
 
   export default defineComponent({
-    name: 'FilterSearch',
+    name: 'EditForm',
     components: {
       Widget,
       FormList,
@@ -75,10 +76,6 @@
         return o
       })
 
-      // {span: 3, offset: 12} 或 sm: {span: 3, offset: 12}
-
-      // :wrapper-col="{ span: 14, offset: 4 }"
-
       // 提交
       const submit = (e: Event) => {
         e.preventDefault()
@@ -119,6 +116,7 @@
 
       return () => (
         <a-form
+          id="edit--form"
           ref={formRef}
           model={formState}
           labelCol={props.labelCol}

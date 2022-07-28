@@ -41,17 +41,10 @@
         type: Boolean,
         default: false,
       },
+      /* 可根据自己的需要进行分列 */
       grid: {
         type: Object as PropType<Record<GridKey, number>>,
-        default: () => ({
-          xs: 12,
-          sm: 12,
-          md: 12,
-          lg: 8,
-          xl: 6,
-          xxl: 4,
-          xxxl: 4,
-        }),
+        default: () => ({}),
       },
     },
     emits: ['submit', 'reset'],
@@ -64,8 +57,15 @@
       const formRef = ref<FormInstance>()
       const isExpand = ref(false)
       const appStore = useAppStore()
+      const grid = computed(() =>
+        Object.assign(
+          {},
+          { xs: 12, sm: 12, md: 12, lg: 8, xl: 6, xxl: 6, xxxl: 4 },
+          props.grid,
+        ),
+      )
       const windowSize = computed(() => appStore.windowSize)
-      const col = computed(() => 24 / props.grid[windowSize.value])
+      const col = computed(() => 24 / grid.value[windowSize.value])
       const remainder = computed(() => {
         return props.schemas.length % col.value
       })
@@ -121,7 +121,7 @@
           <RowWrapper
             gutter={props.gutter}
             justify={justify.value}
-            grid={props.grid}
+            grid={grid.value}
           >
             {props.schemas
               .slice(

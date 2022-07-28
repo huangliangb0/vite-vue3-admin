@@ -4,12 +4,14 @@
     <a-col :span="24">
       <a-card title="项目背景">
         <p>
-          曾经上git去copy别的后台管理系统，项目结构不仅繁杂，而且项目代码复杂，组件封装太深，不易阅读也不易扩展。
+          曾经上git去copy别的中后台管理系统，项目代码引用复杂，组件封装太深，不易阅读也不易扩展，为此自己搭了一个。
         </p>
         <p>
-          本项目只封装常用组件（比如Table、form），只提供最基本封装的逻辑，很多东西应该根据开发者根据自己的项目需求自己扩展
+          本项目只封装常用组件（比如Table、form），只提供最基本封装的逻辑，很多东西应该开发者根据项目的需求进行扩展
         </p>
-        <p> 易阅读，易扩展 </p>
+        <p> 本项目 配置好了eslint、prettier、husky、git约定式提交 </p>
+
+        <p>项目使用的包管理工具是pnpm：npm i -g pnpm</p>
       </a-card>
     </a-col>
     <a-col :span="24">
@@ -32,6 +34,18 @@
           <li>1200 &lt; width &lt; 1600 = xl</li>
           <li>1600 &lt; width &lt; 2000 = xxl</li>
           <li>width &gl; 2000 = xxxl</li>
+        </ul>
+      </a-card>
+    </a-col>
+    <a-col :span="24">
+      <a-card title="git约定式提交（angular Git 提交规范）">
+        <p> 你需要全局安装 commitizen: cnpm i commitizen -g </p>
+        <p>你的vscode需要安装Gitlens插件</p>
+        <p>代码提交步骤：</p>
+        <ul>
+          <li>git add .</li>
+          <li>git cz</li>
+          <li>git push</li>
         </ul>
       </a-card>
     </a-col>

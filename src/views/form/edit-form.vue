@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-  import { EditForm } from '@/components/form'
   import { FormSchemas } from '@/components/form/type'
   import { onMounted, reactive } from 'vue'
   const schemas: FormSchemas = [
@@ -103,11 +102,10 @@
 </script>
 <template>
   <page-layout>
-    <EditForm
+    <edit-form
       :schemas="schemas"
       :initialValue="initialValue"
       :label-col="{ span: 4 }"
-      :wrapper-col="{ span: 20 }"
       @submit="handleSubmit"
     />
   </page-layout>
