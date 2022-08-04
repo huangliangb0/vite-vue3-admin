@@ -15,6 +15,7 @@
       const grid = computed(() =>
         Object.assign(
           {},
+          // 默认分栏
           { xs: 24, sm: 12, md: 8, lg: 6, xl: 6, xxl: 4, xxxl: 4 },
           props.grid,
         ),
