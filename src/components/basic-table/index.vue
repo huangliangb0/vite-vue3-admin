@@ -83,20 +83,7 @@
           {...attrs}
           v-slots={{
             bodyCell: (arg: BodyCellType) => {
-              let { column, text, value } = arg
-
-              /**
-               * 渲染某个状态对应的文本内容
-               */
-              const { options } = column
-              if (options) {
-                const o = options.find((item) => item.value === value)
-                if (o) {
-                  text = o.label || text
-                  return o.color ? <a-tag color={o.color}>{text}</a-tag> : text
-                }
-              }
-
+              let { column, text } = arg
               /**
                * 优先渲染插槽
                */
@@ -128,6 +115,7 @@
 
               return element
             },
+            // 这里保持了table插槽之前使用的特性
             ...slots,
           }}
         ></a-table>

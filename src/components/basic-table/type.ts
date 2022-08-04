@@ -11,9 +11,8 @@ export interface BodyCellType<T = any> {
 // InstanceType<typeof TableColumn>
 
 export interface TableColumnItem<T = any> extends ColumnType {
-  // 插槽
+  // 插槽，优先渲染slot内容
   slot?: (arg: BodyCellType<T>) => JSX.Element | string | number
-  options?: OptionsType
   // 表头提示
   headerTip?: JSX.Element | string
   // 编辑状态下，隐藏其列

@@ -6,8 +6,9 @@
     <basic-table :columns="columns" :data="data" :pagination="pagination" />
   </page-layout>
 </template>
-<script lang="ts" setup>
+<script lang="tsx" setup>
   import { TableColumns } from '@/components/basic-table'
+  import { ExceptionTag, SexTag } from '@/components/tags'
   import { reactive } from 'vue'
 
   const pagination = reactive<PaginationType>({
@@ -64,18 +65,12 @@
     {
       title: '性别',
       dataIndex: 'sex',
-      options: [
-        {
-          label: '男',
-          value: 1,
-          color: 'success',
-        },
-        {
-          label: '女',
-          value: 0,
-          color: 'processing',
-        },
-      ],
+      slot: ({ value }) => <SexTag type={value}></SexTag>,
+    },
+    {
+      title: '状态',
+      dataIndex: 'exception',
+      slot: ({ value }) => <ExceptionTag type={value}></ExceptionTag>,
     },
   ]
   const data = [
@@ -83,19 +78,22 @@
       grade: 1,
       class: 1,
       name: '小花',
-      sex: 0,
+      sex: 2,
+      exception: 1,
     },
     {
       grade: 2,
       class: 1,
       name: '小丽',
-      sex: 0,
+      sex: 2,
+      exception: 1,
     },
     {
       grade: 3,
       class: 4,
       name: '小明',
       sex: 1,
+      exception: 2,
     },
   ]
 </script>
