@@ -4,36 +4,51 @@ import {
   StudentsTreeType,
   studentsTreeData,
   StudentsItemType,
+  StudentsTreeItemType,
 } from '@/models/studentsModel'
 import { computed, onMounted, ref } from 'vue'
 
-const handleData = (data: StudentsTreeType): StudentsType => {
-  const values: StudentsType = []
-  let fIndex = 0
-  let sIndex = 0
-  data.forEach((f: Recordable) => {
-    let total = 0
-    f.children.forEach((s: Recordable) => {
-      const length = s.children.length
+const handleSpanData = (data: StudentsTreeType): StudentsType => {
+  const result: StudentsType = []
+  const oIndex: Record<number, number> = {}
 
-      total += length
-      s.children.forEach((t: Recordable) => {
-        values.push({
-          grade: f.grade,
-          gradeId: f.gradeId,
-          class: s.class,
-          classId: s.classId,
-          ...t,
-        } as StudentsItemType)
-      })
-      values[sIndex].class_rowSpan = length
-      sIndex = sIndex + length
+  const r = (
+    data: StudentsTreeType,
+    p: StudentsTreeItemType = {},
+    level = 0,
+  ) => {
+    if (oIndex[level] === undefined) {
+      oIndex[level] = 0
+    }
+
+    data.forEach((item) => {
+      const { children, ...reset } = item
+
+      if (children) {
+        const o = {
+          ...p,
+          ...reset,
+        }
+        r(children, o, level + 1)
+      } else {
+        const item = {
+          ...p,
+          ...reset,
+        }
+        result.push(item as StudentsItemType)
+      }
     })
-    values[fIndex].grade_rowSpan = total
-    fIndex = fIndex + total
-  })
 
-  return values
+    const index = oIndex[level]
+    const total = result.length
+    if (result[index]) {
+      result[index]['rowSpan_' + level] = total - index
+      oIndex[level] = total
+    }
+  }
+
+  r(data)
+  return result
 }
 
 export const useSpanRowTable = () => {
@@ -47,7 +62,7 @@ export const useSpanRowTable = () => {
         align: 'center',
         customCell: (record) => {
           return {
-            rowSpan: record.grade_rowSpan || 0,
+            rowSpan: record.rowSpan_1 || 0,
           }
         },
       },
@@ -57,7 +72,7 @@ export const useSpanRowTable = () => {
         align: 'center',
         customCell: (record) => {
           return {
-            rowSpan: record.class_rowSpan || 0,
+            rowSpan: record.rowSpan_2 || 0,
           }
         },
       },
@@ -70,7 +85,7 @@ export const useSpanRowTable = () => {
   })
 
   onMounted(() => {
-    data.value = handleData(studentsTreeData)
+    data.value = handleSpanData(studentsTreeData)
   })
 
   return {

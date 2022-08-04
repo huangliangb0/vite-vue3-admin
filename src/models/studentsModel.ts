@@ -4,15 +4,13 @@ export interface StudentsTreeItemType extends Recordable {
 
 export type StudentsTreeType = Array<StudentsTreeItemType>
 
-export interface StudentsItemType {
+export interface StudentsItemType extends Recordable {
   grade: string
   gradeId: number
   class: string
   classId: number
   name: string
   id: number
-  grade_rowSpan: number
-  class_rowSpan: number
 }
 
 export type StudentsType = Array<StudentsItemType>
