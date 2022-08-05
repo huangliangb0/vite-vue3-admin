@@ -34,7 +34,7 @@
         })
 
         appStore.setWindowWidth(width)
-      }, 300),
+      }, 30),
     )
   })
 </script>
