@@ -7,6 +7,7 @@
     computed,
     PropType,
     StyleValue,
+    onUnmounted,
   } from 'vue'
   import { FormInstance } from 'ant-design-vue'
   import { Widget } from './widgets'
@@ -14,9 +15,11 @@
   import type { FormSchemas } from './type'
   import { RowWrapper } from '@/components/row-layout'
   import { useAppStore } from '@/store/modules/app'
+  import { emitFilterSearchReset, takeOffFilterSearchReset } from './helper'
   export default defineComponent({
     name: 'FilterSearch',
     // expose: ['formState', 'change', 'reset', 'submit'],
+    inheritAttrs: false,
     props: {
       schemas: {
         type: Array as PropType<FormSchemas>,
@@ -89,6 +92,9 @@
         formRef.value?.resetFields()
 
         emit('reset', toRaw(formState))
+
+        // 子组件可以订阅该事件做一些操作
+        emitFilterSearchReset()
       }
 
       const change = (o: Record<string, any>) => {
@@ -101,6 +107,9 @@
       const toggleExpand = () => {
         isExpand.value = !isExpand.value
       }
+      onUnmounted(() => {
+        takeOffFilterSearchReset()
+      })
 
       expose({
         formState,

@@ -1,12 +1,15 @@
 <template>
   <page-layout>
     <template #header>
-      <filter-search :schemas="schemas" @submit="handleSubmit" />
+      <filter-search ref="filter" :schemas="schemas" @submit="handleSubmit" />
     </template>
   </page-layout>
 </template>
 <script lang="ts" setup>
+  import { FilterSearch } from '@/components/form'
   import { FormSchemas } from '@/components/form/type'
+  import { ref } from 'vue'
+  const filter = ref<InstanceType<typeof FilterSearch>>()
   const schemas: FormSchemas = [
     {
       field: 'classLevel',
