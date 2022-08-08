@@ -152,4 +152,16 @@ export default [
       },
     ],
   },
+  {
+    name: 'Modal',
+    path: '/modal',
+    title: 'Modal模态框',
+    icon: 'home',
+    sort: 6,
+    isCache: false,
+    hideInMenu: false,
+    alwayShowChildInMenu: false,
+    hideInTags: false,
+    tags_affix: false,
+  },
 ] as MenusType
