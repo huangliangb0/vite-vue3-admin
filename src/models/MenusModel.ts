@@ -102,6 +102,18 @@ export default [
         hideInTags: false,
         tags_affix: false,
       },
+      {
+        name: 'ModalForm',
+        path: 'modal-form',
+        title: '模态框表单',
+        icon: 'form',
+        sort: 2,
+        isCache: false,
+        hideInMenu: false,
+        alwayShowChildInMenu: false,
+        hideInTags: false,
+        tags_affix: false,
+      },
     ],
   },
   {

@@ -1,48 +1,41 @@
 <template>
-  <a-config-provider :locale="zhCN">
-    <a-layout class="app-container">
-      <a-layout-sider
-        v-if="isShowLayoutSider"
-        class="app-sider"
-        :collapsed="collapsed"
-        :trigger="null"
-        collapsible
-      >
-        <Title />
-        <Menu
-          :routes="routes"
-          :inline-collapsed="collapsed"
-          mode="inline"
-          theme="dark"
-        />
-      </a-layout-sider>
-      <a-drawer
-        v-else
-        placement="left"
-        :width="200"
-        :visible="collapsed"
-        @close="collapsed = false"
-        :headerStyle="{ display: 'none' }"
-        :bodyStyle="{ padding: 0 }"
-      >
-        <Menu
-          style="height: 100%"
-          :routes="routes"
-          mode="inline"
-          theme="dark"
-        />
-      </a-drawer>
+  <a-layout class="app-container">
+    <a-layout-sider
+      v-if="isShowLayoutSider"
+      class="app-sider"
+      :collapsed="collapsed"
+      :trigger="null"
+      collapsible
+    >
+      <Title />
+      <Menu
+        :routes="routes"
+        :inline-collapsed="collapsed"
+        mode="inline"
+        theme="dark"
+      />
+    </a-layout-sider>
+    <a-drawer
+      v-else
+      placement="left"
+      :width="200"
+      :visible="collapsed"
+      @close="collapsed = false"
+      :headerStyle="{ display: 'none' }"
+      :bodyStyle="{ padding: 0 }"
+    >
+      <Menu style="height: 100%" :routes="routes" mode="inline" theme="dark" />
+    </a-drawer>
 
-      <a-layout theme="light">
-        <Header v-model:collapsed="collapsed" />
-        <TagsView />
-        <a-layout-content class="app-content">
-          <View :is-router-alive="isRouterAlive" />
-        </a-layout-content>
-        <!-- <a-layout-footer>Footer</a-layout-footer> -->
-      </a-layout>
+    <a-layout theme="light">
+      <Header v-model:collapsed="collapsed" />
+      <TagsView />
+      <a-layout-content class="app-content">
+        <View :is-router-alive="isRouterAlive" />
+      </a-layout-content>
+      <!-- <a-layout-footer>Footer</a-layout-footer> -->
     </a-layout>
-  </a-config-provider>
+  </a-layout>
 </template>
 
 <script lang="ts" setup>

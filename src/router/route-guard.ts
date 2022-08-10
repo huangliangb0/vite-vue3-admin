@@ -30,7 +30,12 @@ router.beforeEach(async (to, _from, next) => {
     } else {
       const userInfo = userStore.userInfo
       if (userInfo) {
-        next()
+        if (!to.query.t) {
+          to.query.t = new Date().getTime().toString()
+          next(to)
+        } else {
+          next()
+        }
       } else {
         try {
           const res = await userStore.getUserInfo()
@@ -48,6 +53,7 @@ router.beforeEach(async (to, _from, next) => {
             query: {
               redirect: to.path,
               ...to.query,
+              t: new Date().getTime().toString(),
             },
           })
           NProgress.done()

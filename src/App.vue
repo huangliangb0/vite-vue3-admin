@@ -6,6 +6,7 @@
   import elementResizeDetectorMaker from 'element-resize-detector'
   import { GridEnum } from '@/enums/app.enum'
   import { useAppStore } from './store/modules/app'
+  import zhCN from 'ant-design-vue/es/locale/zh_CN'
   // 创建实例
   const erd = elementResizeDetectorMaker({
     strategy: 'scroll',
@@ -40,7 +41,9 @@
 </script>
 
 <template>
-  <router-view />
+  <a-config-provider :locale="zhCN" componentSize="middle">
+    <router-view />
+  </a-config-provider>
 </template>
 
 <style></style>

@@ -7,7 +7,6 @@
     PropType,
     watch,
     computed,
-    onMounted,
   } from 'vue'
   import { FormInstance } from 'ant-design-vue'
   import { Widget } from './widgets'
@@ -39,7 +38,7 @@
       },
     },
     emits: ['submit', 'reset'],
-    setup(props, { emit, attrs, expose }) {
+    setup(props, { emit, attrs, expose, slots }) {
       const o: Recordable = {}
       props.schemas.forEach((item) => {
         if (item.type === 'array') {
@@ -70,8 +69,6 @@
             o.offset = v || 0
           }
         })
-
-        console.log(o)
 
         return o
       })
@@ -160,12 +157,20 @@
             </a-form-item>
           ))}
           <a-form-item wrapperCol={btnWrapperCol.value}>
-            <a-space>
-              <a-button type="primary" onClick={submit}>
-                提交
-              </a-button>
-              <a-button onClick={reset}>重置</a-button>
-            </a-space>
+            {slots.action ? (
+              slots.action({
+                submit: submit,
+                reset: reset,
+                instance: formRef.value,
+              })
+            ) : (
+              <a-space>
+                <a-button type="primary" onClick={submit}>
+                  提交
+                </a-button>
+                <a-button onClick={reset}>重置</a-button>
+              </a-space>
+            )}
           </a-form-item>
         </a-form>
       )

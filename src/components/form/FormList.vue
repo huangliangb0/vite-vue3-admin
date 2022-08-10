@@ -62,13 +62,12 @@
         typeof props.valueFormat === 'object' ? (
           <>
             {formListState.value.map((_p, p_index) => (
-              <a-row gutter={[20, 0]}>
+              <a-row gutter={[20, 0]} class="form--list" align="bottom">
                 <a-col key={p_index} style="flex: 1">
                   <a-row gutter={[20, 0]}>
                     {props.schemas.map((item) => (
                       <a-col
                         key={item.field}
-                        span={item.span || 24 / props.schemas.length}
                         lg={item.span || 24 / props.schemas.length}
                         md={24}
                       >
@@ -151,3 +150,29 @@
     },
   })
 </script>
+
+<style lang="less">
+  .form--list {
+    .ant-col-md-24 {
+      width: 100%;
+    }
+    .ant-form-item {
+      height: auto;
+      .ant-form-item-label {
+        flex: inherit;
+      }
+      .ant-form-item-control {
+        flex: 1;
+      }
+    }
+
+    @media (max-width: 575px) {
+      .ant-form-item-label {
+        padding-bottom: 0;
+        label {
+          margin: 0 8px 0 2px;
+        }
+      }
+    }
+  }
+</style>

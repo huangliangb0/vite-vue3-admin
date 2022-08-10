@@ -1,30 +1,55 @@
 import { Modal, ModalProps } from 'ant-design-vue'
-import { h, ref } from 'vue'
+import { h, ref, Slot } from 'vue'
 import 'ant-design-vue/lib/modal/style/index.css'
-import { ModalFunc, ModalFuncProps } from 'ant-design-vue/lib/modal/Modal'
+import { EditForm, FormSchemas } from '@/components/form'
 
-export const useModal = (modalProps: ModalProps = {}) => {
-  type Keys = 'info' | 'success' | 'error' | 'warning' | 'confirm'
-  const types = ['info', 'success', 'error', 'warning', 'confirm'] as const
-  const Modals = types.reduce((prev, type) => {
-    return { ...prev, [type]: Modal[type] }
-  }, {} as Record<Keys, ModalFunc>)
-
-  const openModal = ({
-    type,
-    onOk,
-    onCancel,
-  }: {
-    type: Keys
-    onOk?: ModalFuncProps['onOk']
-    onCancel?: ModalFuncProps['onCancel']
-  }) => {
-    Modals[type]({ ...modalProps, onOk, onCancel })
+export const useModal = () => {
+  const visible = ref(false)
+  const openModal = () => {
+    visible.value = true
+  }
+  const closeModal = () => {
+    visible.value = false
   }
 
   return {
+    visible,
     openModal,
-    ...Modals,
+    closeModal,
     Modal,
+  }
+}
+
+export const useFormModal = (
+  formProps: Partial<InstanceType<typeof EditForm>>,
+) => {
+  const { Modal, closeModal, ...reset } = useModal()
+  const FormModal = (
+    props: ModalProps,
+    { slots, attrs }: { slots: Slot; attrs: Recordable },
+  ) => {
+    return h(
+      Modal,
+      {
+        footer: null,
+        onCancel: closeModal,
+        ...props,
+      },
+      {
+        default: () =>
+          h(
+            EditForm,
+            {
+              ...formProps,
+              ...attrs,
+            },
+            slots,
+          ),
+      },
+    )
+  }
+  return {
+    FormModal,
+    ...reset,
   }
 }
