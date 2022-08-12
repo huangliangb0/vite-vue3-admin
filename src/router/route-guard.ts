@@ -30,12 +30,14 @@ router.beforeEach(async (to, _from, next) => {
     } else {
       const userInfo = userStore.userInfo
       if (userInfo) {
-        if (!to.query.t) {
-          to.query.t = new Date().getTime().toString()
-          next(to)
-        } else {
-          next()
-        }
+        // if (!to.query.t) {
+        //   to.query.t = new Date().getTime().toString()
+        //   next(to)
+        // } else {
+        //   next()
+        // }
+        // to.query.t = new Date().getTime().toString()
+        next()
       } else {
         try {
           const res = await userStore.getUserInfo()

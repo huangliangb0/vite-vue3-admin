@@ -56,7 +56,7 @@ export default [
   {
     name: 'Row',
     path: '/row',
-    title: '分列布局',
+    title: '响应式布局',
     icon: 'home',
     sort: 5,
     isCache: false,

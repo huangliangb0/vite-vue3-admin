@@ -7,8 +7,13 @@
     props: {
       /* 可根据自己的需要进行分列 */
       grid: {
-        type: Object as PropType<Record<GridKey, number>>,
+        type: Object as PropType<Partial<Record<GridKey, number>>>,
         default: () => ({}),
+      },
+      /* 你可以根据自己的需求设置间距默认值 */
+      gutter: {
+        type: [Number, Array] as PropType<number | [number, number]>,
+        default: () => [20, 20],
       },
     },
     setup(props, { attrs, slots }) {
@@ -21,20 +26,23 @@
         ),
       )
 
-      let children = slots.default ? (slots.default() as VNode[]) : null
-      if (children) {
-        // 移除 <></> 等标签
-        children = removeFragment(children)
-      }
-
-      const renderCol = (children: VNode[] | null) => {
+      const renderCol = () => {
+        let children = slots.default ? (slots.default() as VNode[]) : null
+        if (children) {
+          // 移除 <></> 等标签
+          children = removeFragment(children)
+        }
         if (!children) return null
         return children.map((c) => {
           return <Col {...grid.value}>{c}</Col>
         })
       }
 
-      return () => <Row {...attrs}>{renderCol(children)}</Row>
+      return () => (
+        <Row gutter={props.gutter} {...attrs}>
+          {renderCol()}
+        </Row>
+      )
     },
   })
 </script>
