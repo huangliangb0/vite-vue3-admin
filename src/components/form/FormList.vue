@@ -42,6 +42,7 @@
       const formListState = ref<any[]>(cloneDeep(props.initialValue))
       const handleAdd = () => {
         formListState.value.push(cloneDeep(props.valueFormat))
+        handleChange()
       }
       const handleRemove = (index: number) => {
         formListState.value.splice(index, 1)
@@ -82,7 +83,6 @@
                             {...(typeof item.componentProps === 'function'
                               ? item.componentProps(formListState)
                               : item.componentProps)}
-                            placeholder="请选择"
                           ></Widget>
                         </a-form-item>
                       </a-col>

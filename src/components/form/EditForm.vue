@@ -72,11 +72,18 @@
 
         return o
       })
-
       // 提交
       const submit = (e: Event) => {
         e.preventDefault()
-        emit('submit', toRaw(formState))
+
+        formRef.value
+          ?.validate()
+          .then(() => {
+            emit('submit', toRaw(formState))
+          })
+          .catch((error) => {
+            console.error('表单验证失败', error)
+          })
       }
 
       // 重置
@@ -95,9 +102,11 @@
       watch(
         () => props.initialValue,
         (value) => {
-          Object.keys(value).forEach((k) => {
-            formState[k] = value[k]
-          })
+          if (value) {
+            Object.keys(value).forEach((k) => {
+              formState[k] = value[k]
+            })
+          }
         },
         {
           deep: true,
@@ -126,6 +135,7 @@
               label={item.label}
               colon={props.colon}
               name={item.field}
+              {...item.formItemProps}
             >
               {item.type === 'array' ? (
                 <FormList

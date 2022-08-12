@@ -33,7 +33,7 @@ export interface FormSchemaItem {
   defaultValue?: any
   valueFormat?: string | number | boolean | Recordable
   componentProps?: WidgetProps | ((arg: unknown) => WidgetProps)
-  FormItemProps?: FormItemProps
+  formItemProps?: FormItemProps
   schemas?: Array<FormSchemaItem>
 }
 

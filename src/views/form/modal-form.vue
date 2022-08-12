@@ -1,12 +1,37 @@
 <script lang="ts" setup>
   import { EditFormInstance } from '@/components/form'
   import { useFormModal } from '@/hook/modal'
+  import { Rule } from 'ant-design-vue/lib/form'
+  import { omit, pick } from 'lodash'
+  const checkLinkman = (
+    _rule: Rule,
+    value: Array<{ name: string; phone: string }>,
+  ) => {
+    if (!value || value.length === 0) {
+      return Promise.reject('联系人不能为空')
+    }
+
+    const isExistEmpty = value.some((item) => {
+      if (item.name === '' || item.phone === '') {
+        return true
+      }
+    })
+    if (isExistEmpty) {
+      return Promise.reject('联系人姓名或者电话没填')
+    }
+
+    return Promise.resolve()
+  }
+
   const { FormModal, visible, openModal } = useFormModal({
     schemas: [
       {
         field: 'grade',
         label: '年级',
         component: 'Select',
+        formItemProps: {
+          rules: [{ required: true, message: '请选择年级', trigger: 'change' }],
+        },
         componentProps: () => ({
           placeholder: '请选择年级',
           options: [
@@ -46,6 +71,11 @@
       {
         field: 'name',
         label: '学生姓名',
+        formItemProps: {
+          rules: [
+            { required: true, message: '请输入学生姓名', trigger: 'blur' },
+          ],
+        },
         componentProps: () => ({
           placeholder: '请输入学生姓名',
 
@@ -60,22 +90,30 @@
         field: 'linkman',
         label: '联系人',
         valueFormat: {
-          name: '',
-          sex: undefined,
+          name: '张三',
+          phone: '18888888888',
+        },
+        formItemProps: {
+          rules: [
+            {
+              validator: checkLinkman,
+              trigger: 'change',
+            },
+          ],
         },
         schemas: [
           {
             field: 'name',
-            label: '姓名',
+            label: '家长姓名',
             componentProps: () => ({
-              placeholder: '请输入',
+              placeholder: '请输入联系人姓名',
             }),
           },
           {
-            field: 'relationship',
-            label: '关系',
+            field: 'phone',
+            label: '联系电话',
             componentProps: () => ({
-              placeholder: '请输入',
+              placeholder: '请输入联系人电话',
             }),
           },
         ],
@@ -90,6 +128,20 @@
       },
     ],
   })
+  /**
+   * 编辑
+   * record 往往结合 omit 和 pick 工具方法使用,因为我们往往编辑数据的时候会从列表拿最初值 rocord
+   * 而rocord的值可能不是全部都需要
+   */
+  const editClick = (record: Recordable) => {
+    console.log(111, omit(record, ['updateTime'])) // {  grade: 1}
+    console.log(222, pick(record, ['grade'])) // {  grade: 1}
+    openModal(pick(record, ['grade']))
+  }
+  // 新增
+  const addClick = () => {
+    openModal()
+  }
   const handleOk = (arg: any) => {
     console.log(arg)
   }
@@ -100,14 +152,18 @@
 
 <template>
   <div>
-    <a-button @click="openModal">添加</a-button>
-    <a-button>编辑</a-button>
+    <a-button @click="addClick">添加</a-button>
+    <a-button
+      @click="editClick({ grade: 1, updateTime: '2022-08-12 00:00:00' })"
+      >编辑</a-button
+    >
     <FormModal
-      width="480"
+      width="60%"
       title="添加学生"
       :visible="visible"
       @submit="handleOk"
-      :labelCol="{ style: { width: '150px' } }"
+      :labelCol="{ style: { width: '88px' } }"
+      colon
     >
       <template #action="{ submit, reset, instance }">
         <a-space style="margin-left: 150px">
