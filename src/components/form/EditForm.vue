@@ -34,7 +34,9 @@
       },
       labelCol: {
         type: Object as PropType<Recordable>,
-        default: () => ({}),
+      },
+      labelWidth: {
+        type: [Number, String],
       },
     },
     emits: ['submit', 'reset'],
@@ -50,28 +52,54 @@
       const formState = reactive({ ...o, ...props.initialValue })
       const formRef = ref<FormInstance>()
 
-      const btnWrapperCol = computed(() => {
-        const o: Recordable = {}
-
-        Object.keys(props.labelCol).forEach((k) => {
-          const v = props.labelCol[k]
-          if (typeof v === 'object') {
-            Object.keys(v).forEach((i) => {
-              if (i === 'span') {
-                o[k] = {
-                  span: 24 - (v[i] || 0),
-                  offset: v[k] || 0,
-                }
-              }
-            })
-          } else if (k === 'span') {
-            o.span = 24 - (v || 0)
-            o.offset = v || 0
+      const labelCol = computed(() => {
+        if (props.labelCol) {
+          return props.labelCol
+        }
+        if (props.labelWidth) {
+          return {
+            style: {
+              width: +props.labelWidth + 'px',
+            },
           }
-        })
-
-        return o
+        }
+        return undefined
       })
+
+      const btnWrapperCol = computed(() => {
+        if (props.labelCol) {
+          const o: Recordable = {}
+
+          Object.keys(props.labelCol).forEach((k) => {
+            const v = props.labelCol![k]
+            if (typeof v === 'object') {
+              Object.keys(v).forEach((i) => {
+                if (i === 'span') {
+                  o[k] = {
+                    span: 24 - (v[i] || 0),
+                    offset: v[k] || 0,
+                  }
+                }
+              })
+            } else if (k === 'span') {
+              o.span = 24 - (v || 0)
+              o.offset = v || 0
+            }
+            console.log('kkk', k, v)
+          })
+
+          return o
+        }
+        if (props.labelWidth) {
+          return {
+            style: {
+              paddingLeft: +props.labelWidth + 'px',
+            },
+          }
+        }
+        return undefined
+      })
+
       // 提交
       const submit = (e: Event) => {
         e.preventDefault()
@@ -106,6 +134,10 @@
             Object.keys(value).forEach((k) => {
               formState[k] = value[k]
             })
+          } else {
+            Object.keys(value).forEach((k) => {
+              formState[k] = undefined
+            })
           }
         },
         {
@@ -125,7 +157,7 @@
           id="edit--form"
           ref={formRef}
           model={formState}
-          labelCol={props.labelCol}
+          labelCol={labelCol.value}
           autocomplete="off"
           {...attrs}
         >
@@ -140,7 +172,7 @@
               {item.type === 'array' ? (
                 <FormList
                   component={item.component}
-                  initialValue={props.initialValue[item.field]}
+                  value={formState[item.field]}
                   value-format={item.valueFormat}
                   schemas={item.schemas}
                   change={(value: any) => {

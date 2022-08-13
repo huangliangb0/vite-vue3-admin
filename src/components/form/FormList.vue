@@ -1,5 +1,5 @@
 <script lang="tsx">
-  import { defineComponent, ref, PropType, watch } from 'vue'
+  import { defineComponent, PropType } from 'vue'
   import widgets, { Widget } from './widgets'
   import type { FormSchemas, WidgetProps } from './type'
   import { cloneDeep } from 'lodash'
@@ -15,7 +15,7 @@
         type: Array as PropType<FormSchemas>,
         default: () => [],
       },
-      initialValue: {
+      value: {
         type: Array as PropType<any[]>,
         default: () => [],
       },
@@ -39,30 +39,35 @@
       },
     },
     setup(props) {
-      const formListState = ref<any[]>(cloneDeep(props.initialValue))
       const handleAdd = () => {
-        formListState.value.push(cloneDeep(props.valueFormat))
-        handleChange()
+        const data = props.value
+        data.push(cloneDeep(props.valueFormat))
+        props.change(data)
       }
       const handleRemove = (index: number) => {
-        formListState.value.splice(index, 1)
+        const data = props.value
+
+        data.splice(index, 1)
+        props.change(data)
       }
 
-      const handleChange = () => {
-        props.change(formListState.value)
+      const handleChange = (...arg: any[]) => {
+        const data = props.value
+        if (arg.length === 2) {
+          const [index, value] = arg as [number, any]
+          data[index] = value
+        } else if (arg.length === 3) {
+          const [index, field, value] = arg as [number, string, any]
+          data[index][field] = value
+        }
+        props.change(data)
       }
 
-      watch(
-        () => props.initialValue,
-        (value) => {
-          formListState.value = cloneDeep(value)
-        },
-      )
-
-      return () =>
-        typeof props.valueFormat === 'object' ? (
+      return () => {
+        const { valueFormat, value } = props
+        return typeof valueFormat === 'object' ? (
           <>
-            {formListState.value.map((_p, p_index) => (
+            {value.map((_p, p_index) => (
               <a-row gutter={[20, 0]} class="form--list" align="bottom">
                 <a-col key={p_index} style="flex: 1">
                   <a-row gutter={[20, 0]}>
@@ -75,13 +80,12 @@
                         <a-form-item label={item.label} name={item.field}>
                           <Widget
                             component={item.component}
-                            value={formListState.value[p_index][item.field]}
+                            value={value[p_index][item.field]}
                             change={(value) => {
-                              formListState.value[p_index][item.field] = value
-                              handleChange()
+                              handleChange(p_index, item.field, value)
                             }}
                             {...(typeof item.componentProps === 'function'
-                              ? item.componentProps(formListState)
+                              ? item.componentProps(value)
                               : item.componentProps)}
                           ></Widget>
                         </a-form-item>
@@ -112,16 +116,15 @@
           </>
         ) : (
           <>
-            {formListState.value.map((_item, index) => (
+            {props.value.map((_item, index) => (
               <a-form-item key={index}>
                 <a-row gutter={[20, 20]}>
                   <a-col style="flex: 1">
                     <Widget
                       component={props.component}
-                      value={formListState.value[index]}
+                      value={value[index]}
                       change={(value) => {
-                        formListState.value[index] = value
-                        handleChange()
+                        handleChange(index, value)
                       }}
                       {...props.componentProps}
                     ></Widget>
@@ -147,6 +150,7 @@
             </a-button>
           </>
         )
+      }
     },
   })
 </script>

@@ -1,6 +1,7 @@
 <script lang="ts" setup>
   import { EditFormInstance } from '@/components/form'
-  import { useFormModal } from '@/hook/modal'
+
+  import { useFormModal, useSearchModal } from '@/hook'
   import { Rule } from 'ant-design-vue/lib/form'
   import { omit, pick } from 'lodash'
   const checkLinkman = (
@@ -23,7 +24,7 @@
     return Promise.resolve()
   }
 
-  const { FormModal, visible, openModal } = useFormModal({
+  const { FormModal, visible, openFormModal } = useFormModal({
     schemas: [
       {
         field: 'grade',
@@ -128,6 +129,45 @@
       },
     ],
   })
+
+  const { SearchForm } = useSearchModal({
+    schemas: [
+      {
+        field: 'grade',
+        label: '年级',
+        component: 'Select',
+        formItemProps: {
+          rules: [{ required: true, message: '请选择年级', trigger: 'change' }],
+        },
+        componentProps: () => ({
+          placeholder: '请选择年级',
+          options: [
+            {
+              label: '一年级',
+              value: 1,
+            },
+            {
+              label: '二年级',
+              value: 2,
+            },
+          ],
+        }),
+      },
+      {
+        field: 'name',
+        label: '学生姓名',
+        formItemProps: {},
+        componentProps: () => ({
+          placeholder: '请输入学生姓名',
+
+          modifier: {
+            trim: true,
+          },
+        }),
+      },
+    ],
+  })
+
   /**
    * 编辑
    * record 往往结合 omit 和 pick 工具方法使用,因为我们往往编辑数据的时候会从列表拿最初值 rocord
@@ -136,11 +176,11 @@
   const editClick = (record: Recordable) => {
     console.log(111, omit(record, ['updateTime'])) // {  grade: 1}
     console.log(222, pick(record, ['grade'])) // {  grade: 1}
-    openModal(pick(record, ['grade']))
+    openFormModal(pick(record, ['grade']))
   }
   // 新增
   const addClick = () => {
-    openModal()
+    openFormModal()
   }
   const handleOk = (arg: any) => {
     console.log(arg)
@@ -151,29 +191,36 @@
 </script>
 
 <template>
-  <div>
-    <a-button @click="addClick">添加</a-button>
-    <a-button
-      @click="editClick({ grade: 1, updateTime: '2022-08-12 00:00:00' })"
-      >编辑</a-button
-    >
-    <FormModal
-      width="60%"
-      title="添加学生"
-      :visible="visible"
-      @submit="handleOk"
-      :labelCol="{ style: { width: '88px' } }"
-      colon
-    >
-      <template #action="{ submit, reset, instance }">
-        <a-space style="margin-left: 150px">
-          <a-button type="primary" @click="submit">提交</a-button>
-          <a-button @click="reset">重置一下</a-button>
-          <a-button type="danger" @click="getFormInstance(instance)"
-            >获取 edit-form 组件实例</a-button
-          >
-        </a-space>
-      </template>
-    </FormModal>
-  </div>
+  <page-layout>
+    <div>
+      <a-card title="添加/编辑">
+        <a-button @click="addClick">添加</a-button>
+        <a-button
+          @click="editClick({ grade: 1, updateTime: '2022-08-12 00:00:00' })"
+          >编辑</a-button
+        >
+        <FormModal
+          width="60%"
+          title="添加学生"
+          :visible="visible"
+          @submit="handleOk"
+          :label-width="88"
+          colon
+        >
+          <template #action="{ submit, reset, instance }">
+            <a-space>
+              <a-button type="primary" @click="submit">提交</a-button>
+              <a-button @click="reset">重置一下</a-button>
+              <a-button type="danger" @click="getFormInstance(instance)"
+                >获取 edit-form 组件实例</a-button
+              >
+            </a-space>
+          </template>
+        </FormModal>
+      </a-card>
+      <a-card title="过滤查询">
+        <SearchForm />
+      </a-card>
+    </div>
+  </page-layout>
 </template>

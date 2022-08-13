@@ -1,9 +1,5 @@
-/*
- * @Description:
- * @Date: 2022-06-27 15:35:46
- * @LastEditTime: 2022-06-30 17:08:10
- * @FilePath: \spvr-plat-web\src\components\core\bo-form\type.ts
- */
+import EditForm from './EditForm.vue'
+import FilterSearch from './FilterSearch.vue'
 import widgets from './widgets'
 import type {
   FormItemProps,
@@ -38,3 +34,12 @@ export interface FormSchemaItem {
 }
 
 export type FormSchemas = Array<FormSchemaItem>
+
+export type EditFormInstance = InstanceType<typeof EditForm> & {
+  // 从 EditForm expose 的 方法或者属性
+  formState: Recordable
+  change: (o: Recordable) => void
+  reset: () => void
+  submit: () => void
+}
+export type FilterSearchInstance = InstanceType<typeof FilterSearch>
