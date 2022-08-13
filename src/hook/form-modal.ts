@@ -1,7 +1,7 @@
 import { ModalProps } from 'ant-design-vue'
 import { h, ref, Slot } from 'vue'
 import 'ant-design-vue/lib/modal/style/index.css'
-import { EditForm, EditFormInstance, FilterSearch } from '@/components/form'
+import { EditForm, EditFormInstance } from '@/components/form'
 import useModal from './modal'
 // 添加-编辑模态框
 const useFormModal = (formProps: Partial<EditFormInstance>) => {
@@ -14,8 +14,8 @@ const useFormModal = (formProps: Partial<EditFormInstance>) => {
   }
   const closeFormModal = () => {
     initialValue.value = undefined
-    visible.value = false
     formRef.value?.reset()
+    visible.value = false
   }
 
   const FormModal = (

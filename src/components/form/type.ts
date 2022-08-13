@@ -36,10 +36,16 @@ export interface FormSchemaItem {
 export type FormSchemas = Array<FormSchemaItem>
 
 export type EditFormInstance = InstanceType<typeof EditForm> & {
-  // 从 EditForm expose 的 方法或者属性
+  // 从 EditForm 暴露出的方法或者属性
   formState: Recordable
   change: (o: Recordable) => void
   reset: () => void
-  submit: () => void
+  submit: () => Recordable
 }
-export type FilterSearchInstance = InstanceType<typeof FilterSearch>
+export type FilterSearchInstance = InstanceType<typeof FilterSearch> & {
+  // 从 FilterSearch 暴露出的方法或者属性
+  formState: Recordable
+  change: (o: Recordable) => void
+  reset: () => void
+  submit: () => Recordable
+}

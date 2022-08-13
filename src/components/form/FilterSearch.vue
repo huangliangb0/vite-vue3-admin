@@ -36,7 +36,10 @@
       gutter: {
         type: [Number, Array] as PropType<number | [number, number]>,
       },
-
+      initialValue: {
+        type: Object as PropType<Recordable>,
+        default: () => ({}),
+      },
       colon: {
         type: Boolean,
         default: false,
@@ -53,7 +56,7 @@
       props.schemas.forEach((item) => {
         o[item.field] = item.defaultValue
       })
-      const formState = reactive(o)
+      const formState = reactive({ ...o, ...props.initialValue })
       const formRef = ref<FormInstance>()
       const isExpand = ref(false)
       const appStore = useAppStore()

@@ -41,15 +41,7 @@
     },
     emits: ['submit', 'reset'],
     setup(props, { emit, attrs, expose, slots }) {
-      const o: Recordable = {}
-      props.schemas.forEach((item) => {
-        if (item.type === 'array') {
-          o[item.field] = item.defaultValue || []
-        } else {
-          o[item.field] = item.defaultValue
-        }
-      })
-      const formState = reactive({ ...o, ...props.initialValue })
+      const formState = reactive({ ...props.initialValue })
       const formRef = ref<FormInstance>()
 
       const labelCol = computed(() => {
@@ -127,24 +119,6 @@
         })
       }
 
-      watch(
-        () => props.initialValue,
-        (value) => {
-          if (value) {
-            Object.keys(value).forEach((k) => {
-              formState[k] = value[k]
-            })
-          } else {
-            Object.keys(value).forEach((k) => {
-              formState[k] = undefined
-            })
-          }
-        },
-        {
-          deep: true,
-        },
-      )
-
       expose({
         formState,
         change,
@@ -159,13 +133,13 @@
           model={formState}
           labelCol={labelCol.value}
           autocomplete="off"
+          colon={props.colon}
           {...attrs}
         >
           {props.schemas.map((item) => (
             <a-form-item
               key={item.field}
               label={item.label}
-              colon={props.colon}
               name={item.field}
               {...item.formItemProps}
             >

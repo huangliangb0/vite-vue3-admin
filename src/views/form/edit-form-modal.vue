@@ -130,44 +130,6 @@
     ],
   })
 
-  const { SearchForm } = useSearchModal({
-    schemas: [
-      {
-        field: 'grade',
-        label: '年级',
-        component: 'Select',
-        formItemProps: {
-          rules: [{ required: true, message: '请选择年级', trigger: 'change' }],
-        },
-        componentProps: () => ({
-          placeholder: '请选择年级',
-          options: [
-            {
-              label: '一年级',
-              value: 1,
-            },
-            {
-              label: '二年级',
-              value: 2,
-            },
-          ],
-        }),
-      },
-      {
-        field: 'name',
-        label: '学生姓名',
-        formItemProps: {},
-        componentProps: () => ({
-          placeholder: '请输入学生姓名',
-
-          modifier: {
-            trim: true,
-          },
-        }),
-      },
-    ],
-  })
-
   /**
    * 编辑
    * record 往往结合 omit 和 pick 工具方法使用,因为我们往往编辑数据的时候会从列表拿最初值 rocord
@@ -193,7 +155,14 @@
 <template>
   <page-layout>
     <div>
-      <a-card title="添加/编辑">
+      <a-card>
+        <template #title>
+          <h3>添加/编辑</h3>
+          <p>编辑时，我们往往会给表单设置一些默认值</p>
+          <p
+            >窗口关闭时，会对值进行重置，可根据自己的需求在<em>@/hook/form-modal.ts</em>文件里修改</p
+          >
+        </template>
         <a-button @click="addClick">添加</a-button>
         <a-button
           @click="editClick({ grade: 1, updateTime: '2022-08-12 00:00:00' })"
@@ -202,6 +171,7 @@
         <FormModal
           width="60%"
           title="添加学生"
+          :destroyOnClose="true"
           :visible="visible"
           @submit="handleOk"
           :label-width="88"
@@ -217,9 +187,6 @@
             </a-space>
           </template>
         </FormModal>
-      </a-card>
-      <a-card title="过滤查询">
-        <SearchForm />
       </a-card>
     </div>
   </page-layout>
