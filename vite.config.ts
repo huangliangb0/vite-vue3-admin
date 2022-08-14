@@ -82,4 +82,16 @@ export default defineConfig({
       '#': path.resolve(__dirname, 'type'),
     },
   },
+  server: {
+    host: '0.0.0.0',
+    // https: true,
+    port: 3000,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3004',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
+      },
+    },
+  },
 })

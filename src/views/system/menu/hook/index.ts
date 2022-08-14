@@ -4,6 +4,16 @@ import { useFormModal } from '@/hook'
 export const useForm = () => {
   const schemas: FormSchemas = [
     {
+      field: 'parentId',
+      label: '父级菜单',
+      component: 'Select',
+      default: '',
+      componentProps: () => ({
+        placeholder: '请输入父级菜单',
+        options: [],
+      }),
+    },
+    {
       field: 'name',
       label: '组件名称',
       component: 'Input',
@@ -58,15 +68,17 @@ export const useForm = () => {
     {
       field: 'icon',
       label: '菜单图标',
-      component: 'Input',
+      component: 'IconSelect',
       componentProps: () => ({
-        placeholder: '请输入菜单图标',
+        allowClear: true,
+        placeholder: '请选择菜单图标',
       }),
     },
     {
       field: 'sort',
       label: '排序',
       component: 'InputNumber',
+      default: 0,
       componentProps: () => ({
         placeholder: '请输入排序',
       }),
@@ -92,21 +104,28 @@ export const useForm = () => {
     },
     {
       field: 'hideInTags',
-      label: '标签栏不显示',
+      label: '在标签栏隐藏',
       component: 'Switch',
       default: false,
     },
 
     {
       field: 'affixInTags',
-      label: '标签栏显示',
+      label: '固定在标签栏',
       component: 'Switch',
       default: false,
     },
   ]
-  const reset = useFormModal({
-    schemas: schemas,
-  })
+  const reset = useFormModal(
+    // form 属性
+    {
+      schemas: schemas,
+    },
+    // modal 属性
+    {
+      title: '添加菜单',
+    },
+  )
 
   return {
     ...reset,

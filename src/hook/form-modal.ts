@@ -4,7 +4,10 @@ import 'ant-design-vue/lib/modal/style/index.css'
 import { EditForm, EditFormInstance } from '@/components/form'
 import useModal from './modal'
 // 添加-编辑模态框
-const useFormModal = (formProps: Partial<EditFormInstance>) => {
+const useFormModal = (
+  formProps: Partial<EditFormInstance>,
+  modalProps: ModalProps = {},
+) => {
   const { Modal, visible } = useModal()
   const formRef = ref<EditFormInstance | null>(null)
   const initialState = ref<Recordable>()
@@ -28,6 +31,7 @@ const useFormModal = (formProps: Partial<EditFormInstance>) => {
         footer: null,
         onCancel: closeFormModal,
         visible: visible.value,
+        ...modalProps,
         ...props,
       },
       {

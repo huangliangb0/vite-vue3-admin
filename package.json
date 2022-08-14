@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
+    "json:server": "json-server --watch ./mock/db.json --port 3004",
+    "serve": "vite && json-server --watch ./mock/db.json --port 3004",
     "preview": "vite preview",
     "lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx --fix",
     "prettier": "prettier --write  \"src/**/*.{js,json,tsx,css,less,scss,vue,html,md}\"",
@@ -14,9 +16,11 @@
   "dependencies": {
     "@ant-design/icons-vue": "^6.1.0",
     "ant-design-vue": "^3.2.10",
+    "axios": "^0.27.2",
     "dayjs": "^1.11.3",
     "element-resize-detector": "^1.2.4",
     "js-cookie": "^3.0.1",
+    "json-server": "^0.17.0",
     "lodash": "^4.17.21",
     "mitt": "^3.0.0",
     "nprogress": "^0.2.0",

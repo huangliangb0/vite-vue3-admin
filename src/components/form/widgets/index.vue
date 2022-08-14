@@ -14,7 +14,7 @@
     props: {
       value: {
         // type: [String, Number, Array] as PropType<InputProps['value']>,
-        type: [String, Number, Array] as PropType<any>,
+        type: [String, Number, Boolean, Array] as PropType<any>,
         default: undefined,
       },
       component: {

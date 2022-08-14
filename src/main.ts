@@ -14,6 +14,7 @@ import '@/styles/index.less'
 import { setupStore } from './store'
 /* 路由守卫 */
 import '@/router/route-guard'
+import '@/assets'
 
 const app = createApp(App)
 
