@@ -22,14 +22,19 @@ export type WidgetKeys = keyof typeof widgets
 
 export interface FormSchemaItem {
   type?: 'default' | 'array'
+  // 字段名
   field: string
   component?: WidgetKeys
   label?: string
-  span?: number
-  defaultValue?: any
+  // 默认值
+  default?: any
+  // 动态控件时，即type = 'array'，设置默认值格式
   valueFormat?: string | number | boolean | Recordable
+  // widget 组件的属性，比如Input、Select
   componentProps?: WidgetProps | ((arg: unknown) => WidgetProps)
+  // a-form-item的属性
   formItemProps?: FormItemProps
+  // 动态控件时，即type = 'array'，设置的组件类型
   schemas?: Array<FormSchemaItem>
 }
 

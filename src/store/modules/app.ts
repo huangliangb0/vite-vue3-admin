@@ -1,20 +1,21 @@
 import { defineStore } from 'pinia'
 
 interface State {
-  // 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'xx1' | 'xxx1'
-  windowSize: GridKey
+  // 触发响应式布局的断点标识符
+  breakpoint: GridKeyType
+  // 窗口宽度
   windowWidth: number
 }
 
 export const useAppStore = defineStore({
   id: 'app',
   state: (): State => ({
-    windowSize: 'xl',
+    breakpoint: 'xl',
     windowWidth: 1920,
   }),
   actions: {
-    setWindowSize(windowSize: GridKey) {
-      this.windowSize = windowSize
+    setBreakpoint(breakpoint: GridKeyType) {
+      this.breakpoint = breakpoint
     },
     setWindowWidth(width: number) {
       this.windowWidth = width

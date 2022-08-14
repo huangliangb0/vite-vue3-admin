@@ -11,7 +11,7 @@
   } from 'vue'
   import { FormInstance } from 'ant-design-vue'
   import { Widget } from './widgets'
-  import ExpandToggle from './ExpandToggle.vue'
+  import ExpandToggle from './components/ExpandToggle.vue'
   import type { FormSchemas } from './type'
   import { RowWrapper } from '@/components/row-layout'
   import { useAppStore } from '@/store/modules/app'
@@ -36,7 +36,7 @@
       gutter: {
         type: [Number, Array] as PropType<number | [number, number]>,
       },
-      initialValue: {
+      initialState: {
         type: Object as PropType<Recordable>,
         default: () => ({}),
       },
@@ -46,7 +46,7 @@
       },
       /* 可根据自己的需要进行分列 */
       grid: {
-        type: Object as PropType<Record<GridKey, number>>,
+        type: Object as PropType<Record<GridKeyType, number>>,
         default: () => ({}),
       },
     },
@@ -54,9 +54,9 @@
     setup(props, { emit, attrs, expose }) {
       const o: Recordable = {}
       props.schemas.forEach((item) => {
-        o[item.field] = item.defaultValue
+        o[item.field] = item.default
       })
-      const formState = reactive({ ...o, ...props.initialValue })
+      const formState = reactive({ ...o, ...props.initialState })
       const formRef = ref<FormInstance>()
       const isExpand = ref(false)
       const appStore = useAppStore()
@@ -67,8 +67,8 @@
           props.grid,
         ),
       )
-      const windowSize = computed(() => appStore.windowSize)
-      const col = computed(() => 24 / grid.value[windowSize.value])
+      const breakpoint = computed(() => appStore.breakpoint)
+      const col = computed(() => 24 / grid.value[breakpoint.value])
       const remainder = computed(() => {
         return props.schemas.length % col.value
       })

@@ -27,6 +27,6 @@ declare module 'vue-router' {
     hideInTags?: boolean
 
     /* 为true时， 一直显示在标签栏中 */
-    tags_affix?: boolean
+    affixInTags?: boolean
   }
 }

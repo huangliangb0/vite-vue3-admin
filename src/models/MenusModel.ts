@@ -20,7 +20,7 @@
 //     /* 为true时，不会出现在标签栏中 */
 //     hideInTags?: Boolean
 //     /* 为true时， 一直显示在标签栏中 */
-//     tags_affix?: Boolean,
+//     affixInTags?: Boolean,
 //     /* 子路由 */
 //     children?: Array<RoutesItemType>
 // }
@@ -51,7 +51,7 @@ export default [
     hideInMenu: false,
     alwayShowChildInMenu: false,
     hideInTags: false,
-    tags_affix: true,
+    affixInTags: true,
   },
   {
     name: 'Row',
@@ -63,7 +63,7 @@ export default [
     hideInMenu: false,
     alwayShowChildInMenu: false,
     hideInTags: false,
-    tags_affix: false,
+    affixInTags: false,
   },
   {
     name: 'Form',
@@ -76,7 +76,7 @@ export default [
     hideInMenu: false,
     alwayShowChildInMenu: false,
     hideInTags: false,
-    tags_affix: false,
+    affixInTags: false,
     children: [
       {
         name: 'EditForm',
@@ -88,7 +88,7 @@ export default [
         hideInMenu: false,
         alwayShowChildInMenu: false,
         hideInTags: false,
-        tags_affix: false,
+        affixInTags: false,
       },
       {
         name: 'FilterForm',
@@ -100,7 +100,7 @@ export default [
         hideInMenu: false,
         alwayShowChildInMenu: false,
         hideInTags: false,
-        tags_affix: false,
+        affixInTags: false,
       },
       {
         name: 'EditFormModal',
@@ -112,7 +112,7 @@ export default [
         hideInMenu: false,
         alwayShowChildInMenu: false,
         hideInTags: false,
-        tags_affix: false,
+        affixInTags: false,
       },
       {
         name: 'FilterSearchModal',
@@ -124,7 +124,7 @@ export default [
         hideInMenu: false,
         alwayShowChildInMenu: false,
         hideInTags: false,
-        tags_affix: false,
+        affixInTags: false,
       },
     ],
   },
@@ -139,7 +139,7 @@ export default [
     hideInMenu: false,
     alwayShowChildInMenu: false,
     hideInTags: false,
-    tags_affix: false,
+    affixInTags: false,
     children: [
       {
         name: 'CommonTable',
@@ -150,7 +150,7 @@ export default [
         hideInMenu: false,
         alwayShowChildInMenu: false,
         hideInTags: false,
-        tags_affix: false,
+        affixInTags: false,
       },
       {
         name: 'EditTable',
@@ -161,7 +161,7 @@ export default [
         hideInMenu: false,
         alwayShowChildInMenu: false,
         hideInTags: false,
-        tags_affix: false,
+        affixInTags: false,
       },
       {
         name: 'SpanRowTable',
@@ -172,7 +172,7 @@ export default [
         hideInMenu: false,
         alwayShowChildInMenu: false,
         hideInTags: false,
-        tags_affix: false,
+        affixInTags: false,
       },
     ],
   },
@@ -186,6 +186,22 @@ export default [
     hideInMenu: false,
     alwayShowChildInMenu: false,
     hideInTags: false,
-    tags_affix: false,
+    affixInTags: false,
+  },
+  {
+    name: 'System',
+    path: '/system',
+    title: '系统管理',
+    icon: 'home',
+    sort: 7,
+    children: [
+      {
+        name: 'Menu',
+        path: 'menu',
+        title: '菜单管理',
+        icon: 'home',
+        sort: 1,
+      },
+    ],
   },
 ] as MenusType

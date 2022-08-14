@@ -1,0 +1,6 @@
+export { default as Switch } from './Switch.vue'
+export { default as Input } from './Input.vue'
+export { default as InputNumber } from './InputNumber.vue'
+export { default as Select } from './Select.vue'
+export { default as RangePicker } from './RangePicker.vue'
+export { default as DatePicker } from './DatePicker.vue'

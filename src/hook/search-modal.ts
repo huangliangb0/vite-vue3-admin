@@ -8,20 +8,20 @@ import useModal from './modal'
 /* 过滤查询表单 */
 const useSearchModal = (
   formProps: Partial<FilterSearchInstance>,
-  confing?: { modal?: Partial<Record<GridKey, boolean>> },
+  confing?: { modal?: Partial<Record<GridKeyType, boolean>> },
 ) => {
   const { modal = { xs: true } } = confing || {}
   const appStore = useAppStore()
 
   const searchRef = ref<FilterSearchInstance | null>(null)
-  const initialValue = ref<Recordable>()
+  const initialState = ref<Recordable>()
   const { Modal, visible, openModal, closeModal } = useModal()
   const isModal = ref(false)
-  const windowSize = computed(() => appStore.windowSize)
+  const breakpoint = computed(() => appStore.breakpoint)
   watch(
-    () => windowSize.value,
+    () => breakpoint.value,
     (size) => {
-      initialValue.value = searchRef.value
+      initialState.value = searchRef.value
         ? cloneDeep(searchRef.value.formState)
         : undefined
 
@@ -71,7 +71,7 @@ const useSearchModal = (
                   h(
                     FilterSearch,
                     {
-                      initialValue: initialValue.value,
+                      initialState: initialState.value,
                       ...formProps,
                       ...attrs,
                       ref: searchRef,
@@ -86,7 +86,7 @@ const useSearchModal = (
     }
 
     return h(FilterSearch, {
-      initialValue: initialValue.value,
+      initialState: initialState.value,
       ...formProps,
       ref: searchRef,
     })

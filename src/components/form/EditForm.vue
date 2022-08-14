@@ -5,12 +5,11 @@
     toRaw,
     ref,
     PropType,
-    watch,
     computed,
   } from 'vue'
   import { FormInstance } from 'ant-design-vue'
   import { Widget } from './widgets'
-  import FormList from './FormList.vue'
+  import FormList from './components/FormList.vue'
   import type { FormSchemas } from './type'
 
   export default defineComponent({
@@ -24,7 +23,7 @@
         type: Array as PropType<FormSchemas>,
         default: () => [],
       },
-      initialValue: {
+      initialState: {
         type: Object as PropType<Recordable>,
         default: () => ({}),
       },
@@ -41,7 +40,11 @@
     },
     emits: ['submit', 'reset'],
     setup(props, { emit, attrs, expose, slots }) {
-      const formState = reactive({ ...props.initialValue })
+      const o: Recordable = {}
+      props.schemas.forEach((item) => {
+        o[item.field] = item.default
+      })
+      const formState = reactive({ ...o, ...props.initialState })
       const formRef = ref<FormInstance>()
 
       const labelCol = computed(() => {

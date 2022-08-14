@@ -79,7 +79,7 @@
       label: '学生信息',
     },
   ]
-  const initialValue = reactive<{
+  const initialState = reactive<{
     classLevel: number | undefined
     className: string
     info: any[]
@@ -95,8 +95,8 @@
   }
   onMounted(() => {
     setTimeout(() => {
-      initialValue.info2 = ['波仔', '小花']
-      initialValue.classLevel = 1
+      initialState.info2 = ['波仔', '小花']
+      initialState.classLevel = 1
     }, 1000)
   })
 </script>
@@ -104,7 +104,7 @@
   <page-layout>
     <edit-form
       :schemas="schemas"
-      :initialValue="initialValue"
+      :initialState="initialState"
       :label-col="{ span: 4 }"
       @submit="handleSubmit"
     />

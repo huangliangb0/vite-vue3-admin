@@ -7,13 +7,13 @@ import useModal from './modal'
 const useFormModal = (formProps: Partial<EditFormInstance>) => {
   const { Modal, visible } = useModal()
   const formRef = ref<EditFormInstance | null>(null)
-  const initialValue = ref<Recordable>()
+  const initialState = ref<Recordable>()
   const openFormModal = (initValue?: Recordable) => {
-    initialValue.value = initValue
+    initialState.value = initValue
     visible.value = true
   }
   const closeFormModal = () => {
-    initialValue.value = undefined
+    initialState.value = undefined
     formRef.value?.reset()
     visible.value = false
   }
@@ -27,6 +27,7 @@ const useFormModal = (formProps: Partial<EditFormInstance>) => {
       {
         footer: null,
         onCancel: closeFormModal,
+        visible: visible.value,
         ...props,
       },
       {
@@ -34,7 +35,7 @@ const useFormModal = (formProps: Partial<EditFormInstance>) => {
           h(
             EditForm,
             {
-              initialValue: initialValue.value,
+              initialState: initialState.value,
               ...formProps,
               ...attrs,
               ref: formRef,

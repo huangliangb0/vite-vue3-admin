@@ -1,7 +1,7 @@
 <script lang="ts" setup>
   import { EditFormInstance } from '@/components/form'
 
-  import { useFormModal, useSearchModal } from '@/hook'
+  import { useFormModal } from '@/hook'
   import { Rule } from 'ant-design-vue/lib/form'
   import { omit, pick } from 'lodash'
   const checkLinkman = (

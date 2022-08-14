@@ -1,9 +1,5 @@
 <script lang="ts" setup>
-  import { EditFormInstance } from '@/components/form'
-
-  import { useFormModal, useSearchModal } from '@/hook'
-  import { Rule } from 'ant-design-vue/lib/form'
-  import { omit, pick } from 'lodash'
+  import { useSearchModal } from '@/hook'
 
   const { SearchForm } = useSearchModal({
     schemas: [

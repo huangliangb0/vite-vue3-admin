@@ -20,7 +20,7 @@ export const useTagsViewStore = defineStore('tagsView', {
   }),
   getters: {
     affixTagsList(state): RouteLocationNormalizedLoaded[] {
-      return state.tagsList.filter((item) => item?.meta?.tags_affix) // 固定标签不可删除
+      return state.tagsList.filter((item) => item?.meta?.affixInTags) // 固定标签不可删除
     },
   },
   actions: {
@@ -35,7 +35,7 @@ export const useTagsViewStore = defineStore('tagsView', {
      */
     addAffixTags() {
       const routes = router.getRoutes()
-      const tags = routes.filter((item) => item.meta && item.meta.tags_affix)
+      const tags = routes.filter((item) => item.meta && item.meta.affixInTags)
       this.tagsList = tags as unknown as RouteLocationNormalizedLoaded[]
     },
     /**

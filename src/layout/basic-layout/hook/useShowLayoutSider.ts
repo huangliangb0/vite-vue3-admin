@@ -1,4 +1,4 @@
-import { GridEnum } from '@/enums/app.enum'
+import { GRID } from '@/constant/app'
 import { useAppStore } from '@/store/modules/app'
 import { computed } from 'vue'
 /**
@@ -8,7 +8,7 @@ export default () => {
   const appStore = useAppStore()
   const windowWidth = computed(() => appStore.windowWidth)
   const isShowLayoutSider = computed(() => {
-    return windowWidth.value >= GridEnum.md
+    return windowWidth.value >= GRID.md
   })
 
   return isShowLayoutSider

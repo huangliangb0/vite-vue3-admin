@@ -8,13 +8,13 @@
             class="tags-item"
             :class="{
               'is-active': activeIndex === index,
-              'is-closeable': !r.meta?.tags_affix,
+              'is-closeable': !r.meta?.affixInTags,
             }"
             @click="jump(r)"
           >
             <span class="route-name">{{ r.meta?.title }}</span>
             <CloseOutlined
-              v-if="!r.meta?.tags_affix"
+              v-if="!r.meta?.affixInTags"
               class="icon-cls"
               @click="removeTag($event, index)"
             />

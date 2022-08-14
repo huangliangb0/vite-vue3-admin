@@ -10,7 +10,7 @@
     roles: Array<'admin' | 'common'> 设置该路由进入的权限，支持多个权限叠加
     icon: string         svg图标
     title: string        标题
-    tags_affix: boolean  是否固定在标签栏
+    affixInTags: boolean  是否固定在标签栏
     keepAlive: boolean   是否缓存， 目前还无法缓存到第三级
     alwayShowChildInMenu： boolean  是否一直显示子级菜单，哪怕子菜单只有一个
     hideInMenu: boolean,  是否在菜单栏中隐藏，一般是详情页

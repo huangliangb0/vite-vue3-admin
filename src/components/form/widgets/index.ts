@@ -1,4 +1,4 @@
-import { Input, Select, DatePicker, InputNumber } from 'ant-design-vue'
+import { Input, Select, DatePicker, InputNumber, Switch } from './components'
 
 export { default as Widget } from './index.vue'
 
@@ -8,5 +8,6 @@ export default {
   DatePicker,
   InputNumber,
   RangePicker: DatePicker.RangePicker,
+  Switch,
   // ... 自定义组件
 }

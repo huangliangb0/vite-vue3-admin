@@ -1,9 +1,11 @@
 <script lang="tsx">
-  import { defineComponent, PropType } from 'vue'
-  import widgets, { Widget } from './widgets'
-  import type { FormSchemas, WidgetProps } from './type'
+  import { computed, defineComponent, PropType } from 'vue'
+  import widgets, { Widget } from '../widgets'
+  import type { FormSchemas, WidgetProps } from '../type'
   import { cloneDeep } from 'lodash'
   import { MinusOutlined } from '@ant-design/icons-vue'
+  import { useAppStore } from '@/store/modules/app'
+  import { GRID_KEYS } from '@/constant/app'
   export default defineComponent({
     name: 'FormList',
     components: {
@@ -37,8 +39,19 @@
         type: Function as PropType<(e: any) => void>,
         required: true,
       },
+      grid: {
+        type: Object as PropType<Record<GridKeyType, number>>,
+        default: () => ({}),
+      },
     },
     setup(props) {
+      const appStore = useAppStore()
+      const grid = computed(() => {
+        return GRID_KEYS.map((key) => ({
+          [key]: props.grid[key] || 24 / props.schemas.length,
+        }))
+      })
+
       const handleAdd = () => {
         const data = props.value
         data.push(cloneDeep(props.valueFormat))
@@ -72,11 +85,7 @@
                 <a-col key={p_index} style="flex: 1">
                   <a-row gutter={[20, 0]}>
                     {props.schemas.map((item) => (
-                      <a-col
-                        key={item.field}
-                        lg={item.span || 24 / props.schemas.length}
-                        md={24}
-                      >
+                      <a-col key={item.field} {...grid.value}>
                         <a-form-item label={item.label} name={item.field}>
                           <Widget
                             component={item.component}
