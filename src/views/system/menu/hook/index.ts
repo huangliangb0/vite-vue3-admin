@@ -163,7 +163,6 @@ export const useForm = () => {
     },
     // modal 属性
     {
-      width: '60%',
       title: '添加菜单',
     },
   )

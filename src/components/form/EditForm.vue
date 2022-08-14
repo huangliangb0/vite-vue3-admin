@@ -11,6 +11,7 @@
   import { Widget } from './widgets'
   import FormList from './components/FormList.vue'
   import type { FormSchemas } from './type'
+  import { useAppStore } from '@/store/modules/app'
 
   const FormItemGrid: GridColType = {
     xs: 24,
@@ -50,6 +51,7 @@
       })
       const formState = reactive({ ...o, ...props.initialState })
       const formRef = ref<FormInstance>()
+      const appStore = useAppStore()
 
       const labelCol = computed(() => {
         if (props.labelCol) {
@@ -88,7 +90,7 @@
 
           return o
         }
-        if (props.labelWidth) {
+        if (props.labelWidth && appStore.breakpoint !== 'xs') {
           return {
             style: {
               paddingLeft: +props.labelWidth + 'px',

@@ -169,7 +169,6 @@
           >编辑</a-button
         >
         <FormModal
-          width="60%"
           title="添加学生"
           :destroyOnClose="true"
           :visible="visible"
