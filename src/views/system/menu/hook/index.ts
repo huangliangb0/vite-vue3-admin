@@ -88,41 +88,82 @@ export const useForm = () => {
       label: '是否缓存',
       component: 'Switch',
       default: false,
+      grid: {
+        xs: 24,
+        sm: 24,
+        md: 24,
+        lg: 12,
+      },
+      formItemProps: {
+        extra: '页面跳转之后依然保存页面的状态',
+      },
     },
     {
       field: 'hideInMenu',
       label: '是否隐藏',
       component: 'Switch',
       default: false,
+      grid: {
+        xs: 24,
+        sm: 24,
+        md: 24,
+        lg: 12,
+      },
+      formItemProps: {
+        extra: '在侧边栏菜单中将不会显示',
+      },
     },
 
-    {
-      field: 'alwayShowChildInMenu',
-      label: '一直显示',
-      component: 'Switch',
-      default: false,
-    },
     {
       field: 'hideInTags',
       label: '在标签栏隐藏',
       component: 'Switch',
       default: false,
+      grid: {
+        xs: 24,
+        sm: 24,
+        md: 24,
+        lg: 12,
+      },
+      formItemProps: {
+        extra: '在页面切换时，该路由不会再标签栏中显示',
+      },
     },
-
     {
       field: 'affixInTags',
       label: '固定在标签栏',
       component: 'Switch',
       default: false,
+      grid: {
+        xs: 24,
+        sm: 24,
+        md: 24,
+        lg: 12,
+      },
+      formItemProps: {
+        extra: '该路由一开始就会出现在标签栏中，并且不会删除',
+      },
+    },
+    {
+      field: 'alwayShowChildInMenu',
+      label: '一直显示',
+      component: 'Switch',
+      default: false,
+      formItemProps: {
+        extra:
+          '在侧边栏中，就算菜单中只有一个子菜单，也会把该菜单显示出来，默认如果只有子菜单是不会显示父级菜单了',
+      },
     },
   ]
   const reset = useFormModal(
     // form 属性
     {
       schemas: schemas,
+      labelWidth: '88',
     },
     // modal 属性
     {
+      width: '60%',
       title: '添加菜单',
     },
   )

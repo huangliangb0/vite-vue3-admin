@@ -7,7 +7,7 @@
     props: {
       /* 可根据自己的需要进行分列 */
       grid: {
-        type: Object as PropType<Partial<Record<GridKeyType, number>>>,
+        type: Object as PropType<GridColType>,
         default: () => ({}),
       },
       /* 你可以根据自己的需求设置间距默认值 */

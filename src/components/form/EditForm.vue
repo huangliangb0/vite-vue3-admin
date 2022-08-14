@@ -12,6 +12,10 @@
   import FormList from './components/FormList.vue'
   import type { FormSchemas } from './type'
 
+  const FormItemGrid: GridColType = {
+    xs: 24,
+  }
+
   export default defineComponent({
     name: 'EditForm',
     components: {
@@ -80,7 +84,6 @@
               o.span = 24 - (v || 0)
               o.offset = v || 0
             }
-            console.log('kkk', k, v)
           })
 
           return o
@@ -139,62 +142,84 @@
           colon={props.colon}
           {...attrs}
         >
-          {props.schemas.map((item) => (
-            <a-form-item
-              key={item.field}
-              label={item.label}
-              name={item.field}
-              {...item.formItemProps}
-            >
-              {item.type === 'array' ? (
-                <FormList
-                  component={item.component}
-                  value={formState[item.field]}
-                  value-format={item.valueFormat}
-                  schemas={item.schemas}
-                  change={(value: any) => {
-                    formState[item.field] = value
-                  }}
-                  componentProps={
-                    typeof item.componentProps === 'function'
-                      ? item.componentProps(formState)
-                      : item.componentProps
-                  }
-                ></FormList>
-              ) : (
-                <Widget
-                  component={item.component}
-                  value={formState[item.field]}
-                  change={(value) => {
-                    formState[item.field] = value
-                  }}
-                  {...(typeof item.componentProps === 'function'
-                    ? item.componentProps(formState)
-                    : item.componentProps)}
-                ></Widget>
-              )}
-            </a-form-item>
-          ))}
-          <a-form-item wrapperCol={btnWrapperCol.value}>
-            {slots.action ? (
-              slots.action({
-                submit: submit,
-                reset: reset,
-                instance: formRef.value,
-              })
-            ) : (
-              <a-space>
-                <a-button type="primary" onClick={submit}>
-                  提交
-                </a-button>
-                <a-button onClick={reset}>重置</a-button>
-              </a-space>
-            )}
-          </a-form-item>
+          <a-row class="edit--form_row" gutter={[20, 20]}>
+            {props.schemas.map((item) => (
+              <a-col
+                key={item.field}
+                {...Object.assign({}, FormItemGrid, item.grid)}
+              >
+                <a-form-item
+                  label={item.label}
+                  name={item.field}
+                  {...item.formItemProps}
+                >
+                  {item.type === 'array' ? (
+                    <FormList
+                      component={item.component}
+                      value={formState[item.field]}
+                      value-format={item.valueFormat}
+                      schemas={item.schemas}
+                      change={(value: any) => {
+                        formState[item.field] = value
+                      }}
+                      componentProps={
+                        typeof item.componentProps === 'function'
+                          ? item.componentProps(formState)
+                          : item.componentProps
+                      }
+                    ></FormList>
+                  ) : (
+                    <Widget
+                      component={item.component}
+                      value={formState[item.field]}
+                      change={(value) => {
+                        formState[item.field] = value
+                      }}
+                      {...(typeof item.componentProps === 'function'
+                        ? item.componentProps(formState)
+                        : item.componentProps)}
+                    ></Widget>
+                  )}
+                </a-form-item>
+              </a-col>
+            ))}
+            {slots.default ? (
+              <a-col span={24}>
+                {slots.default({
+                  state: formState,
+                  instance: formRef,
+                })}
+              </a-col>
+            ) : null}
+            <a-col span={24}>
+              <a-form-item wrapperCol={btnWrapperCol.value}>
+                {slots.action ? (
+                  slots.action({
+                    submit: submit,
+                    reset: reset,
+                    instance: formRef.value,
+                  })
+                ) : (
+                  <a-space>
+                    <a-button type="primary" onClick={submit}>
+                      提交
+                    </a-button>
+                    <a-button onClick={reset}>重置</a-button>
+                  </a-space>
+                )}
+              </a-form-item>
+            </a-col>
+          </a-row>
         </a-form>
       )
     },
   })
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+  .edit--form_row {
+    :deep(.ant-row) {
+      margin-bottom: 0;
+    }
+  }
+</style>

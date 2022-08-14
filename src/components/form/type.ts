@@ -30,6 +30,9 @@ export interface FormSchemaItem {
   default?: any
   // 动态控件时，即type = 'array'，设置默认值格式
   valueFormat?: string | number | boolean | Recordable
+  // 这个再编辑表单中有用，因为多个表单控件会在同一行
+  grid?: GridColType
+
   // widget 组件的属性，比如Input、Select
   componentProps?: WidgetProps | ((arg: unknown) => WidgetProps)
   // a-form-item的属性

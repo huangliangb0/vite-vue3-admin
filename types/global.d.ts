@@ -8,10 +8,12 @@ declare global {
   type GridKeyType = typeof GRID_KEYS[number]
   /* 触发响应式布局的断点宽度 */
   type GridValueType = typeof GRID_VALUES[number]
-  declare type GridCol = {
-    span?: number
-    offset?: number
-  } & {
-    [k in GridKeyType]?: { span?: number; offset?: number }
-  }
+  type GridColType = Partial<Record<GridKeyType, number>>
+
+  // declare type GridCol = {
+  //   span?: number
+  //   offset?: number
+  // } & {
+  //   [k in GridKeyType]?: { span?: number; offset?: number }
+  // }
 }
