@@ -6,7 +6,7 @@
  */
 import { createApp } from 'vue'
 import App from './App.vue'
-import '@/router/permissionRoutes'
+// import '@/router/permissionRoutes'
 import 'virtual:svg-icons-register' // 注册svg-icon脚本
 import { setupGlobalComponent } from './components'
 import { setupRouter } from './router'
@@ -15,6 +15,7 @@ import { setupStore } from './store'
 /* 路由守卫 */
 import '@/router/route-guard'
 import '@/assets'
+import 'ant-design-vue/lib/message/style/index.css'
 
 const app = createApp(App)
 

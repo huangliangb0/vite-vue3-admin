@@ -51,7 +51,7 @@
 </template>
 <script lang="ts" setup>
   import { RowWrapper } from '@/components/row-layout'
-  import { useAppStore } from '@/store/modules/app'
+  import useAppStore from '@/store/modules/app'
   import { computed, ref, watch } from 'vue'
   defineOptions({
     components: {

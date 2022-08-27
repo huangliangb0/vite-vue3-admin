@@ -10,7 +10,9 @@ export interface BodyCellType<T = any> {
 }
 // InstanceType<typeof TableColumn>
 
-export interface TableColumnItem<T = any> extends ColumnType {
+export interface TableColumnItem<T = any>
+  extends Omit<ColumnType, 'dataIndex'> {
+  dataIndex: keyof T | 'action' | 'my--index' | 'index'
   // 插槽，优先渲染slot内容
   slot?: (arg: BodyCellType<T>) => JSX.Element | string | number
   // 表头提示

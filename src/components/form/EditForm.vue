@@ -11,7 +11,7 @@
   import { Widget } from './widgets'
   import FormList from './components/FormList.vue'
   import type { FormSchemas } from './type'
-  import { useAppStore } from '@/store/modules/app'
+  import useAppStore from '@/store/modules/app'
 
   const FormItemGrid: GridColType = {
     xs: 24,
@@ -42,8 +42,12 @@
       labelWidth: {
         type: [Number, String],
       },
+      isEdit: {
+        type: Boolean,
+        default: false,
+      },
     },
-    emits: ['submit', 'reset'],
+    emits: ['submit', 'reset', 'edit'],
     setup(props, { emit, attrs, expose, slots }) {
       const o: Recordable = {}
       props.schemas.forEach((item) => {
@@ -107,7 +111,11 @@
         formRef.value
           ?.validate()
           .then(() => {
-            emit('submit', toRaw(formState))
+            if (props.isEdit) {
+              emit('edit', toRaw(formState))
+            } else {
+              emit('submit', toRaw(formState))
+            }
           })
           .catch((error) => {
             console.error('表单验证失败', error)

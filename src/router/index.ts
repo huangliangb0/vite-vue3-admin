@@ -24,8 +24,9 @@ import {
   RouteRecordRaw,
 } from 'vue-router'
 import constantRoutes from './constantRoutes'
-export { constantRoutes }
+
 import { RouterHandle } from './helper'
+import permissionRoutes from './permissionRoutes'
 
 const routes = [...constantRoutes] as any[]
 
@@ -43,5 +44,9 @@ export const removeRoutes = handleRouter.removeRoutes
 export function setupRouter(app: AppInstance) {
   app.use(router)
 }
+
+export const permissionRouteNames = Object.keys(permissionRoutes)
+
+export { permissionRoutes, constantRoutes }
 
 export default router

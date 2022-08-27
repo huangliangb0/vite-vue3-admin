@@ -1,5 +1,5 @@
 import { FilterSearch, FilterSearchInstance } from '@/components/form'
-import { useAppStore } from '@/store/modules/app'
+import useAppStore from '@/store/modules/app'
 import { Button, ModalProps } from 'ant-design-vue'
 import { cloneDeep } from 'lodash'
 import { computed, watch, h, ref, Slot } from 'vue'

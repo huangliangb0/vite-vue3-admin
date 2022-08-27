@@ -13,7 +13,7 @@ interface State {
   activeIndex: number
 }
 
-export const useTagsViewStore = defineStore('tagsView', {
+const useTagsViewStore = defineStore('tagsView', {
   state: (): State => ({
     tagsList: [],
     activeIndex: 0,
@@ -100,3 +100,5 @@ export const useTagsViewStore = defineStore('tagsView', {
     },
   },
 })
+
+export default useTagsViewStore

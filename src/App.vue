@@ -4,7 +4,7 @@
   import { onMounted } from 'vue'
   import { debounce } from 'lodash'
   import elementResizeDetectorMaker from 'element-resize-detector'
-  import { useAppStore } from './store/modules/app'
+  import useAppStore from './store/modules/app'
   import zhCN from 'ant-design-vue/es/locale/zh_CN'
   import { GRID } from './constant/app'
   // 创建实例

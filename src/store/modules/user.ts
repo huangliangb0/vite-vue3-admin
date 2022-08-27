@@ -37,7 +37,7 @@ const login = (form: {
   })
 }
 
-export const useUserStore = defineStore({
+const useUserStore = defineStore({
   id: 'user',
   state: (): State => ({
     token: '',
@@ -73,3 +73,5 @@ export const useUserStore = defineStore({
     },
   },
 })
+
+export default useUserStore

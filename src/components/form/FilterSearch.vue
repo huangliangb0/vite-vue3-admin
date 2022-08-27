@@ -14,7 +14,7 @@
   import ExpandToggle from './components/ExpandToggle.vue'
   import type { FormSchemas } from './type'
   import { RowWrapper } from '@/components/row-layout'
-  import { useAppStore } from '@/store/modules/app'
+  import useAppStore from '@/store/modules/app'
   import { emitFilterSearchReset, takeOffFilterSearchReset } from './helper'
   export default defineComponent({
     name: 'FilterSearch',

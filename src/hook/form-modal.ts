@@ -3,7 +3,7 @@ import { computed, h, ref, Slot } from 'vue'
 import 'ant-design-vue/lib/modal/style/index.css'
 import { EditForm, EditFormInstance } from '@/components/form'
 import useModal from './modal'
-import { useAppStore } from '@/store/modules/app'
+import useAppStore from '@/store/modules/app'
 // 添加-编辑模态框
 const useFormModal = (
   formProps: Partial<EditFormInstance>,
@@ -18,6 +18,7 @@ const useFormModal = (
 
   const formRef = ref<EditFormInstance | null>(null)
   const initialState = ref<Recordable>()
+  const isEdit = ref(false)
 
   /***** computed **********/
 
@@ -38,14 +39,20 @@ const useFormModal = (
 
   /***** methods **********/
 
-  const openFormModal = (initValue?: Recordable) => {
-    initialState.value = initValue
+  const openFormModal = () => {
     visible.value = true
   }
   const closeFormModal = () => {
     initialState.value = undefined
     formRef.value?.reset()
     visible.value = false
+    isEdit.value = false
+  }
+
+  const openEditFormModal = (initValue: Recordable) => {
+    initialState.value = initValue
+    visible.value = true
+    isEdit.value = true
   }
 
   /***** render 或者 component **********/
@@ -69,6 +76,7 @@ const useFormModal = (
             EditForm,
             {
               initialState: initialState.value,
+              isEdit: isEdit.value,
               ...formProps,
               ...attrs,
               ref: formRef,
@@ -81,6 +89,7 @@ const useFormModal = (
   return {
     formRef,
     visible,
+    openEditFormModal,
     openFormModal,
     closeFormModal,
     FormModal,

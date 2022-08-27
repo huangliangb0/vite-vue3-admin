@@ -38,3 +38,40 @@ export const pick = (o: Recordable, keys: string[]) => {
     return v
   }, {} as Recordable)
 }
+
+/**
+ * 数据树形化
+ * https://juejin.cn/post/6987224048564437029
+ */
+export function treeData<T>(data: FlatDataType) {
+  const res: TreeDataType<T> = [] // 存放结果集
+  const map: Recordable = {}
+
+  data.forEach((i) => {
+    if (!map[i.id]) {
+      map[i.id] = { ...i, children: [] }
+    }
+    const newItem = map[i.id]
+    if (i.parentId === undefined) {
+      res.push(newItem)
+    } else {
+      if (Object.prototype.hasOwnProperty.call(map, i.parentId)) {
+        map[i.parentId].children.push(newItem)
+      }
+    }
+  })
+
+  return res
+}
+
+/**
+ *
+ * @param tree 数据变形化
+ * @returns
+ */
+export function flatData<T>(tree: TreeDataType<T>): Array<T> {
+  return tree.reduce((res: Array<any>, item) => {
+    const { children, ...i } = item
+    return res.concat(i, children && children.length ? flatData(children) : [])
+  }, [])
+}

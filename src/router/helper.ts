@@ -22,7 +22,7 @@ export class RouterHandle {
      */
     const routes = routesFlat(dynamicRoutes)
 
-    console.log('扁平后的路由', routes)
+    // console.log('扁平后的路由', routes)
 
     routes.forEach((route: RouteRecordRaw) => {
       if (!isExternal(route.path) && this.router) {

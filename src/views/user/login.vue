@@ -10,7 +10,7 @@
   import Identify from '@/components/Identify/index.vue'
   import { computed, reactive, ref, toRaw } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
-  import { useUserStore } from '@/store/modules/user'
+  import useUserStore from '@/store/modules/user'
   import { getImageUrl } from '@/assets'
   import { useForm } from 'ant-design-vue/lib/form'
   const bgImg = getImageUrl('login-bg.png')

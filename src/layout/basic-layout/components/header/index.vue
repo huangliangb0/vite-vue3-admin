@@ -8,7 +8,7 @@
 <script lang="ts" setup>
   import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons-vue'
   import { getImageUrl } from '@/assets'
-  import { useUserStore } from '@/store/modules/user'
+  import useUserStore from '@/store/modules/user'
   import { useRoute, useRouter } from 'vue-router'
   const avatar = getImageUrl('avatar.png')
   const props = defineProps({

@@ -9,10 +9,11 @@ import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 // import { useStore } from "vuex"
 import { getToken } from '@/utils/auth'
-import { useUserStore } from '@/store/modules/user'
-import { usePermissionStore } from '@/store/modules/permission'
-import { useTagsViewStore } from '@/store/modules/tagsView'
+import useUserStore from '@/store/modules/user'
+import usePermissionStore from '@/store/modules/permission'
+import useTagsViewStore from '@/store/modules/tagsView'
 import { message } from 'ant-design-vue'
+import useMenuStore from '@/store/modules/menu'
 
 // 白名单
 const WhiteList = ['/login']
@@ -21,6 +22,7 @@ router.beforeEach(async (to, _from, next) => {
   NProgress.start()
   const token = getToken()
   const userStore = useUserStore()
+  const menuStore = useMenuStore()
   const permissionStore = usePermissionStore()
   const TagsStore = useTagsViewStore()
   if (token) {
@@ -41,6 +43,7 @@ router.beforeEach(async (to, _from, next) => {
       } else {
         try {
           const res = await userStore.getUserInfo()
+          const menus = await menuStore.getMenuList()
           const accessRoutes = await permissionStore.setRoutes(res.menuList)
           addRoutes(accessRoutes)
 

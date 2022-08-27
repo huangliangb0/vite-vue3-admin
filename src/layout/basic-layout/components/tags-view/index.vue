@@ -42,7 +42,7 @@
   import WithArrowScroll from '@/components/with-arrow-scroll/index.vue'
 
   import { CloseOutlined, DashOutlined } from '@ant-design/icons-vue'
-  import { useTagsViewStore } from '@/store/modules/tagsView'
+  import useTagsViewStore from '@/store/modules/tagsView'
   import Dropdown from './Dropdown.vue'
   const store = useTagsViewStore()
   const route = useRoute()

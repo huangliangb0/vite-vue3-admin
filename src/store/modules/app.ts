@@ -7,7 +7,7 @@ interface State {
   windowWidth: number
 }
 
-export const useAppStore = defineStore({
+const useAppStore = defineStore({
   id: 'app',
   state: (): State => ({
     breakpoint: 'xl',
@@ -22,3 +22,5 @@ export const useAppStore = defineStore({
     },
   },
 })
+
+export default useAppStore

@@ -4,7 +4,7 @@
   import type { FormSchemas, WidgetProps } from '../type'
   import { cloneDeep } from 'lodash'
   import { MinusOutlined } from '@ant-design/icons-vue'
-  import { useAppStore } from '@/store/modules/app'
+  import useAppStore from '@/store/modules/app'
   import { GRID_KEYS } from '@/constant/app'
   export default defineComponent({
     name: 'FormList',

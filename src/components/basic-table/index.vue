@@ -6,6 +6,10 @@
   export default defineComponent({
     name: 'BasicTable',
     props: {
+      rowKey: {
+        type: String,
+        default: 'id',
+      },
       columns: {
         type: Array as PropType<TableColumns<any>>,
         default: () => [],
@@ -80,6 +84,7 @@
           scroll={{
             x: true,
           }}
+          rowKey={props.rowKey}
           {...attrs}
           v-slots={{
             bodyCell: (arg: BodyCellType) => {

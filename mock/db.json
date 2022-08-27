@@ -1,1 +1,61 @@
-{}
+{
+  "menus": [
+    {
+      "name": "Home",
+      "path": "/home",
+      "title": "首页2222",
+      "icon": "home",
+      "sort": 0,
+      "isCache": false,
+      "hideInMenu": false,
+      "hideInTags": false,
+      "affixInTags": true,
+      "alwayShowChildInMenu": false,
+      "isTrusted": true,
+      "children": [],
+      "id": "1"
+    },
+    {
+      "path": "table",
+      "title": "表格",
+      "icon": "table",
+      "sort": 0,
+      "isCache": false,
+      "hideInMenu": false,
+      "hideInTags": false,
+      "affixInTags": false,
+      "alwayShowChildInMenu": false,
+      "isTrusted": true,
+      "id": "2"
+    },
+    {
+      "id": "cef79398-9c73-4661-97c1-a8f7b829da20",
+      "parentId": "2",
+      "name": "CommonTable",
+      "path": "common-table",
+      "title": "普通表格",
+      "sort": 0,
+      "isCache": false,
+      "hideInMenu": false,
+      "hideInTags": false,
+      "affixInTags": false,
+      "alwayShowChildInMenu": false,
+      "isTrusted": true
+    },
+    {
+      "id": "f3e16381-140e-4957-9622-440aabbbbe6d",
+      "name": "Home",
+      "path": "home",
+      "title": "首页",
+      "icon": "home",
+      "sort": 0,
+      "isCache": false,
+      "hideInMenu": false,
+      "hideInTags": false,
+      "affixInTags": true,
+      "alwayShowChildInMenu": false,
+      "isTrusted": true,
+      "children": []
+    }
+  ]
+}

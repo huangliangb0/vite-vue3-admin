@@ -1,12 +1,55 @@
 <script lang="ts" setup>
+  import { createMenu, updateMenu } from '@/server/menu'
   import { useForm } from './hook'
+  import MenuTable from './components/MenuTable.vue'
+  import { message } from 'ant-design-vue'
+  import useMenuStore from '@/store/modules/menu'
+  import { omit } from 'lodash'
+  import { ref } from 'vue'
 
   defineOptions({
     name: 'Menu',
   })
-  const { openFormModal, FormModal } = useForm()
-  const onSubmit = (arg: any) => {
-    console.log(111, arg)
+  const currentId = ref('')
+  const menuStore = useMenuStore()
+  const { openFormModal, openEditFormModal, closeFormModal, FormModal } =
+    useForm()
+  const onSubmit = (arg: MenuItem) => {
+    const key = 'created'
+    message.loading({ content: '菜单创建中...', key })
+    createMenu(arg).then(() => {
+      message.success({
+        content: '创建成功',
+        key,
+        duration: 2,
+        onClose: () => {
+          closeFormModal()
+          menuStore.getMenuList()
+        },
+      })
+    })
+  }
+
+  const onEditSubmit = (arg: Omit<MenuItem, 'id'>) => {
+    const key = 'updatable'
+    message.loading({ content: '菜单修改中...', key })
+    updateMenu(currentId.value, arg).then(() => {
+      message.success({
+        content: '修改成功',
+        key,
+        duration: 2,
+        onClose: () => {
+          closeFormModal()
+          menuStore.getMenuList()
+        },
+      })
+    })
+  }
+
+  const onEdit = (record: MenuItem) => {
+    const { id, ...reset } = record
+    currentId.value = id
+    openEditFormModal(reset)
   }
 </script>
 
@@ -15,7 +58,8 @@
     <template #header>
       <a-button @click="openFormModal">添加</a-button>
     </template>
-    <FormModal @submit="onSubmit" />
+    <FormModal @submit="onSubmit" @edit="onEditSubmit" />
+    <MenuTable @edit="onEdit" />
   </page-layout>
 </template>
 <style lang="less" scoped></style>

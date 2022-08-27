@@ -5,18 +5,17 @@
  * @FilePath: \vite-vue3-admin\src\store\modules\permission.ts
  */
 import { defineStore } from 'pinia'
-import { constantRoutes } from '@/router'
+import { constantRoutes, permissionRoutes } from '@/router'
 // import { removeRoutes } from '../../router'
 import { generatePermissionRoutes } from '../../utils/routes'
 import { RouteRecordRaw } from 'vue-router'
-import permissionRoutes from '@/router/permissionRoutes'
 import { MenusType } from '@/models/MenusModel'
 interface State {
   routes: RouteRecordRaw[]
   dynamicRoutes: RouteRecordRaw[]
 }
 
-export const usePermissionStore = defineStore('permission', {
+const usePermissionStore = defineStore('permission', {
   state: (): State => ({
     // 全部路由
     routes: [],
@@ -44,3 +43,4 @@ export const usePermissionStore = defineStore('permission', {
     },
   },
 })
+export default usePermissionStore
