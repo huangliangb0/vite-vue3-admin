@@ -24,111 +24,115 @@
     return Promise.resolve()
   }
 
-  const { FormModal, visible, openFormModal } = useFormModal({
-    schemas: [
-      {
-        field: 'grade',
-        label: '年级',
-        component: 'Select',
-        formItemProps: {
-          rules: [{ required: true, message: '请选择年级', trigger: 'change' }],
+  const { FormModal, visible, openFormModal, openEditFormModal } = useFormModal(
+    {
+      schemas: [
+        {
+          field: 'grade',
+          label: '年级',
+          component: 'Select',
+          formItemProps: {
+            rules: [
+              { required: true, message: '请选择年级', trigger: 'change' },
+            ],
+          },
+          componentProps: () => ({
+            placeholder: '请选择年级',
+            options: [
+              {
+                label: '一年级',
+                value: 1,
+              },
+              {
+                label: '二年级',
+                value: 2,
+              },
+            ],
+          }),
         },
-        componentProps: () => ({
-          placeholder: '请选择年级',
-          options: [
-            {
-              label: '一年级',
-              value: 1,
-            },
-            {
-              label: '二年级',
-              value: 2,
-            },
-          ],
-        }),
-      },
-      {
-        field: 'class',
-        label: '班级',
-        component: 'Select',
-        componentProps: () => ({
-          placeholder: '请选择班级',
-          options: [
-            {
-              label: '一班',
-              value: 1,
-            },
-            {
-              label: '二班',
-              value: 2,
-            },
-            {
-              label: '三年级',
-              value: 3,
-            },
-          ],
-        }),
-      },
-      {
-        field: 'name',
-        label: '学生姓名',
-        formItemProps: {
-          rules: [
-            { required: true, message: '请输入学生姓名', trigger: 'blur' },
-          ],
+        {
+          field: 'class',
+          label: '班级',
+          component: 'Select',
+          componentProps: () => ({
+            placeholder: '请选择班级',
+            options: [
+              {
+                label: '一班',
+                value: 1,
+              },
+              {
+                label: '二班',
+                value: 2,
+              },
+              {
+                label: '三年级',
+                value: 3,
+              },
+            ],
+          }),
         },
-        componentProps: () => ({
-          placeholder: '请输入学生姓名',
+        {
+          field: 'name',
+          label: '学生姓名',
+          formItemProps: {
+            rules: [
+              { required: true, message: '请输入学生姓名', trigger: 'blur' },
+            ],
+          },
+          componentProps: () => ({
+            placeholder: '请输入学生姓名',
 
-          modifier: {
-            trim: true,
-          },
-        }),
-      },
-
-      {
-        type: 'array',
-        field: 'linkman',
-        label: '联系人',
-        valueFormat: {
-          name: '张三',
-          phone: '18888888888',
+            modifier: {
+              trim: true,
+            },
+          }),
         },
-        formItemProps: {
-          rules: [
+
+        {
+          type: 'array',
+          field: 'linkman',
+          label: '联系人',
+          valueFormat: {
+            name: '张三',
+            phone: '18888888888',
+          },
+          formItemProps: {
+            rules: [
+              {
+                validator: checkLinkman,
+                trigger: 'change',
+              },
+            ],
+          },
+          schemas: [
             {
-              validator: checkLinkman,
-              trigger: 'change',
+              field: 'name',
+              label: '家长姓名',
+              componentProps: () => ({
+                placeholder: '请输入联系人姓名',
+              }),
+            },
+            {
+              field: 'phone',
+              label: '联系电话',
+              componentProps: () => ({
+                placeholder: '请输入联系人电话',
+              }),
             },
           ],
         },
-        schemas: [
-          {
-            field: 'name',
-            label: '家长姓名',
-            componentProps: () => ({
-              placeholder: '请输入联系人姓名',
-            }),
-          },
-          {
-            field: 'phone',
-            label: '联系电话',
-            componentProps: () => ({
-              placeholder: '请输入联系人电话',
-            }),
-          },
-        ],
-      },
-      {
-        type: 'array',
-        field: 'specialty',
-        label: '特长',
-        componentProps: () => ({
-          placeholder: '请输入',
-        }),
-      },
-    ],
-  })
+        {
+          type: 'array',
+          field: 'specialty',
+          label: '特长',
+          componentProps: () => ({
+            placeholder: '请输入',
+          }),
+        },
+      ],
+    },
+  )
 
   /**
    * 编辑
@@ -138,7 +142,7 @@
   const editClick = (record: Recordable) => {
     console.log(111, omit(record, ['updateTime'])) // {  grade: 1}
     console.log(222, pick(record, ['grade'])) // {  grade: 1}
-    openFormModal(pick(record, ['grade']))
+    openEditFormModal(pick(record, ['grade']))
   }
   // 新增
   const addClick = () => {
@@ -170,7 +174,6 @@
         >
         <FormModal
           title="添加学生"
-          :destroyOnClose="true"
           :visible="visible"
           @submit="handleOk"
           :label-width="88"

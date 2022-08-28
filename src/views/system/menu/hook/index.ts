@@ -49,6 +49,16 @@ export const useForm = () => {
           }),
         },
         {
+          field: 'redirect',
+          label: '重定向',
+          component: 'Input',
+          formItemProps: {},
+          componentProps: () => ({
+            placeholder: '请输入重定向',
+          }),
+        },
+
+        {
           field: 'title',
           label: '菜单名称',
           component: 'Input',

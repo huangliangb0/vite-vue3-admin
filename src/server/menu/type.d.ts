@@ -5,6 +5,8 @@ interface MenuItem {
   name?: string
   // 路径
   path: string
+  // 重定向
+  redirect?: string
   // 路由标题
   title: string
   // 图标，从svg icons取

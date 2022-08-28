@@ -6,6 +6,7 @@
     ref,
     PropType,
     computed,
+    watch,
   } from 'vue'
   import { FormInstance } from 'ant-design-vue'
   import { Widget } from './widgets'
@@ -30,7 +31,6 @@
       },
       initialState: {
         type: Object as PropType<Recordable>,
-        default: () => ({}),
       },
       colon: {
         type: Boolean,
@@ -47,13 +47,13 @@
         default: false,
       },
     },
-    emits: ['submit', 'reset', 'edit'],
+    emits: ['submit', 'reset', 'edit-submit'],
     setup(props, { emit, attrs, expose, slots }) {
       const o: Recordable = {}
       props.schemas.forEach((item) => {
         o[item.field] = item.default
       })
-      const formState = reactive({ ...o, ...props.initialState })
+      const formState = reactive({ ...o })
       const formRef = ref<FormInstance>()
       const appStore = useAppStore()
 
@@ -104,6 +104,18 @@
         return undefined
       })
 
+      // watch
+      watch(
+        () => props.initialState,
+        (state) => {
+          if (state) {
+            Object.assign(formState, state)
+          } else {
+            reset()
+          }
+        },
+      )
+
       // 提交
       const submit = (e: Event) => {
         e.preventDefault()
@@ -112,7 +124,7 @@
           ?.validate()
           .then(() => {
             if (props.isEdit) {
-              emit('edit', toRaw(formState))
+              emit('edit-submit', toRaw(formState))
             } else {
               emit('submit', toRaw(formState))
             }
