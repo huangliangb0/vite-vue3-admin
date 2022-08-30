@@ -15,6 +15,7 @@ export const useForm = () => {
           default: undefined,
           componentProps: () => ({
             placeholder: '请输入父级菜单',
+            showSearch: true,
             options: menuStore.menus.map((item) => ({
               label: item.title,
               value: item.id,
@@ -28,6 +29,7 @@ export const useForm = () => {
           formItemProps: {},
           componentProps: () => ({
             placeholder: '请输入组件名称',
+            showSearch: true,
             options: menuStore.usablePermissionRouteNames,
           }),
         },

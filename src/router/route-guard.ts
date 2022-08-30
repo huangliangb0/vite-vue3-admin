@@ -14,6 +14,7 @@ import usePermissionStore from '@/store/modules/permission'
 import useTagsViewStore from '@/store/modules/tagsView'
 import { message } from 'ant-design-vue'
 import useMenuStore from '@/store/modules/menu'
+import { treeData } from '@/utils/util'
 
 // 白名单
 const WhiteList = ['/login']
@@ -44,6 +45,8 @@ router.beforeEach(async (to, _from, next) => {
         try {
           const res = await userStore.getUserInfo()
           const menus = await menuStore.getMenuList()
+          const data = treeData(menus)
+          console.log(111111, res.menuList, data)
           const accessRoutes = await permissionStore.setRoutes(res.menuList)
           addRoutes(accessRoutes)
 

@@ -46,6 +46,7 @@ const useFormModal = (
     initialState.value = undefined
     isEdit.value = false
     visible.value = false
+    formRef.value?.reset()
   }
 
   const openEditFormModal = (initValue: Recordable) => {

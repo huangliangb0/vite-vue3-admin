@@ -6,7 +6,7 @@
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "json:server": "json-server --watch ./mock/db.json --port 3004",
-    "serve": "vite && json-server --watch ./mock/db.json --port 3004",
+    "serve": "vite",
     "preview": "vite preview",
     "lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx --fix",
     "prettier": "prettier --write  \"src/**/*.{js,json,tsx,css,less,scss,vue,html,md}\"",

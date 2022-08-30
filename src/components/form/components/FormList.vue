@@ -4,7 +4,6 @@
   import type { FormSchemas, WidgetProps } from '../type'
   import { cloneDeep } from 'lodash'
   import { MinusOutlined } from '@ant-design/icons-vue'
-  import useAppStore from '@/store/modules/app'
   import { GRID_KEYS } from '@/constant/app'
   export default defineComponent({
     name: 'FormList',
@@ -45,11 +44,12 @@
       },
     },
     setup(props) {
-      const appStore = useAppStore()
       const grid = computed(() => {
-        return GRID_KEYS.map((key) => ({
-          [key]: props.grid[key] || 24 / props.schemas.length,
-        }))
+        const o: GridColType = {}
+        GRID_KEYS.forEach((key) => {
+          o[key] = props.grid[key] || 24 / props.schemas.length
+        })
+        return o
       })
 
       const handleAdd = () => {
@@ -79,7 +79,7 @@
       return () => {
         const { valueFormat, value } = props
         return typeof valueFormat === 'object' ? (
-          <>
+          <a-space size={20} direction="vertical" style={{ width: '100%' }}>
             {value.map((_p, p_index) => (
               <a-row gutter={[20, 0]} class="form--list" align="bottom">
                 <a-col key={p_index} style="flex: 1">
@@ -122,9 +122,9 @@
             <a-button onClick={handleAdd} style="width: 100%">
               添加字段
             </a-button>
-          </>
+          </a-space>
         ) : (
-          <>
+          <a-space size={20} direction="vertical" style={{ width: '100%' }}>
             {props.value.map((_item, index) => (
               <a-form-item key={index}>
                 <a-row gutter={[20, 20]}>
@@ -157,7 +157,7 @@
             <a-button onClick={handleAdd} style="width: 100%">
               添加字段
             </a-button>
-          </>
+          </a-space>
         )
       }
     },

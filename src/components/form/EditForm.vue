@@ -240,7 +240,7 @@
 
 <style lang="less" scoped>
   .edit--form_row {
-    :deep(.ant-row) {
+    :deep(.ant-form-item) {
       margin-bottom: 0;
     }
   }

@@ -36,7 +36,9 @@ export const patchRoutes = (menuList: MenusType): MenusType => {
         ...reset,
         path: path,
         component: BasicLayout,
-        redirect: isExternal(item.path) ? undefined : item.path + '/index',
+        redirect: isExternal(item.path)
+          ? undefined
+          : item.redirect || item.path + '/index',
         children: [
           {
             ...reset,
