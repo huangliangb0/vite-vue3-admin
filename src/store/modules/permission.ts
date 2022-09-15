@@ -31,8 +31,6 @@ const usePermissionStore = defineStore('permission', {
           menuList,
         )
 
-        console.log('accessedRoutes', accessedRoutes)
-
         this.routes = constantRoutes.concat(accessedRoutes)
         this.dynamicRoutes = accessedRoutes
         resolve(accessedRoutes)

@@ -2,6 +2,8 @@ import { FormSchemas } from '@/components/form'
 import { useFormModal } from '@/hook'
 import useMenuStore from '@/store/modules/menu'
 import { computed } from 'vue'
+import { QuestionCircleOutlined } from '@ant-design/icons-vue'
+import { Space } from 'ant-design-vue'
 
 export const useForm = () => {
   const menuStore = useMenuStore()
@@ -89,16 +91,17 @@ export const useForm = () => {
         },
         {
           field: 'sort',
-          label: '排序',
           component: 'InputNumber',
           default: 0,
           componentProps: () => ({
             placeholder: '请输入排序',
           }),
+          slots: {
+            label: () => <div>沙发沙发</div>,
+          },
         },
         {
           field: 'isCache',
-          label: '是否缓存',
           component: 'Switch',
           default: false,
           grid: {
@@ -109,6 +112,14 @@ export const useForm = () => {
           },
           formItemProps: {
             extra: '页面跳转之后依然保存页面的状态',
+          },
+          slots: {
+            label: () => (
+              <Space>
+                <span>是否缓存</span>
+                <QuestionCircleOutlined />
+              </Space>
+            ),
           },
         },
         {
@@ -124,6 +135,9 @@ export const useForm = () => {
           },
           formItemProps: {
             extra: '在侧边栏菜单中将不会显示',
+          },
+          componentProps: {
+            extra: () => <div>额外信息</div>,
           },
         },
 

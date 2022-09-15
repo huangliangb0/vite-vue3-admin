@@ -142,6 +142,7 @@
                   key={item.field}
                   label={item.label}
                   name={item.field}
+                  {...item.formItemProps}
                 >
                   <Widget
                     component={item.component}

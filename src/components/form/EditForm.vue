@@ -13,6 +13,7 @@
   import FormList from './components/FormList.vue'
   import type { FormSchemas } from './type'
   import useAppStore from '@/store/modules/app'
+  import { omit, pick } from 'lodash'
 
   const FormItemGrid: GridColType = {
     xs: 24,
@@ -174,6 +175,8 @@
                   label={item.label}
                   name={item.field}
                   {...item.formItemProps}
+                  {...omit(item.formItemProps, ['label', 'extra', 'help'])}
+                  v-slots={pick(item.formItemProps, ['label', 'extra', 'help'])}
                 >
                   {item.type === 'array' ? (
                     <FormList
@@ -191,16 +194,19 @@
                       }
                     ></FormList>
                   ) : (
-                    <Widget
-                      component={item.component}
-                      value={formState[item.field]}
-                      change={(value) => {
-                        formState[item.field] = value
-                      }}
-                      {...(typeof item.componentProps === 'function'
-                        ? item.componentProps(formState)
-                        : item.componentProps)}
-                    ></Widget>
+                    <div class="form-widget-wrap">
+                      <Widget
+                        component={item.component}
+                        value={formState[item.field]}
+                        change={(value) => {
+                          formState[item.field] = value
+                        }}
+                        {...(typeof item.componentProps === 'function'
+                          ? item.componentProps(formState)
+                          : item.componentProps)}
+                      ></Widget>
+                      <div>啥东西啊</div>
+                    </div>
                   )}
                 </a-form-item>
               </a-col>
@@ -243,5 +249,8 @@
     :deep(.ant-form-item) {
       margin-bottom: 0;
     }
+  }
+  .form-widget-wrap {
+    display: flex;
   }
 </style>

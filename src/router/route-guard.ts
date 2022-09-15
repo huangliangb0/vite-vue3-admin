@@ -46,8 +46,8 @@ router.beforeEach(async (to, _from, next) => {
           const res = await userStore.getUserInfo()
           const menus = await menuStore.getMenuList()
           const data = treeData(menus)
-          console.log(111111, res.menuList, data)
-          const accessRoutes = await permissionStore.setRoutes(res.menuList)
+          const accessRoutes = await permissionStore.setRoutes(data)
+
           addRoutes(accessRoutes)
 
           TagsStore.addAffixTags()

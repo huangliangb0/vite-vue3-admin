@@ -39,7 +39,7 @@
 </template>
 
 <script lang="ts" setup>
-  import { provide, ref } from 'vue'
+  import { computed, provide, ref } from 'vue'
   import zhCN from 'ant-design-vue/es/locale/zh_CN'
   import { Menu, Header, Title, View, TagsView } from './components'
   import dayjs from 'dayjs'
@@ -48,9 +48,15 @@
   import permissionRoutes from '@/router/permissionRoutes'
   import MenusModel from '@/models/MenusModel'
   import { useReload, useShowLayoutSider } from './hook'
+  import useMenuStore from '@/store/modules/menu'
   dayjs.locale('zh-cn')
 
-  const routes = generatePermissionRoutes(permissionRoutes, MenusModel)
+  const munusStore = useMenuStore()
+
+  const routes = computed(() =>
+    generatePermissionRoutes(permissionRoutes, munusStore.menusTree),
+  )
+
   const collapsed = ref(false)
 
   // 是否显示侧边栏

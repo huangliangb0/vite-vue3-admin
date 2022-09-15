@@ -39,6 +39,10 @@
       title: '排序',
     },
     {
+      dataIndex: 'redirect',
+      title: '重定向',
+    },
+    {
       dataIndex: 'isCache',
       title: '是否缓存',
       slot: ({ record }) => (

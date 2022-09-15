@@ -7,6 +7,7 @@ import type {
   InputProps,
   DatePickerProps,
 } from 'ant-design-vue'
+import { Slot } from 'vue'
 
 export type WidgetModifier = {
   trim?: Boolean
@@ -16,6 +17,7 @@ export type WidgetProps = InputProps &
   SelectProps &
   DatePickerProps & {
     modifier?: WidgetModifier
+    extra: Slot
   }
 
 export type WidgetKeys = keyof typeof widgets
@@ -32,6 +34,7 @@ export interface FormSchemaItem {
   valueFormat?: string | number | boolean | Recordable
   // 这个再编辑表单中有用，因为多个表单控件会在同一行
   grid?: GridColType
+  // 插槽
 
   // widget 组件的属性，比如Input、Select
   componentProps?: WidgetProps | ((arg: unknown) => WidgetProps)

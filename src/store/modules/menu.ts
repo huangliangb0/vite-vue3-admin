@@ -30,11 +30,11 @@ const useMenuStore = defineStore({
   actions: {
     setMenus(menus: MenuList) {
       this.menus = menus.map((item) => {
-        if (item.parentId === undefined) {
-          item.path = '/' + item.path.replace('/', '')
-        } else {
-          item.path = item.path.replace('/', '')
-        }
+        // if (item.parentId === undefined) {
+        //   item.path = '/' + item.path.replace('/', '')
+        // } else {
+        //   item.path = item.path.replace('/', '')
+        // }
 
         return item
       })
