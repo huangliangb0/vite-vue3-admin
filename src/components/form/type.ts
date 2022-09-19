@@ -7,7 +7,7 @@ import type {
   InputProps,
   DatePickerProps,
 } from 'ant-design-vue'
-import { Slot } from 'vue'
+import { DefineComponent, VNode } from 'vue'
 
 export type WidgetModifier = {
   trim?: Boolean
@@ -17,7 +17,7 @@ export type WidgetProps = InputProps &
   SelectProps &
   DatePickerProps & {
     modifier?: WidgetModifier
-    extra: Slot
+    extra: string | (() => VNode)
   }
 
 export type WidgetKeys = keyof typeof widgets
@@ -26,7 +26,7 @@ export interface FormSchemaItem {
   type?: 'default' | 'array'
   // 字段名
   field: string
-  component?: WidgetKeys
+  component: WidgetKeys | DefineComponent<Recordable, Recordable, any>
   label?: string
   // 默认值
   default?: any

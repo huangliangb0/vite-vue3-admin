@@ -1,14 +1,15 @@
 import { request } from '@/utils/request'
+import { omit } from 'lodash'
 import { v4 as uuidv4 } from 'uuid'
 
-export const getMenuList = (): Promise<Menu.MenuList> => {
+export const getMenuList = (): Promise<MenuList> => {
   return request({
     url: '/menus',
     method: 'get',
   })
 }
 
-export const createMenu = (data: Omit<Menu.MenuItem, 'id'>) => {
+export const createMenu = (data: Omit<MenuItem, 'id'>) => {
   return request({
     url: '/menus',
     method: 'post',
@@ -19,7 +20,7 @@ export const createMenu = (data: Omit<Menu.MenuItem, 'id'>) => {
   })
 }
 
-export const updateMenu = (id: string, data: Omit<Menu.MenuItem, 'id'>) => {
+export const updateMenu = (id: string, data: Omit<MenuItem, 'id'>) => {
   return request({
     url: '/menus/' + id,
     method: 'put',

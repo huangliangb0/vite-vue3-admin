@@ -1,7 +1,7 @@
 <script lang="tsx">
   import { computed, defineComponent, PropType } from 'vue'
-  import widgets, { Widget } from '../widgets'
-  import type { FormSchemas, WidgetProps } from '../type'
+  import { Widget } from '../widgets'
+  import type { FormSchemaItem, FormSchemas, WidgetProps } from '../type'
   import { cloneDeep } from 'lodash'
   import { MinusOutlined } from '@ant-design/icons-vue'
   import { GRID_KEYS } from '@/constant/app'
@@ -27,7 +27,7 @@
         default: () => '',
       },
       component: {
-        type: String as PropType<keyof typeof widgets>,
+        type: String as PropType<FormSchemaItem['component']>,
         default: 'Input',
       },
       componentProps: {

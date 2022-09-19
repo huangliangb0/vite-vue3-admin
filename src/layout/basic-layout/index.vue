@@ -46,7 +46,6 @@
   import 'dayjs/locale/zh-cn'
   import { generatePermissionRoutes } from '@/utils/routes'
   import permissionRoutes from '@/router/permissionRoutes'
-  import MenusModel from '@/models/MenusModel'
   import { useReload, useShowLayoutSider } from './hook'
   import useMenuStore from '@/store/modules/menu'
   dayjs.locale('zh-cn')

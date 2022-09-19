@@ -1,6 +1,5 @@
 import { RouteRecordRaw } from 'vue-router'
 import { cloneDeep } from 'lodash'
-import type { MenusType, MenuItemType } from '@/models/MenusModel'
 import type { RoutesMap } from '@/router/permissionRoutes'
 import { isExternal } from './validate'
 import BasicLayout from '@/layout/basic-layout/index.vue'
@@ -11,7 +10,7 @@ import BasicLayout from '@/layout/basic-layout/index.vue'
  * @param p 父级路径
  * @returns [string]
  */
-const complementPath = (path: string, p: MenuItemType | null) => {
+const complementPath = (path: string, p: Menu.MenuItem | null) => {
   if (!p || isExternal(path)) {
     return path
   }
@@ -25,10 +24,10 @@ const complementPath = (path: string, p: MenuItemType | null) => {
 /**
  * 路由打补丁
  * [{ path: '/home', .... }] => [{ path: '/home', component: BasicLayout, ...., children: [{ path: '/home/index', ... }] }]
- * @param menuList MenusType 菜单列表
- * @returns MenusType
+ * @param menuList Menu.MenuList 菜单列表
+ * @returns Menu.MenuList
  */
-export const patchRoutes = (menuList: MenusType): MenusType => {
+export const patchRoutes = (menuList: Menu.MenuList): Menu.MenuList => {
   return menuList.map((item) => {
     if (!item.children || item.children.length === 0) {
       const { path, affixInTags, ...reset } = item
@@ -63,7 +62,7 @@ export const patchRoutes = (menuList: MenusType): MenusType => {
  */
 export const generatePermissionRoutes = (
   permissionRoutesMap: RoutesMap,
-  menuList: MenusType,
+  menuList: Menu.MenuList,
 ): RouteRecordRaw[] => {
   // 给菜单排序
   handleMenuListSort(menuList)
@@ -74,11 +73,11 @@ export const generatePermissionRoutes = (
   // 递归生产线上 vue-router 的路由格式
   const rec = (
     permissionRoutesMap: RoutesMap,
-    menuList: MenusType,
-    p: MenuItemType | null = null,
+    menuList: Menu.MenuList,
+    p: Menu.MenuItem | null = null,
   ): RouteRecordRaw[] => {
     return menuList.map((item) => {
-      const { name, path, redirect, children, component, ...meta } = item
+      const { name, path, redirect, children, componentKey, ...meta } = item
       const _path = complementPath(path, p)
 
       return {
@@ -87,7 +86,7 @@ export const generatePermissionRoutes = (
         redirect,
         meta,
         component:
-          component || (name && permissionRoutesMap[name]) || BasicLayout,
+          (componentKey && permissionRoutesMap[componentKey]) || BasicLayout,
         children: children
           ? rec(permissionRoutesMap, children, item)
           : undefined,
@@ -139,7 +138,7 @@ function flat(routes: RouteRecordRaw[]): RouteRecordRaw[] {
  * 菜单列表排序
  * @param menuList 从后端获取的菜单列表
  */
-export const handleMenuListSort = (menuList: MenusType) => {
+export const handleMenuListSort = (menuList: Menu.MenuList) => {
   menuList.sort((a, b) => {
     return (a.sort ?? 9999999) - (b.sort ?? 9999999)
   })

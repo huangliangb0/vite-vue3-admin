@@ -1,4 +1,4 @@
-import { ModalProps } from 'ant-design-vue'
+import { Button, ModalProps, Space } from 'ant-design-vue'
 import { computed, h, nextTick, ref, Slot } from 'vue'
 import 'ant-design-vue/lib/modal/style/index.css'
 import { EditForm, EditFormInstance } from '@/components/form'
@@ -67,7 +67,6 @@ const useFormModal = (
     return h(
       Modal,
       {
-        footer: null,
         onCancel: closeFormModal,
         visible: visible.value,
         width: modalWidth.value,
@@ -79,6 +78,7 @@ const useFormModal = (
           h(
             EditForm,
             {
+              hideAction: false,
               initialState: initialState.value,
               isEdit: isEdit.value,
               ...formProps,
@@ -86,6 +86,29 @@ const useFormModal = (
               ref: formRef,
             },
             slots,
+          ),
+        footer: () =>
+          h(
+            Space,
+            {},
+            {
+              default: () => [
+                h(
+                  Button,
+                  { onClick: formRef.value?.reset },
+                  {
+                    default: () => '重置',
+                  },
+                ),
+                h(
+                  Button,
+                  { onClick: formRef.value?.submit, type: 'primary' },
+                  {
+                    default: () => '提交',
+                  },
+                ),
+              ],
+            },
           ),
       },
     )

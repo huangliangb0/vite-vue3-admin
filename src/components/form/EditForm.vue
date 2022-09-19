@@ -26,6 +26,10 @@
       FormList,
     },
     props: {
+      hideAction: {
+        type: Boolean,
+        default: true,
+      },
       schemas: {
         type: Array as PropType<FormSchemas>,
         default: () => [],
@@ -174,7 +178,6 @@
                 <a-form-item
                   label={item.label}
                   name={item.field}
-                  {...item.formItemProps}
                   {...omit(item.formItemProps, ['label', 'extra', 'help'])}
                   v-slots={pick(item.formItemProps, ['label', 'extra', 'help'])}
                 >
@@ -194,19 +197,16 @@
                       }
                     ></FormList>
                   ) : (
-                    <div class="form-widget-wrap">
-                      <Widget
-                        component={item.component}
-                        value={formState[item.field]}
-                        change={(value) => {
-                          formState[item.field] = value
-                        }}
-                        {...(typeof item.componentProps === 'function'
-                          ? item.componentProps(formState)
-                          : item.componentProps)}
-                      ></Widget>
-                      <div>啥东西啊</div>
-                    </div>
+                    <Widget
+                      component={item.component}
+                      value={formState[item.field]}
+                      change={(value) => {
+                        formState[item.field] = value
+                      }}
+                      {...(typeof item.componentProps === 'function'
+                        ? item.componentProps(formState)
+                        : item.componentProps)}
+                    ></Widget>
                   )}
                 </a-form-item>
               </a-col>
@@ -219,24 +219,26 @@
                 })}
               </a-col>
             ) : null}
-            <a-col span={24}>
-              <a-form-item wrapperCol={btnWrapperCol.value}>
-                {slots.action ? (
-                  slots.action({
-                    submit: submit,
-                    reset: reset,
-                    instance: formRef.value,
-                  })
-                ) : (
-                  <a-space>
-                    <a-button type="primary" onClick={submit}>
-                      提交
-                    </a-button>
-                    <a-button onClick={reset}>重置</a-button>
-                  </a-space>
-                )}
-              </a-form-item>
-            </a-col>
+            {props.hideAction ? (
+              <a-col span={24}>
+                <a-form-item wrapperCol={btnWrapperCol.value}>
+                  {slots.action ? (
+                    slots.action({
+                      submit: submit,
+                      reset: reset,
+                      instance: formRef.value,
+                    })
+                  ) : (
+                    <a-space>
+                      <a-button type="primary" onClick={submit}>
+                        提交
+                      </a-button>
+                      <a-button onClick={reset}>重置</a-button>
+                    </a-space>
+                  )}
+                </a-form-item>
+              </a-col>
+            ) : null}
           </a-row>
         </a-form>
       )
@@ -249,8 +251,5 @@
     :deep(.ant-form-item) {
       margin-bottom: 0;
     }
-  }
-  .form-widget-wrap {
-    display: flex;
   }
 </style>

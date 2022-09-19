@@ -7,7 +7,6 @@
 import { defineStore } from 'pinia'
 import { setToken, removeToken } from '@/utils/auth'
 import { UserInfo } from '@/models/userModel'
-import menuList from '@/models/MenusModel'
 import { removeRoutes } from '@/router'
 
 interface State {
@@ -21,7 +20,6 @@ const getUserInfo = (): UserInfo => {
     name: random > 0.5 ? '超级管理员' : '普通管理员',
     roles: random > 0.5 ? ['admin'] : ['admin'],
     token: 'sldkfhs892347293kfa234slkdh',
-    menuList: menuList,
   }
 }
 

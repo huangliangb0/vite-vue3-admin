@@ -5,12 +5,19 @@
  * @FilePath: \spvr-plat-web\src\components\core\bo-form\widgets\index.vue
 -->
 <script lang="tsx">
-  import { defineComponent, PropType } from 'vue'
+  import {
+    Component,
+    DefineComponent,
+    defineComponent,
+    PropType,
+    VNode,
+  } from 'vue'
   import widgets from './index'
-  import type { WidgetModifier } from '../type'
+  import type { FormSchemaItem, WidgetModifier } from '../type'
 
   export default defineComponent({
     name: 'Widget',
+    inheritAttrs: false,
     props: {
       value: {
         // type: [String, Number, Array] as PropType<InputProps['value']>,
@@ -18,7 +25,7 @@
         default: undefined,
       },
       component: {
-        type: String as PropType<keyof typeof widgets>,
+        type: [String, Function] as PropType<FormSchemaItem['component']>,
         default: 'Input',
       },
       change: {
@@ -28,6 +35,9 @@
       modifier: {
         type: Object as PropType<WidgetModifier>,
         default: () => ({}),
+      },
+      extra: {
+        type: [Function, String] as PropType<string | (() => VNode)>,
       },
     },
     setup(props, { attrs }) {
@@ -43,21 +53,35 @@
         props.change(value)
         onChange && onChange(value)
       }
-      const Widget = widgets[props.component]
+      const Widget =
+        typeof props.component === 'string'
+          ? widgets[props.component]
+          : props.component
       return () => (
-        <Widget
-          {...reset}
-          value={props.value}
-          onChange={handleChange}
-          class="form-widget"
-        ></Widget>
+        <div class="form-widget-box">
+          <Widget
+            {...reset}
+            value={props.value}
+            onChange={handleChange}
+            class="form-widget"
+          ></Widget>
+          {typeof props.extra === 'function' ? props.extra() : props.extra}
+        </div>
       )
     },
   })
 </script>
 
 <style lang="less" scoped>
-  .form-widget {
+  .form-widget-box {
     width: 100%;
+    gap: 8px;
+    display: flex;
+  }
+  .form-widget {
+    flex: 1;
+    &.ant-switch {
+      flex: 0 0 auto;
+    }
   }
 </style>

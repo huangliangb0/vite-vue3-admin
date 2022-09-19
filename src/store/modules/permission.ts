@@ -9,7 +9,6 @@ import { constantRoutes, permissionRoutes } from '@/router'
 // import { removeRoutes } from '../../router'
 import { generatePermissionRoutes } from '../../utils/routes'
 import { RouteRecordRaw } from 'vue-router'
-import { MenusType } from '@/models/MenusModel'
 interface State {
   routes: RouteRecordRaw[]
   dynamicRoutes: RouteRecordRaw[]
@@ -24,7 +23,7 @@ const usePermissionStore = defineStore('permission', {
     dynamicRoutes: [],
   }),
   actions: {
-    setRoutes(menuList: MenusType): Promise<RouteRecordRaw[]> {
+    setRoutes(menuList: MenuList): Promise<RouteRecordRaw[]> {
       return new Promise((resolve) => {
         const accessedRoutes = generatePermissionRoutes(
           permissionRoutes,

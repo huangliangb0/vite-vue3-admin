@@ -1,6 +1,7 @@
 {
   "menus": [
     {
+      "componentKey": "Home",
       "name": "Home",
       "path": "/home",
       "redirect": "",
@@ -16,6 +17,7 @@
       "id": "b34e28fb-7c67-4848-bf9e-6223b24f74ad"
     },
     {
+      "name": "Table",
       "path": "/table",
       "redirect": "/table/common-table",
       "title": "表格",
@@ -28,8 +30,8 @@
       "alwayShowChildInMenu": false,
       "children": [
         {
-          "id": "6b823640-8771-4004-ab13-2527ae3a1b40",
           "parentId": "2445010f-6c60-448a-9aec-57b53b133086",
+          "componentKey": "CommonTable",
           "name": "CommonTable",
           "path": "commpon-table",
           "title": "通用表格",
@@ -39,14 +41,45 @@
           "hideInTags": false,
           "affixInTags": false,
           "alwayShowChildInMenu": false,
-          "children": []
+          "children": [],
+          "id": "6b823640-8771-4004-ab13-2527ae3a1b40"
+        },
+        {
+          "parentId": "2445010f-6c60-448a-9aec-57b53b133086",
+          "componentKey": "EditTable",
+          "name": "EditTable",
+          "path": "edit-table",
+          "title": "编辑表格",
+          "sort": 2,
+          "isCache": false,
+          "hideInMenu": false,
+          "hideInTags": false,
+          "affixInTags": false,
+          "alwayShowChildInMenu": false,
+          "children": [],
+          "id": "6a69d34c-870e-42ab-962a-172b5054b3be"
+        },
+        {
+          "parentId": "2445010f-6c60-448a-9aec-57b53b133086",
+          "componentKey": "SpanRowTable",
+          "name": "SpanRowTable",
+          "path": "span-row-table",
+          "title": "跨行表格",
+          "sort": 3,
+          "isCache": false,
+          "hideInMenu": false,
+          "hideInTags": false,
+          "affixInTags": false,
+          "alwayShowChildInMenu": false,
+          "children": [],
+          "id": "ae2a1559-ebeb-4fb6-860f-dcfd1ba97a2f"
         }
       ],
       "id": "2445010f-6c60-448a-9aec-57b53b133086"
     },
     {
-      "id": "6b823640-8771-4004-ab13-2527ae3a1b40",
       "parentId": "2445010f-6c60-448a-9aec-57b53b133086",
+      "componentKey": "CommonTable",
       "name": "CommonTable",
       "path": "commpon-table",
       "title": "通用表格",
@@ -55,11 +88,13 @@
       "hideInMenu": false,
       "hideInTags": false,
       "affixInTags": false,
-      "alwayShowChildInMenu": false
+      "alwayShowChildInMenu": false,
+      "children": [],
+      "id": "6b823640-8771-4004-ab13-2527ae3a1b40"
     },
     {
-      "id": "6a69d34c-870e-42ab-962a-172b5054b3be",
       "parentId": "2445010f-6c60-448a-9aec-57b53b133086",
+      "componentKey": "EditTable",
       "name": "EditTable",
       "path": "edit-table",
       "title": "编辑表格",
@@ -69,26 +104,12 @@
       "hideInTags": false,
       "affixInTags": false,
       "alwayShowChildInMenu": false,
-      "children": [
-        {
-          "id": "6b823640-8771-4004-ab13-2527ae3a1b40",
-          "parentId": "2445010f-6c60-448a-9aec-57b53b133086",
-          "name": "CommonTable",
-          "path": "commpon-table",
-          "title": "通用表格",
-          "sort": 1,
-          "isCache": false,
-          "hideInMenu": false,
-          "hideInTags": false,
-          "affixInTags": false,
-          "alwayShowChildInMenu": false,
-          "children": []
-        }
-      ]
+      "children": [],
+      "id": "6a69d34c-870e-42ab-962a-172b5054b3be"
     },
     {
-      "id": "ae2a1559-ebeb-4fb6-860f-dcfd1ba97a2f",
       "parentId": "2445010f-6c60-448a-9aec-57b53b133086",
+      "componentKey": "SpanRowTable",
       "name": "SpanRowTable",
       "path": "span-row-table",
       "title": "跨行表格",
@@ -98,24 +119,11 @@
       "hideInTags": false,
       "affixInTags": false,
       "alwayShowChildInMenu": false,
-      "children": [
-        {
-          "id": "6b823640-8771-4004-ab13-2527ae3a1b40",
-          "parentId": "2445010f-6c60-448a-9aec-57b53b133086",
-          "name": "CommonTable",
-          "path": "commpon-table",
-          "title": "通用表格",
-          "sort": 1,
-          "isCache": false,
-          "hideInMenu": false,
-          "hideInTags": false,
-          "affixInTags": false,
-          "alwayShowChildInMenu": false,
-          "children": []
-        }
-      ]
+      "children": [],
+      "id": "ae2a1559-ebeb-4fb6-860f-dcfd1ba97a2f"
     },
     {
+      "name": "Form",
       "path": "/form",
       "redirect": "/form/edit-form",
       "title": "表单",
@@ -126,11 +134,73 @@
       "hideInTags": false,
       "affixInTags": false,
       "alwayShowChildInMenu": false,
-      "children": [],
+      "children": [
+        {
+          "parentId": "067c4d80-2300-45e6-a651-e4c2893ce19c",
+          "componentKey": "EditForm",
+          "name": "EditForm",
+          "path": "edit-form",
+          "title": "编辑表单",
+          "sort": 1,
+          "isCache": false,
+          "hideInMenu": false,
+          "hideInTags": false,
+          "affixInTags": false,
+          "alwayShowChildInMenu": false,
+          "children": [],
+          "id": "34af925e-85e5-4759-af3c-c38225101dd9"
+        },
+        {
+          "parentId": "067c4d80-2300-45e6-a651-e4c2893ce19c",
+          "componentKey": "FilterForm",
+          "name": "FilterForm",
+          "path": "filter-form",
+          "title": "搜索表单",
+          "sort": 2,
+          "isCache": false,
+          "hideInMenu": false,
+          "hideInTags": false,
+          "affixInTags": false,
+          "alwayShowChildInMenu": false,
+          "children": [],
+          "id": "0f9ded08-abe0-4d60-b88d-45fc26ade59a"
+        },
+        {
+          "parentId": "067c4d80-2300-45e6-a651-e4c2893ce19c",
+          "componentKey": "EditFormModal",
+          "name": "EditFormModal",
+          "path": "edit-form-modal",
+          "title": "编辑表单模态框",
+          "sort": 3,
+          "isCache": false,
+          "hideInMenu": false,
+          "hideInTags": false,
+          "affixInTags": false,
+          "alwayShowChildInMenu": false,
+          "children": [],
+          "id": "9370dd3d-8b7a-4ba0-a755-a45a20880095"
+        },
+        {
+          "parentId": "067c4d80-2300-45e6-a651-e4c2893ce19c",
+          "componentKey": "FilterSearchModal",
+          "name": "FilterSearchModal",
+          "path": "filter-search-modal",
+          "title": "搜索表单模态框",
+          "sort": 4,
+          "isCache": false,
+          "hideInMenu": false,
+          "hideInTags": false,
+          "affixInTags": false,
+          "alwayShowChildInMenu": false,
+          "children": [],
+          "id": "d920b135-e764-4598-8b2a-c7472f5d8efc"
+        }
+      ],
       "id": "067c4d80-2300-45e6-a651-e4c2893ce19c"
     },
     {
       "parentId": "067c4d80-2300-45e6-a651-e4c2893ce19c",
+      "componentKey": "EditForm",
       "name": "EditForm",
       "path": "edit-form",
       "title": "编辑表单",
@@ -144,8 +214,8 @@
       "id": "34af925e-85e5-4759-af3c-c38225101dd9"
     },
     {
-      "id": "0f9ded08-abe0-4d60-b88d-45fc26ade59a",
       "parentId": "067c4d80-2300-45e6-a651-e4c2893ce19c",
+      "componentKey": "FilterForm",
       "name": "FilterForm",
       "path": "filter-form",
       "title": "搜索表单",
@@ -154,11 +224,13 @@
       "hideInMenu": false,
       "hideInTags": false,
       "affixInTags": false,
-      "alwayShowChildInMenu": false
+      "alwayShowChildInMenu": false,
+      "children": [],
+      "id": "0f9ded08-abe0-4d60-b88d-45fc26ade59a"
     },
     {
-      "id": "9370dd3d-8b7a-4ba0-a755-a45a20880095",
       "parentId": "067c4d80-2300-45e6-a651-e4c2893ce19c",
+      "componentKey": "EditFormModal",
       "name": "EditFormModal",
       "path": "edit-form-modal",
       "title": "编辑表单模态框",
@@ -168,11 +240,12 @@
       "hideInTags": false,
       "affixInTags": false,
       "alwayShowChildInMenu": false,
-      "children": []
+      "children": [],
+      "id": "9370dd3d-8b7a-4ba0-a755-a45a20880095"
     },
     {
-      "id": "d920b135-e764-4598-8b2a-c7472f5d8efc",
       "parentId": "067c4d80-2300-45e6-a651-e4c2893ce19c",
+      "componentKey": "FilterSearchModal",
       "name": "FilterSearchModal",
       "path": "filter-search-modal",
       "title": "搜索表单模态框",
@@ -182,9 +255,11 @@
       "hideInTags": false,
       "affixInTags": false,
       "alwayShowChildInMenu": false,
-      "children": []
+      "children": [],
+      "id": "d920b135-e764-4598-8b2a-c7472f5d8efc"
     },
     {
+      "componentKey": "Row",
       "name": "Row",
       "path": "/row",
       "redirect": "",
@@ -200,6 +275,7 @@
       "id": "5cb68c81-d8d5-451e-89de-99c97afb59d1"
     },
     {
+      "componentKey": "Modal",
       "name": "Modal",
       "path": "/modal",
       "redirect": "",
@@ -215,7 +291,7 @@
       "id": "d6093060-1241-4139-b15e-7a964f6f4525"
     },
     {
-      "id": "bf15639f-0e3f-4b1e-93e9-f30e33ea10f8",
+      "name": "Sys",
       "path": "/sys-manage",
       "redirect": "/sys-manage/menu",
       "title": "系统管理",
@@ -225,11 +301,28 @@
       "hideInMenu": false,
       "hideInTags": false,
       "affixInTags": false,
-      "alwayShowChildInMenu": true
+      "alwayShowChildInMenu": true,
+      "children": [
+        {
+          "id": "a7638e52-5372-4ec9-833d-3be1c25ff788",
+          "parentId": "bf15639f-0e3f-4b1e-93e9-f30e33ea10f8",
+          "name": "Menu",
+          "path": "menu",
+          "title": "菜单管理",
+          "sort": 1,
+          "isCache": false,
+          "hideInMenu": false,
+          "hideInTags": false,
+          "affixInTags": false,
+          "alwayShowChildInMenu": false,
+          "children": []
+        }
+      ],
+      "id": "bf15639f-0e3f-4b1e-93e9-f30e33ea10f8"
     },
     {
-      "id": "a7638e52-5372-4ec9-833d-3be1c25ff788",
       "parentId": "bf15639f-0e3f-4b1e-93e9-f30e33ea10f8",
+      "componentKey": "Menu",
       "name": "Menu",
       "path": "menu",
       "title": "菜单管理",
@@ -238,7 +331,135 @@
       "hideInMenu": false,
       "hideInTags": false,
       "affixInTags": false,
-      "alwayShowChildInMenu": false
+      "alwayShowChildInMenu": false,
+      "children": [],
+      "id": "a7638e52-5372-4ec9-833d-3be1c25ff788"
+    }
+  ],
+  "student": [
+    {
+      "grade": "一年级",
+      "gradeId": 1,
+      "children": [
+        {
+          "class": "一班",
+          "classId": 1,
+          "children": [
+            {
+              "name": "小花",
+              "id": 1
+            },
+            {
+              "name": "小明",
+              "id": 2
+            }
+          ]
+        },
+        {
+          "class": "二班",
+          "classId": 2,
+          "children": [
+            {
+              "name": "小丽",
+              "id": 3
+            },
+            {
+              "name": "小张",
+              "id": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "grade": "二年级",
+      "gradeId": 2,
+      "children": [
+        {
+          "class": "一班",
+          "classId": 3,
+          "children": [
+            {
+              "name": "小赞",
+              "id": 5
+            },
+            {
+              "name": "哔哩",
+              "id": 6
+            },
+            {
+              "name": "八百",
+              "id": 7
+            }
+          ]
+        },
+        {
+          "class": "二班",
+          "classId": 4,
+          "children": [
+            {
+              "name": "麋鹿",
+              "id": 8
+            },
+            {
+              "name": "青蛙",
+              "id": 9
+            }
+          ]
+        },
+        {
+          "class": "三班",
+          "classId": 5,
+          "children": [
+            {
+              "name": "热熔",
+              "id": 10
+            },
+            {
+              "name": "突然",
+              "id": 11
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "grade": "三年级",
+      "gradeId": 3,
+      "children": [
+        {
+          "class": "一班",
+          "classId": 6,
+          "children": [
+            {
+              "name": "大得",
+              "id": 12
+            },
+            {
+              "name": "倘若",
+              "id": 13
+            },
+            {
+              "name": "广泛",
+              "id": 14
+            }
+          ]
+        },
+        {
+          "class": "二班",
+          "classId": 7,
+          "children": [
+            {
+              "name": "框架",
+              "id": 15
+            },
+            {
+              "name": "拉跨",
+              "id": 16
+            }
+          ]
+        }
+      ]
     }
   ]
 }

@@ -3,7 +3,8 @@ import { useFormModal } from '@/hook'
 import useMenuStore from '@/store/modules/menu'
 import { computed } from 'vue'
 import { QuestionCircleOutlined } from '@ant-design/icons-vue'
-import { Space } from 'ant-design-vue'
+import { Button, Space, Tooltip } from 'ant-design-vue'
+import RouteNameWidget from '../components/RouteNameWidget.vue'
 
 export const useForm = () => {
   const menuStore = useMenuStore()
@@ -25,14 +26,31 @@ export const useForm = () => {
           }),
         },
         {
+          field: 'componentKey',
+          component: 'Select',
+          formItemProps: {
+            label: () => (
+              <Tooltip title={'通过组件key值映射到对应路由组件'}>
+                <Space>
+                  <span>组件Key值</span>
+                  <QuestionCircleOutlined />
+                </Space>
+              </Tooltip>
+            ),
+          },
+          componentProps: () => ({
+            placeholder: '请选择',
+            options: menuStore.usablePermissionRouteNames,
+            showSearch: true,
+          }),
+        },
+        {
           field: 'name',
           label: '组件名称',
-          component: 'Select',
+          component: 'Input',
           formItemProps: {},
           componentProps: () => ({
-            placeholder: '请输入组件名称',
-            showSearch: true,
-            options: menuStore.usablePermissionRouteNames,
+            placeholder: '请输入',
           }),
         },
         {
@@ -93,12 +111,19 @@ export const useForm = () => {
           field: 'sort',
           component: 'InputNumber',
           default: 0,
+          formItemProps: {
+            label: () => (
+              <Tooltip title={'排序值越小越靠前'}>
+                <Space>
+                  <span>排序</span>
+                  <QuestionCircleOutlined />
+                </Space>
+              </Tooltip>
+            ),
+          },
           componentProps: () => ({
             placeholder: '请输入排序',
           }),
-          slots: {
-            label: () => <div>沙发沙发</div>,
-          },
         },
         {
           field: 'isCache',
@@ -111,20 +136,18 @@ export const useForm = () => {
             lg: 12,
           },
           formItemProps: {
-            extra: '页面跳转之后依然保存页面的状态',
-          },
-          slots: {
             label: () => (
-              <Space>
-                <span>是否缓存</span>
-                <QuestionCircleOutlined />
-              </Space>
+              <Tooltip title={'页面跳转之后依然保存页面的状态'}>
+                <Space>
+                  <span>是否缓存</span>
+                  <QuestionCircleOutlined />
+                </Space>
+              </Tooltip>
             ),
           },
         },
         {
           field: 'hideInMenu',
-          label: '是否隐藏',
           component: 'Switch',
           default: false,
           grid: {
@@ -134,16 +157,19 @@ export const useForm = () => {
             lg: 12,
           },
           formItemProps: {
-            extra: '在侧边栏菜单中将不会显示',
-          },
-          componentProps: {
-            extra: () => <div>额外信息</div>,
+            label: () => (
+              <Tooltip title={'在侧边栏菜单中将不会显示'}>
+                <Space>
+                  <span>是否隐藏</span>
+                  <QuestionCircleOutlined />
+                </Space>
+              </Tooltip>
+            ),
           },
         },
 
         {
           field: 'hideInTags',
-          label: '在标签栏隐藏',
           component: 'Switch',
           default: false,
           grid: {
@@ -153,12 +179,18 @@ export const useForm = () => {
             lg: 12,
           },
           formItemProps: {
-            extra: '在页面切换时，该路由不会再标签栏中显示',
+            label: () => (
+              <Tooltip title={'在页面切换时，该路由不会再标签栏中显示'}>
+                <Space>
+                  <span>在标签栏隐藏</span>
+                  <QuestionCircleOutlined />
+                </Space>
+              </Tooltip>
+            ),
           },
         },
         {
           field: 'affixInTags',
-          label: '固定在标签栏',
           component: 'Switch',
           default: false,
           grid: {
@@ -168,17 +200,33 @@ export const useForm = () => {
             lg: 12,
           },
           formItemProps: {
-            extra: '该路由一开始就会出现在标签栏中，并且不会删除',
+            label: () => (
+              <Tooltip title={'该路由一开始就会出现在标签栏中，并且不会删除'}>
+                <Space>
+                  <span>固定在标签栏</span>
+                  <QuestionCircleOutlined />
+                </Space>
+              </Tooltip>
+            ),
           },
         },
         {
           field: 'alwayShowChildInMenu',
-          label: '一直显示',
           component: 'Switch',
           default: false,
           formItemProps: {
-            extra:
-              '在侧边栏中，就算菜单中只有一个子菜单，也会把该菜单显示出来，默认如果只有子菜单是不会显示父级菜单了',
+            label: () => (
+              <Tooltip
+                title={
+                  '在侧边栏中，就算菜单中只有一个子菜单，也会把该菜单显示出来，默认如果只有子菜单是不会显示父级菜单了'
+                }
+              >
+                <Space>
+                  <span>一直显示</span>
+                  <QuestionCircleOutlined />
+                </Space>
+              </Tooltip>
+            ),
           },
         },
       ] as FormSchemas,
@@ -187,7 +235,7 @@ export const useForm = () => {
     // form 属性
     {
       schemas: schemas.value,
-      labelWidth: '88',
+      labelWidth: 120,
     },
     // modal 属性
     {

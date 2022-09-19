@@ -9,13 +9,18 @@
     name: 'MenuTable',
   })
   const emit = defineEmits<{
-    (e: 'edit', value: MenuItem): void
+    (e: 'edit', value: Menu.MenuItem): void
   }>()
   const menuStore = useMenuStore()
-  const columns: TableColumns<MenuItem> = [
+  const columns: TableColumns<Menu.MenuItem> = [
     {
       dataIndex: 'name',
       title: '路由名称',
+    },
+    {
+      dataIndex: 'componentKey',
+      title: '组件Key值',
+      slot: ({ record }) => record.componentKey || '--',
     },
     {
       dataIndex: 'path',
@@ -132,14 +137,16 @@
 
   function handleSwitchChange(
     id: string,
-    { prop, value }: { prop: keyof MenuItem; value: boolean | string | number },
+    {
+      prop,
+      value,
+    }: { prop: keyof Menu.MenuItem; value: boolean | string | number },
   ) {
     patchMenu(id, { prop, value }).then(() => {
       menuStore.getMenuList()
     })
   }
-  function onEdit(record: MenuItem) {
-    console.log('data', data.value)
+  function onEdit(record: Menu.MenuItem) {
     emit('edit', record)
   }
   function onDelete(id: string) {

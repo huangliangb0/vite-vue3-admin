@@ -5,8 +5,8 @@ import { defineStore } from 'pinia'
 
 interface State {
   permissionRouteNames: string[]
-  menus: MenuList
-  menusTree: MenuTree
+  menus: Menu.MenuList
+  menusTree: Menu.MenuTree
 }
 
 const useMenuStore = defineStore({
@@ -22,13 +22,13 @@ const useMenuStore = defineStore({
         label: name,
         value: name,
         disabled: state.menus
-          ? state.menus.some((item) => item.name === name)
+          ? state.menus.some((item) => item.componentKey === name)
           : false,
       }))
     },
   },
   actions: {
-    setMenus(menus: MenuList) {
+    setMenus(menus: Menu.MenuList) {
       this.menus = menus.map((item) => {
         // if (item.parentId === undefined) {
         //   item.path = '/' + item.path.replace('/', '')
@@ -39,7 +39,7 @@ const useMenuStore = defineStore({
         return item
       })
 
-      this.menusTree = treeData<MenuItem>(menus)
+      this.menusTree = treeData<Menu.MenuItem>(menus)
     },
     getMenuList() {
       return getMenuList().then((res) => {

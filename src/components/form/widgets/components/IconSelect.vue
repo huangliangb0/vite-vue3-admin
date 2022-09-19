@@ -50,6 +50,7 @@
 
 <style lang="less">
   .icon--select_wrap {
+    width: 100%;
     display: flex;
     align-items: center;
     .icon--select {
