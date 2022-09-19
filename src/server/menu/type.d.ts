@@ -26,6 +26,7 @@ declare namespace Menu {
     hideInTags?: boolean
     // 始终固定在标签栏，不可删除
     affixInTags?: boolean
+
     children?: MenuItem[]
   }
   type MenuList = Array<MenuItem>

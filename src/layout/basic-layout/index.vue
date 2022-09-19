@@ -1,3 +1,34 @@
+<script lang="ts" setup>
+  import { computed, provide, ref } from 'vue'
+  import zhCN from 'ant-design-vue/es/locale/zh_CN'
+  import { Menu, Header, Title, View, TagsView } from './components'
+  import dayjs from 'dayjs'
+  import 'dayjs/locale/zh-cn'
+  import { generatePermissionRoutes } from '@/utils/routes'
+  import permissionRoutes from '@/router/permissionRoutes'
+  import { useReload, useShowLayoutSider } from './hook'
+  import useMenuStore from '@/store/modules/menu'
+  dayjs.locale('zh-cn')
+
+  defineOptions({ name: 'BasicLayout' })
+
+  const munusStore = useMenuStore()
+
+  const routes = computed(() =>
+    generatePermissionRoutes(permissionRoutes, munusStore.menusTree),
+  )
+
+  const collapsed = ref(false)
+
+  // 是否显示侧边栏
+  const isShowLayoutSider = useShowLayoutSider()
+
+  // 是否刷新页面
+  const { isRouterAlive, reload } = useReload()
+
+  provide('reload', reload)
+</script>
+
 <template>
   <a-layout class="app-container">
     <a-layout-sider
@@ -37,35 +68,6 @@
     </a-layout>
   </a-layout>
 </template>
-
-<script lang="ts" setup>
-  import { computed, provide, ref } from 'vue'
-  import zhCN from 'ant-design-vue/es/locale/zh_CN'
-  import { Menu, Header, Title, View, TagsView } from './components'
-  import dayjs from 'dayjs'
-  import 'dayjs/locale/zh-cn'
-  import { generatePermissionRoutes } from '@/utils/routes'
-  import permissionRoutes from '@/router/permissionRoutes'
-  import { useReload, useShowLayoutSider } from './hook'
-  import useMenuStore from '@/store/modules/menu'
-  dayjs.locale('zh-cn')
-
-  const munusStore = useMenuStore()
-
-  const routes = computed(() =>
-    generatePermissionRoutes(permissionRoutes, munusStore.menusTree),
-  )
-
-  const collapsed = ref(false)
-
-  // 是否显示侧边栏
-  const isShowLayoutSider = useShowLayoutSider()
-
-  // 是否刷新页面
-  const { isRouterAlive, reload } = useReload()
-
-  provide('reload', reload)
-</script>
 
 <style lang="less" scoped>
   .app-container {

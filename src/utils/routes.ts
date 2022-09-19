@@ -3,6 +3,13 @@ import { cloneDeep } from 'lodash'
 import type { RoutesMap } from '@/router/permissionRoutes'
 import { isExternal } from './validate'
 import BasicLayout from '@/layout/basic-layout/index.vue'
+import { DefineComponent } from 'vue'
+
+type MenuItem = Menu.MenuItem & {
+  component: DefineComponent
+  children: MenuItem[]
+}
+type MenuList = MenuItem[]
 
 /**
  * 补全子级路径， 比如 about -> /about/index，如果是外链，就不需要进行补全
@@ -27,7 +34,7 @@ const complementPath = (path: string, p: Menu.MenuItem | null) => {
  * @param menuList Menu.MenuList 菜单列表
  * @returns Menu.MenuList
  */
-export const patchRoutes = (menuList: Menu.MenuList): Menu.MenuList => {
+export const patchRoutes = (menuList: Menu.MenuList): MenuList => {
   return menuList.map((item) => {
     if (!item.children || item.children.length === 0) {
       const { path, affixInTags, ...reset } = item
@@ -41,16 +48,15 @@ export const patchRoutes = (menuList: Menu.MenuList): Menu.MenuList => {
         children: [
           {
             ...reset,
-            affixInTags,
             path: 'index',
           },
         ],
-      }
+      } as MenuItem
     }
     return {
       ...item,
       component: BasicLayout,
-    }
+    } as MenuItem
   })
 }
 
@@ -73,11 +79,19 @@ export const generatePermissionRoutes = (
   // 递归生产线上 vue-router 的路由格式
   const rec = (
     permissionRoutesMap: RoutesMap,
-    menuList: Menu.MenuList,
-    p: Menu.MenuItem | null = null,
+    menuList: MenuList,
+    p: MenuItem | null = null,
   ): RouteRecordRaw[] => {
     return menuList.map((item) => {
-      const { name, path, redirect, children, componentKey, ...meta } = item
+      const {
+        name,
+        path,
+        redirect,
+        children,
+        component,
+        componentKey,
+        ...meta
+      } = item
       const _path = complementPath(path, p)
 
       return {
@@ -86,7 +100,9 @@ export const generatePermissionRoutes = (
         redirect,
         meta,
         component:
-          (componentKey && permissionRoutesMap[componentKey]) || BasicLayout,
+          component ||
+          (componentKey && permissionRoutesMap[componentKey]) ||
+          BasicLayout,
         children: children
           ? rec(permissionRoutesMap, children, item)
           : undefined,
