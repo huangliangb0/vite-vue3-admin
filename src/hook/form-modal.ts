@@ -1,7 +1,7 @@
 import { Button, ModalProps, Space } from 'ant-design-vue'
 import { computed, h, nextTick, ref, Slot } from 'vue'
 import 'ant-design-vue/lib/modal/style/index.css'
-import { EditForm, EditFormInstance } from '@/components/form'
+import { Form, EditFormInstance } from '@/components/form'
 import useModal from './modal'
 import useAppStore from '@/store/modules/app'
 // 添加-编辑模态框
@@ -76,7 +76,7 @@ const useFormModal = (
       {
         default: () =>
           h(
-            EditForm,
+            Form,
             {
               hideAction: false,
               initialState: initialState.value,

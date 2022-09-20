@@ -14,7 +14,7 @@
   const menuStore = useMenuStore()
   const { openFormModal, openEditFormModal, closeFormModal, FormModal } =
     useForm()
-  const onSubmit = (arg: MenuItem) => {
+  const onSubmit = (arg: Menu.MenuItem) => {
     const key = 'created'
     message.loading({ content: '菜单创建中...', key })
     createMenu(arg).then(() => {
@@ -30,7 +30,7 @@
     })
   }
 
-  const onEditSubmit = (arg: Omit<MenuItem, 'id'>) => {
+  const onEditSubmit = (arg: Omit<Menu.MenuItem, 'id'>) => {
     const key = 'updatable'
     message.loading({ content: '菜单修改中...', key })
     updateMenu(currentId.value, arg).then(() => {
@@ -46,7 +46,7 @@
     })
   }
 
-  const onEdit = (record: MenuItem) => {
+  const onEdit = (record: Menu.MenuItem) => {
     const { id, ...reset } = record
     currentId.value = id
     openEditFormModal(reset)

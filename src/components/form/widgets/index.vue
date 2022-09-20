@@ -5,13 +5,7 @@
  * @FilePath: \spvr-plat-web\src\components\core\bo-form\widgets\index.vue
 -->
 <script lang="tsx">
-  import {
-    Component,
-    DefineComponent,
-    defineComponent,
-    PropType,
-    VNode,
-  } from 'vue'
+  import { defineComponent, PropType, VNode } from 'vue'
   import widgets from './index'
   import type { FormSchemaItem, WidgetModifier } from '../type'
 
@@ -26,7 +20,6 @@
       },
       component: {
         type: [String, Function] as PropType<FormSchemaItem['component']>,
-        default: 'Input',
       },
       change: {
         type: Function as PropType<(e: any) => void>,
@@ -53,10 +46,11 @@
         props.change(value)
         onChange && onChange(value)
       }
+
+      const component = props.component || 'Input'
       const Widget =
-        typeof props.component === 'string'
-          ? widgets[props.component]
-          : props.component
+        typeof component === 'string' ? widgets[component] : component
+
       return () => (
         <div class="form-widget-box">
           <Widget

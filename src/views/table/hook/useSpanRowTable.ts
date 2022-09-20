@@ -6,6 +6,7 @@ import {
   StudentsItemType,
   StudentsTreeItemType,
 } from '@/models/studentsModel'
+import { getStudentList } from '@/server/student'
 import { computed, onMounted, ref } from 'vue'
 
 const handleSpanData = (data: StudentsTreeType): StudentsType => {
@@ -85,7 +86,9 @@ export const useSpanRowTable = () => {
   })
 
   onMounted(() => {
-    data.value = handleSpanData(studentsTreeData)
+    getStudentList().then((value) => {
+      data.value = handleSpanData(value)
+    })
   })
 
   return {

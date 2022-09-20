@@ -40,6 +40,7 @@ declare module '@vue/runtime-core' {
     ExceptionTag: typeof import('./src/components/tags/ExceptionTag.vue')['default']
     ExpandToggle: typeof import('./src/components/form/components/ExpandToggle.vue')['default']
     FilterSearch: typeof import('./src/components/form/FilterSearch.vue')['default']
+    Form: typeof import('./src/components/form/Form.vue')['default']
     FormList: typeof import('./src/components/form/components/FormList.vue')['default']
     IconList: typeof import('./src/components/icon-list/index.vue')['default']
     IconSelect: typeof import('./src/components/form/widgets/components/IconSelect.vue')['default']

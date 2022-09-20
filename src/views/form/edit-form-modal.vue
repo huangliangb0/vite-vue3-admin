@@ -175,7 +175,7 @@
         <FormModal
           title="添加学生"
           :visible="visible"
-          @submit="handleOk"
+          @create-submit="handleOk"
           :label-width="88"
           colon
         >

@@ -106,7 +106,7 @@
       :schemas="schemas"
       :initialState="initialState"
       :label-col="{ span: 4 }"
-      @submit="handleSubmit"
+      @create-submit="handleSubmit"
     />
   </page-layout>
 </template>

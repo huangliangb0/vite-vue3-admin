@@ -20,7 +20,7 @@
   }
 
   export default defineComponent({
-    name: 'EditForm',
+    name: 'BasicForm',
     components: {
       Widget,
       FormList,
@@ -52,7 +52,7 @@
         default: false,
       },
     },
-    emits: ['submit', 'reset', 'edit-submit'],
+    emits: ['create-submit', 'reset', 'edit-submit'],
     setup(props, { emit, attrs, expose, slots }) {
       const o: Recordable = {}
       props.schemas.forEach((item) => {
@@ -131,7 +131,7 @@
             if (props.isEdit) {
               emit('edit-submit', toRaw(formState))
             } else {
-              emit('submit', toRaw(formState))
+              emit('create-submit', toRaw(formState))
             }
           })
           .catch((error) => {
