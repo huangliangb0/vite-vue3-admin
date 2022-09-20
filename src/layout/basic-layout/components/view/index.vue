@@ -5,22 +5,41 @@
  * @FilePath: \vite-vue3-admin\src\layout\basic-layout\components\view\index.vue
 -->
 <template>
-  <router-view v-slot="{ Component }">
+  <!-- <router-view v-slot="{ Component }">
     <transition mode="out-in" name="fade-slide">
       <keep-alive>
         <component :is="Component" v-if="isRouterAlive" :key="activePath" />
       </keep-alive>
     </transition>
+  </router-view> -->
+
+  <router-view v-slot="{ Component }">
+    <template v-if="Component">
+      <transition mode="out-in" name="fade-slide" appear>
+        <keep-alive :include="keepAliveComponents">
+          <component :is="Component" :key="route.fullPath" />
+        </keep-alive>
+      </transition>
+    </template>
   </router-view>
 </template>
 <script lang="ts" setup>
   import { computed, watch } from 'vue'
-  import { useRoute } from 'vue-router'
+  import { useRoute, useRouter } from 'vue-router'
 
   defineProps({
     isRouterAlive: Boolean,
   })
-
   const route = useRoute()
+  const router = useRouter()
+
+  const keepAliveComponents = computed(
+    () =>
+      router
+        .getRoutes()
+        .filter((item) => item.meta && item.name && item.meta.isCache)
+        .map((item) => item.name) as string[],
+  )
+
   const activePath = computed(() => route.fullPath)
 </script>

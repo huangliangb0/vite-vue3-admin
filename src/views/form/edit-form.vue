@@ -102,7 +102,7 @@
 </script>
 <template>
   <page-layout>
-    <edit-form
+    <basic-form
       :schemas="schemas"
       :initialState="initialState"
       :label-col="{ span: 4 }"

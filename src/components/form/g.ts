@@ -1,4 +1,4 @@
 import FilterSearch from './FilterSearch.vue'
-import Form from './Form.vue'
+import BasicForm from './Form.vue'
 
-export default [FilterSearch, Form]
+export default [FilterSearch, BasicForm]

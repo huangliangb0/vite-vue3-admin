@@ -3,8 +3,7 @@ import { useFormModal } from '@/hook'
 import useMenuStore from '@/store/modules/menu'
 import { computed } from 'vue'
 import { QuestionCircleOutlined } from '@ant-design/icons-vue'
-import { Button, Space, Tooltip } from 'ant-design-vue'
-import RouteNameWidget from '../components/RouteNameWidget.vue'
+import { Space, Tooltip } from 'ant-design-vue'
 
 export const useForm = () => {
   const menuStore = useMenuStore()
@@ -130,14 +129,16 @@ export const useForm = () => {
           component: 'Switch',
           default: false,
           grid: {
-            xs: 24,
-            sm: 24,
-            md: 24,
-            lg: 12,
+            xs: 12,
+            sm: 12,
+            md: 8,
+            lg: 8,
           },
           formItemProps: {
             label: () => (
-              <Tooltip title={'页面跳转之后依然保存页面的状态'}>
+              <Tooltip
+                title={'组件的name必须和菜单的name一直，不然缓存效果将会失效'}
+              >
                 <Space>
                   <span>是否缓存</span>
                   <QuestionCircleOutlined />
@@ -151,10 +152,10 @@ export const useForm = () => {
           component: 'Switch',
           default: false,
           grid: {
-            xs: 24,
-            sm: 24,
-            md: 24,
-            lg: 12,
+            xs: 12,
+            sm: 12,
+            md: 8,
+            lg: 8,
           },
           formItemProps: {
             label: () => (
@@ -173,10 +174,10 @@ export const useForm = () => {
           component: 'Switch',
           default: false,
           grid: {
-            xs: 24,
-            sm: 24,
-            md: 24,
-            lg: 12,
+            xs: 12,
+            sm: 12,
+            md: 8,
+            lg: 8,
           },
           formItemProps: {
             label: () => (
@@ -194,10 +195,10 @@ export const useForm = () => {
           component: 'Switch',
           default: false,
           grid: {
-            xs: 24,
-            sm: 24,
-            md: 24,
-            lg: 12,
+            xs: 12,
+            sm: 12,
+            md: 8,
+            lg: 8,
           },
           formItemProps: {
             label: () => (
@@ -214,6 +215,12 @@ export const useForm = () => {
           field: 'alwayShowChildInMenu',
           component: 'Switch',
           default: false,
+          grid: {
+            xs: 12,
+            sm: 12,
+            md: 8,
+            lg: 8,
+          },
           formItemProps: {
             label: () => (
               <Tooltip

@@ -220,7 +220,7 @@
       "path": "filter-form",
       "title": "搜索表单",
       "sort": 2,
-      "isCache": false,
+      "isCache": true,
       "hideInMenu": false,
       "hideInTags": false,
       "affixInTags": false,

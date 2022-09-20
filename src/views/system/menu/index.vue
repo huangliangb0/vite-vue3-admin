@@ -58,7 +58,7 @@
     <template #header>
       <a-button @click="openFormModal">添加</a-button>
     </template>
-    <FormModal @submit="onSubmit" @edit-submit="onEditSubmit" />
+    <FormModal @create-submit="onSubmit" @edit-submit="onEditSubmit" />
     <MenuTable @edit="onEdit" />
   </page-layout>
 </template>
