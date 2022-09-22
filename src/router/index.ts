@@ -19,8 +19,8 @@
 
 import {
   createRouter,
-  createWebHashHistory,
-  // createWebHistory,
+  // createWebHashHistory,
+  createWebHistory,
   RouteRecordRaw,
 } from 'vue-router'
 import constantRoutes from './constantRoutes'
@@ -32,8 +32,8 @@ const routes = [...constantRoutes] as any[]
 
 const router = createRouter({
   // history: createWebHashHistory(),
-  // history: createWebHistory(import.meta.env.BASE_URL),
-  history: createWebHashHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(import.meta.env.BASE_URL || '/'),
+  // history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: routes as RouteRecordRaw[],
 })
 const handleRouter = new RouterHandle(router)
