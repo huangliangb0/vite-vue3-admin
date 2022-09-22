@@ -1,23 +1,13 @@
-<!--
- * @Description: 页面视图 router-view
- * @Date: 2022-07-19 14:17:29
- * @LastEditTime: 2022-07-20 09:37:20
- * @FilePath: \vite-vue3-admin\src\layout\basic-layout\components\view\index.vue
--->
 <template>
-  <!-- <router-view v-slot="{ Component }">
-    <transition mode="out-in" name="fade-slide">
-      <keep-alive>
-        <component :is="Component" v-if="isRouterAlive" :key="activePath" />
-      </keep-alive>
-    </transition>
-  </router-view> -->
-
   <router-view v-slot="{ Component }">
     <template v-if="Component">
       <transition mode="out-in" name="fade-slide" appear>
         <keep-alive :include="keepAliveComponents">
-          <component :is="Component" :key="route.fullPath" />
+          <component
+            :is="Component"
+            v-if="isRouterAlive"
+            :key="route.fullPath"
+          />
         </keep-alive>
       </transition>
     </template>
@@ -28,6 +18,7 @@
   import { useRoute, useRouter } from 'vue-router'
 
   defineProps({
+    // 这个配置可以重刷当前组件
     isRouterAlive: Boolean,
   })
   const route = useRoute()
