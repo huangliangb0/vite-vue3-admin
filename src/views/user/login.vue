@@ -7,17 +7,16 @@
     EyeInvisibleOutlined,
     CodeOutlined,
   } from '@ant-design/icons-vue'
-  import Identify from '@/components/Identify/index.vue'
   import { computed, reactive, ref, toRaw } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
   import useUserStore from '@/store/modules/user'
   import { getImageUrl } from '@/assets'
   import { useForm } from 'ant-design-vue/lib/form'
-  const bgImg = getImageUrl('login-bg.png')
+
   const route = useRoute()
-  console.log(route.query)
-  console.log(route.params)
   const userStore = useUserStore()
+  const captchaPicture = getImageUrl('captcha.gif')
+  const bgImg = getImageUrl('login-bg.png')
 
   const router = useRouter()
   const passVisible = ref(false)
@@ -136,7 +135,7 @@
               </template>
             </a-input>
             <div class="identify">
-              <Identify />
+              <img :src="captchaPicture" alt="验证码" />
             </div>
           </a-form-item>
           <a-form-item>
@@ -206,8 +205,9 @@
       bottom: 1px;
       z-index: 1;
       overflow: hidden;
-      .s-canvas {
-        height: 100%;
+      line-height: 46px;
+      img {
+        vertical-align: middle;
       }
     }
 

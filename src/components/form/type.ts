@@ -37,9 +37,9 @@ export interface FormSchemaItem {
   // 插槽
 
   // widget 组件的属性，比如Input、Select
-  componentProps?: WidgetProps | ((arg: Recordable) => WidgetProps)
+  componentProps?: WidgetProps | ((formState: Recordable) => WidgetProps)
   // a-form-item的属性
-  formItemProps?: FormItemProps
+  formItemProps?: FormItemProps | ((formState: Recordable) => FormItemProps)
   // 动态控件时，即type = 'array'，设置的组件类型
   schemas?: Array<FormSchemaItem>
 }
