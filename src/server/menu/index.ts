@@ -1,17 +1,15 @@
-import { request } from '@/utils/request'
+import http from '@/utils/http'
 import { v4 as uuidv4 } from 'uuid'
 
-export const getMenuList = (): Promise<Menu.MenuList> => {
-  return request({
+export const getMenuList = () => {
+  return http.get<Menu.MenuList>({
     url: '/menus',
-    method: 'get',
   })
 }
 
 export const createMenu = (data: Omit<Menu.MenuItem, 'id'>) => {
-  return request({
+  return http.post({
     url: '/menus',
-    method: 'post',
     data: {
       id: uuidv4(),
       ...data,
@@ -20,9 +18,8 @@ export const createMenu = (data: Omit<Menu.MenuItem, 'id'>) => {
 }
 
 export const updateMenu = (id: string, data: Omit<Menu.MenuItem, 'id'>) => {
-  return request({
+  return http.put({
     url: '/menus/' + id,
-    method: 'put',
     data,
   })
 }
@@ -31,9 +28,8 @@ export const patchMenu = (
   id: string,
   { prop, value }: { prop: string; value: boolean | string | number },
 ) => {
-  return request({
+  return http.patch({
     url: '/menus/' + id,
-    method: 'patch',
     data: {
       [prop]: value,
     },
@@ -41,8 +37,7 @@ export const patchMenu = (
 }
 
 export const deleteMenu = (id: string) => {
-  return request({
+  return http.delete({
     url: '/menus/' + id,
-    method: 'delete',
   })
 }

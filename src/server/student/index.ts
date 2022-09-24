@@ -1,8 +1,7 @@
-import { request } from '@/utils/request'
+import http from '@/utils/http'
 
-export const getStudentList = (): Promise<Menu.MenuList> => {
-  return request({
+export const getStudentList = () => {
+  return http.get<Student.StudentsType>({
     url: '/student',
-    method: 'get',
   })
 }
