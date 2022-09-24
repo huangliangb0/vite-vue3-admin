@@ -18,12 +18,7 @@
       title: '路由名称',
       width: 120,
     },
-    {
-      dataIndex: 'componentKey',
-      title: '组件Key值',
-      width: 120,
-      slot: ({ record }) => record.componentKey || '--',
-    },
+
     {
       dataIndex: 'path',
       title: '路由地址',

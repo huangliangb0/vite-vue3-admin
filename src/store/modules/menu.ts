@@ -22,7 +22,7 @@ const useMenuStore = defineStore({
         label: name,
         value: name,
         disabled: state.menus
-          ? state.menus.some((item) => item.componentKey === name)
+          ? state.menus.some((item) => item.name === name)
           : false,
       }))
     },

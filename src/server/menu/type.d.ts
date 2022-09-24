@@ -2,9 +2,7 @@ declare namespace Menu {
   interface MenuItem {
     parentId?: string
     id: string
-    // 组件key值，从permissionRouteNames取
-    componentKey?: permissionRouteNames[number]
-    //  路由名称
+    //  路由名称，通常从permissionRouteNames取，也可自定义
     name?: string
     // 路径
     path: string

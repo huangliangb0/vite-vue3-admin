@@ -4,6 +4,7 @@ import useMenuStore from '@/store/modules/menu'
 import { computed } from 'vue'
 import { QuestionCircleOutlined } from '@ant-design/icons-vue'
 import { Space, Tooltip } from 'ant-design-vue'
+import { Rule } from 'ant-design-vue/lib/form'
 
 export const useForm = () => {
   const menuStore = useMenuStore()
@@ -24,33 +25,50 @@ export const useForm = () => {
             })),
           }),
         },
-        {
-          field: 'componentKey',
-          component: 'Select',
-          formItemProps: {
-            label: () => (
-              <Tooltip title={'通过组件key值映射到对应路由组件'}>
-                <Space>
-                  <span>组件Key值</span>
-                  <QuestionCircleOutlined />
-                </Space>
-              </Tooltip>
-            ),
-          },
-          componentProps: () => ({
-            mode: 'tags',
-            placeholder: '请选择',
-            options: menuStore.usablePermissionRouteNames,
-            showSearch: true,
-          }),
-        },
+
         {
           field: 'name',
-          label: '组件名称',
-          component: 'Input',
-          formItemProps: {},
+          component: 'InputSelect',
+          formItemProps: () => {
+            const validate = async (_rule: Rule, value: string) => {
+              if (value === '' || value === undefined) {
+                return Promise.reject('请输入组件名')
+              } else {
+                const isExist = menuStore.menus.some(
+                  (item) => item.name === value,
+                )
+                if (isExist) {
+                  return Promise.reject('该组件名已存在')
+                }
+                return Promise.resolve()
+              }
+            }
+
+            return {
+              label: () => (
+                <Tooltip
+                  title={
+                    '通过组件名称映射到对应路由组件, keep-alive的作用也与组件名称有关联'
+                  }
+                >
+                  <Space>
+                    <span>组件名称</span>
+                    <QuestionCircleOutlined />
+                  </Space>
+                </Tooltip>
+              ),
+              rules: [
+                {
+                  required: true,
+                  validator: validate,
+                  trigger: 'change',
+                },
+              ],
+            }
+          },
           componentProps: () => ({
             placeholder: '请输入',
+            options: menuStore.usablePermissionRouteNames,
           }),
         },
         {

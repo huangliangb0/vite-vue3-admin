@@ -83,15 +83,7 @@ export const generatePermissionRoutes = (
     p: MenuItem | null = null,
   ): RouteRecordRaw[] => {
     return menuList.map((item) => {
-      const {
-        name,
-        path,
-        redirect,
-        children,
-        component,
-        componentKey,
-        ...meta
-      } = item
+      const { name, path, redirect, children, component, ...meta } = item
       const _path = complementPath(path, p)
 
       return {
@@ -100,9 +92,7 @@ export const generatePermissionRoutes = (
         redirect,
         meta,
         component:
-          component ||
-          (componentKey && permissionRoutesMap[componentKey]) ||
-          BasicLayout,
+          component || (name && permissionRoutesMap[name]) || BasicLayout,
         children: children
           ? rec(permissionRoutesMap, children, item)
           : undefined,
