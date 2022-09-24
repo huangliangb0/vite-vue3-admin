@@ -170,47 +170,51 @@
           {...attrs}
         >
           <a-row class="edit--form_row" gutter={[20, 20]}>
-            {props.schemas.map((item) => (
-              <a-col
-                key={item.field}
-                {...Object.assign({}, FormItemGrid, item.grid)}
-              >
-                <a-form-item
-                  label={item.label}
-                  name={item.field}
-                  {...omit(item.formItemProps, ['label', 'extra', 'help'])}
-                  v-slots={pick(item.formItemProps, ['label', 'extra', 'help'])}
+            {props.schemas.map((item) => {
+              const componentProps =
+                typeof item.componentProps === 'function'
+                  ? item.componentProps(formState)
+                  : item.componentProps
+              const formItemProps =
+                typeof item.formItemProps === 'function'
+                  ? item.formItemProps(formState)
+                  : item.formItemProps
+              return (
+                <a-col
+                  key={item.field}
+                  {...Object.assign({}, FormItemGrid, item.grid)}
                 >
-                  {item.type === 'array' ? (
-                    <FormList
-                      component={item.component}
-                      value={formState[item.field]}
-                      value-format={item.valueFormat}
-                      schemas={item.schemas}
-                      change={(value: any) => {
-                        formState[item.field] = value
-                      }}
-                      componentProps={
-                        typeof item.componentProps === 'function'
-                          ? item.componentProps(formState)
-                          : item.componentProps
-                      }
-                    ></FormList>
-                  ) : (
-                    <Widget
-                      component={item.component}
-                      value={formState[item.field]}
-                      change={(value) => {
-                        formState[item.field] = value
-                      }}
-                      {...(typeof item.componentProps === 'function'
-                        ? item.componentProps(formState)
-                        : item.componentProps)}
-                    ></Widget>
-                  )}
-                </a-form-item>
-              </a-col>
-            ))}
+                  <a-form-item
+                    label={item.label}
+                    name={item.field}
+                    {...omit(formItemProps, ['label', 'extra', 'help'])}
+                    v-slots={pick(formItemProps, ['label', 'extra', 'help'])}
+                  >
+                    {item.type === 'array' ? (
+                      <FormList
+                        component={item.component}
+                        value={formState[item.field]}
+                        value-format={item.valueFormat}
+                        schemas={item.schemas}
+                        change={(value: any) => {
+                          formState[item.field] = value
+                        }}
+                        componentProps={componentProps}
+                      ></FormList>
+                    ) : (
+                      <Widget
+                        component={item.component}
+                        value={formState[item.field]}
+                        change={(value) => {
+                          formState[item.field] = value
+                        }}
+                        {...componentProps}
+                      ></Widget>
+                    )}
+                  </a-form-item>
+                </a-col>
+              )
+            })}
             {slots.default ? (
               <a-col span={24}>
                 {slots.default({

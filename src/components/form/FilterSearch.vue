@@ -16,6 +16,7 @@
   import { RowWrapper } from '@/components/row-layout'
   import useAppStore from '@/store/modules/app'
   import { emitFilterSearchReset, takeOffFilterSearchReset } from './helper'
+  import { omit, pick } from 'lodash'
   export default defineComponent({
     name: 'FilterSearch',
     // expose: ['formState', 'change', 'reset', 'submit'],
@@ -137,25 +138,34 @@
                   ? props.schemas.length
                   : props.showCount,
               )
-              .map((item) => (
-                <a-form-item
-                  key={item.field}
-                  label={item.label}
-                  name={item.field}
-                  {...item.formItemProps}
-                >
-                  <Widget
-                    component={item.component}
-                    value={formState[item.field]}
-                    change={(value) => {
-                      formState[item.field] = value
-                    }}
-                    {...(typeof item.componentProps === 'function'
-                      ? item.componentProps(formState)
-                      : item.componentProps)}
-                  ></Widget>
-                </a-form-item>
-              ))}
+              .map((item) => {
+                const componentProps =
+                  typeof item.componentProps === 'function'
+                    ? item.componentProps(formState)
+                    : item.componentProps
+                const formItemProps =
+                  typeof item.formItemProps === 'function'
+                    ? item.formItemProps(formState)
+                    : item.formItemProps
+                return (
+                  <a-form-item
+                    key={item.field}
+                    label={item.label}
+                    name={item.field}
+                    {...omit(formItemProps, ['label', 'extra', 'help'])}
+                    v-slots={pick(formItemProps, ['label', 'extra', 'help'])}
+                  >
+                    <Widget
+                      component={item.component}
+                      value={formState[item.field]}
+                      change={(value) => {
+                        formState[item.field] = value
+                      }}
+                      {...componentProps}
+                    ></Widget>
+                  </a-form-item>
+                )
+              })}
             <a-form-item>
               <div style={btnBoxStyle.value}>
                 <a-button type="primary" onClick={submit}>

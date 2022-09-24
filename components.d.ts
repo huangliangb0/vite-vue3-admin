@@ -43,7 +43,6 @@ declare module '@vue/runtime-core' {
     Form: typeof import('./src/components/form/Form.vue')['default']
     FormList: typeof import('./src/components/form/components/FormList.vue')['default']
     IconSelect: typeof import('./src/components/form/widgets/components/IconSelect.vue')['default']
-    Identify: typeof import('./src/components/Identify/index.vue')['default']
     Input: typeof import('./src/components/form/widgets/components/Input.vue')['default']
     InputNumber: typeof import('./src/components/form/widgets/components/InputNumber.vue')['default']
     InputSelect: typeof import('./src/components/form/widgets/components/InputSelect.vue')['default']

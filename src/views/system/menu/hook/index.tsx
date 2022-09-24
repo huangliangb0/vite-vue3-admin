@@ -38,6 +38,7 @@ export const useForm = () => {
             ),
           },
           componentProps: () => ({
+            mode: 'tags',
             placeholder: '请选择',
             options: menuStore.usablePermissionRouteNames,
             showSearch: true,
