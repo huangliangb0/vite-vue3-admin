@@ -2,9 +2,14 @@ import http from '@/utils/http'
 import { v4 as uuidv4 } from 'uuid'
 
 export const getMenuList = () => {
-  return http.get<Menu.MenuList>({
-    url: '/menus',
-  })
+  return http.get<Menu.MenuList>(
+    {
+      url: '/menus',
+    },
+    {
+      isDirectly: false,
+    },
+  )
 }
 
 export const createMenu = (data: Omit<Menu.MenuItem, 'id'>) => {

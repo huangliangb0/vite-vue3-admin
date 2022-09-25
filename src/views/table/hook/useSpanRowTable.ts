@@ -1,21 +1,16 @@
 import { TableColumns } from '@/components/basic-table'
-import {
-  StudentsType,
-  StudentsTreeType,
-  studentsTreeData,
-  StudentsItemType,
-  StudentsTreeItemType,
-} from '@/models/studentsModel'
 import { getStudentList } from '@/server/student'
 import { computed, onMounted, ref } from 'vue'
 
-const handleSpanData = (data: StudentsTreeType): StudentsType => {
-  const result: StudentsType = []
+const handleSpanData = (
+  data: Student.StudentsTreeType,
+): Student.StudentsType => {
+  const result: Student.StudentsType = []
   const oIndex: Record<number, number> = {}
 
   const r = (
-    data: StudentsTreeType,
-    p: StudentsTreeItemType = {},
+    data: Student.StudentsTreeType,
+    p: Student.StudentsTreeItemType = {},
     level = 0,
   ) => {
     if (oIndex[level] === undefined) {
@@ -36,7 +31,7 @@ const handleSpanData = (data: StudentsTreeType): StudentsType => {
           ...p,
           ...reset,
         }
-        result.push(item as StudentsItemType)
+        result.push(item as Student.StudentsItemType)
       }
     })
 
@@ -53,7 +48,7 @@ const handleSpanData = (data: StudentsTreeType): StudentsType => {
 }
 
 export const useSpanRowTable = () => {
-  const data = ref<StudentsType>([])
+  const data = ref<Student.StudentsType>([])
 
   const columns = computed(() => {
     return [
@@ -82,12 +77,12 @@ export const useSpanRowTable = () => {
         dataIndex: 'name',
         align: 'center',
       },
-    ] as TableColumns<StudentsItemType>
+    ] as TableColumns<Student.StudentsItemType>
   })
 
   onMounted(() => {
     getStudentList().then((value) => {
-      data.value = handleSpanData(value)
+      data.value = handleSpanData(value as Student.StudentsType)
     })
   })
 

@@ -286,7 +286,7 @@
       "hideInMenu": false,
       "hideInTags": false,
       "affixInTags": false,
-      "alwayShowChildInMenu": false,
+      "alwayShowChildInMenu": true,
       "children": [],
       "id": "d6093060-1241-4139-b15e-7a964f6f4525"
     },

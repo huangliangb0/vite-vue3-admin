@@ -14,7 +14,7 @@ export interface RequestConfig {
 }
 
 class HttpRequest {
-  public baseUrl = import.meta.env.VITE_BASE_API ?? '/'
+  public baseURL = import.meta.env.VITE_BASE_API ?? '/'
   public timeout = 5000
 
   public init(options: AxiosRequestConfig) {
@@ -48,10 +48,10 @@ class HttpRequest {
     // 响应拦截
     instance.interceptors.response.use(
       (res) => {
-        const { code } = res.data
-        if (code !== 0) {
-          return Promise.reject(res)
-        }
+        // const { code } = res.data
+        // if (code !== 0) {
+        //   return Promise.reject(res)
+        // }
         return res
       },
       (error) => {
@@ -67,7 +67,7 @@ class HttpRequest {
   mergeOptions(options: AxiosRequestConfig) {
     return Object.assign(
       {
-        baseUrl: this.baseUrl,
+        baseURL: this.baseURL,
         timeout: this.timeout,
       },
       {
@@ -83,10 +83,8 @@ class HttpRequest {
     try {
       const { isDirectly = true } = config
       const res = await this.init(options)
-      if (isDirectly) {
-        return res.data.data as T
-      }
-      return res.data as ResponseResult<T>
+
+      return isDirectly ? (res.data.data as T) : (res.data as ResponseResult<T>)
     } catch (error) {
       return Promise.reject(error)
     }
