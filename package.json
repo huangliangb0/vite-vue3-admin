@@ -11,7 +11,8 @@
     "lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx --fix",
     "prettier": "prettier --write  \"src/**/*.{js,json,tsx,css,less,scss,vue,html,md}\"",
     "lint-staged": "lint-staged",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "commit": "git-cz"
   },
   "dependencies": {
     "@ant-design/icons-vue": "^6.1.0",
