@@ -3,7 +3,7 @@ declare namespace Menu {
     parentId?: string
     id: string
     //  路由名称，通常从permissionRouteNames取，也可自定义
-    name?: string
+    name: string
     // 路径
     path: string
     // 重定向

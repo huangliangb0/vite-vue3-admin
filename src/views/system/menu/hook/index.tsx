@@ -1,12 +1,12 @@
 import { FormSchemas } from '@/components/form'
 import { useFormModal } from '@/hook'
 import useMenuStore from '@/store/modules/menu'
-import { computed } from 'vue'
+import { computed, Ref } from 'vue'
 import { QuestionCircleOutlined } from '@ant-design/icons-vue'
 import { Space, Tooltip } from 'ant-design-vue'
 import { Rule } from 'ant-design-vue/lib/form'
 
-export const useForm = () => {
+export const useForm = ({ name }: { name: Ref<string> }) => {
   const menuStore = useMenuStore()
   const schemas = computed(
     () =>
@@ -37,7 +37,8 @@ export const useForm = () => {
                 const isExist = menuStore.menus.some(
                   (item) => item.name === value,
                 )
-                if (isExist) {
+
+                if (isExist && value !== name.value) {
                   return Promise.reject('该组件名已存在')
                 }
                 return Promise.resolve()

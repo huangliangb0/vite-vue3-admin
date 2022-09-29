@@ -11,9 +11,10 @@
     name: 'Menu',
   })
   const currentId = ref('')
+  const name = ref('') // 路由名称
   const menuStore = useMenuStore()
   const { openFormModal, openEditFormModal, closeFormModal, FormModal } =
-    useForm()
+    useForm({ name: name })
   const onSubmit = (arg: Menu.MenuItem) => {
     const key = 'created'
     message.loading({ content: '菜单创建中...', key })
@@ -49,6 +50,7 @@
   const onEdit = (record: Menu.MenuItem) => {
     const { id, ...reset } = record
     currentId.value = id
+    name.value = record.name
     openEditFormModal(reset)
   }
 </script>

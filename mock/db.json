@@ -1,7 +1,6 @@
 {
   "menus": [
     {
-      "componentKey": "Home",
       "name": "Home",
       "path": "/home",
       "redirect": "",
@@ -13,6 +12,7 @@
       "hideInTags": false,
       "affixInTags": true,
       "alwayShowChildInMenu": false,
+      "componentKey": "Home",
       "children": [],
       "id": "b34e28fb-7c67-4848-bf9e-6223b24f74ad"
     },
@@ -22,12 +22,13 @@
       "redirect": "/table/common-table",
       "title": "表格",
       "icon": "table",
-      "sort": 1,
+      "sort": 16,
       "isCache": false,
       "hideInMenu": false,
       "hideInTags": false,
       "affixInTags": false,
       "alwayShowChildInMenu": false,
+      "componentKey": "Home",
       "children": [
         {
           "parentId": "2445010f-6c60-448a-9aec-57b53b133086",
@@ -128,12 +129,13 @@
       "redirect": "/form/edit-form",
       "title": "表单",
       "icon": "form",
-      "sort": 2,
+      "sort": 8,
       "isCache": false,
       "hideInMenu": false,
       "hideInTags": false,
       "affixInTags": false,
       "alwayShowChildInMenu": false,
+      "componentKey": "Home",
       "children": [
         {
           "parentId": "067c4d80-2300-45e6-a651-e4c2893ce19c",
@@ -157,7 +159,7 @@
           "path": "filter-form",
           "title": "搜索表单",
           "sort": 2,
-          "isCache": false,
+          "isCache": true,
           "hideInMenu": false,
           "hideInTags": false,
           "affixInTags": false,
@@ -259,18 +261,18 @@
       "id": "d920b135-e764-4598-8b2a-c7472f5d8efc"
     },
     {
-      "componentKey": "Row",
       "name": "Row",
       "path": "/row",
       "redirect": "",
       "title": "响应式布局",
       "icon": "grid",
-      "sort": 3,
+      "sort": 12,
       "isCache": false,
       "hideInMenu": false,
       "hideInTags": false,
       "affixInTags": false,
       "alwayShowChildInMenu": false,
+      "componentKey": "Row",
       "children": [],
       "id": "5cb68c81-d8d5-451e-89de-99c97afb59d1"
     },
@@ -296,16 +298,17 @@
       "redirect": "/sys-manage/menu",
       "title": "系统管理",
       "icon": "sys",
-      "sort": 5,
+      "sort": 20,
       "isCache": false,
       "hideInMenu": false,
       "hideInTags": false,
       "affixInTags": false,
       "alwayShowChildInMenu": true,
+      "componentKey": "Home",
       "children": [
         {
-          "id": "a7638e52-5372-4ec9-833d-3be1c25ff788",
           "parentId": "bf15639f-0e3f-4b1e-93e9-f30e33ea10f8",
+          "componentKey": "Menu",
           "name": "Menu",
           "path": "menu",
           "title": "菜单管理",
@@ -315,7 +318,8 @@
           "hideInTags": false,
           "affixInTags": false,
           "alwayShowChildInMenu": false,
-          "children": []
+          "children": [],
+          "id": "a7638e52-5372-4ec9-833d-3be1c25ff788"
         }
       ],
       "id": "bf15639f-0e3f-4b1e-93e9-f30e33ea10f8"
@@ -334,6 +338,21 @@
       "alwayShowChildInMenu": false,
       "children": [],
       "id": "a7638e52-5372-4ec9-833d-3be1c25ff788"
+    },
+    {
+      "name": "Plugin",
+      "path": "/plugin",
+      "title": "插件",
+      "icon": "external",
+      "sort": 2,
+      "isCache": false,
+      "hideInMenu": false,
+      "hideInTags": false,
+      "affixInTags": false,
+      "alwayShowChildInMenu": false,
+      "componentKey": "Home",
+      "children": [],
+      "id": "8baa11aa-1b8a-4908-be7f-bd31e9c4605a"
     }
   ],
   "student": [
