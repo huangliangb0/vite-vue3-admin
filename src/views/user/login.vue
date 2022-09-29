@@ -147,6 +147,14 @@
               登录
             </a-button>
           </a-form-item>
+          <a-form-item>
+            <p>账号密码随意</p>
+            <p
+              >登录之前启动一下json-server：<strong style="color: red"
+                >pnpm json:server</strong
+              ></p
+            >
+          </a-form-item>
         </a-form>
       </a-config-provider>
     </div>
