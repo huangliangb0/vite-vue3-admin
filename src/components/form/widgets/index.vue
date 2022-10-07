@@ -15,11 +15,13 @@
     props: {
       value: {
         // type: [String, Number, Array] as PropType<InputProps['value']>,
-        type: [String, Number, Boolean, Array] as PropType<any>,
+        type: [String, Number, Boolean, Array, Object] as PropType<any>,
         default: undefined,
       },
       component: {
-        type: [String, Function] as PropType<FormSchemaItem['component']>,
+        type: [String, Function, Object] as PropType<
+          FormSchemaItem['component']
+        >,
       },
       change: {
         type: Function as PropType<(e: any) => void>,

@@ -125,6 +125,8 @@
       const submit = (e: Event) => {
         e.preventDefault()
 
+        console.log(formState)
+
         formRef.value
           ?.validate()
           .then(() => {

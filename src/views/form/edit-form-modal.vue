@@ -93,6 +93,7 @@
           type: 'array',
           field: 'linkman',
           label: '联系人',
+          default: [],
           valueFormat: {
             name: '张三',
             phone: '18888888888',
@@ -126,6 +127,7 @@
           type: 'array',
           field: 'specialty',
           label: '特长',
+          default: [],
           componentProps: () => ({
             placeholder: '请输入',
           }),
@@ -151,6 +153,9 @@
   const handleOk = (arg: any) => {
     console.log(arg)
   }
+  const handleReset = (arg: any) => {
+    console.log(arg)
+  }
   const getFormInstance = (instance: EditFormInstance) => {
     console.log('获取 edit-form 组件实例', instance)
   }
@@ -174,8 +179,8 @@
         >
         <FormModal
           title="添加学生"
-          :visible="visible"
           @create-submit="handleOk"
+          @reset="handleReset"
           :label-width="88"
           colon
         >

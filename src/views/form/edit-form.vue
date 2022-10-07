@@ -1,43 +1,140 @@
 <script lang="ts" setup>
   import { FormSchemas } from '@/components/form/type'
+  import { DatePicker } from 'ant-design-vue'
+  import { Rule } from 'ant-design-vue/lib/form'
+  import { Dayjs } from 'dayjs'
   import { onMounted, reactive } from 'vue'
   const schemas: FormSchemas = [
     {
-      field: 'classLevel',
-      label: '年级',
-      component: 'Select',
-      componentProps: () => ({
-        placeholder: '请选择',
-        options: [
+      field: 'title',
+      label: '任务名称',
+      component: 'Input',
+      formItemProps: {
+        rules: [
           {
-            label: '一年级',
-            value: 1,
-          },
-          {
-            label: '二年级',
-            value: 2,
-          },
-          {
-            label: '三年级',
-            value: 3,
+            required: true,
+            message: '请输入任务名称',
+            trigger: 'blur',
           },
         ],
-      }),
+      },
+      componentProps: {
+        placeholder: '请输入任务名称',
+      },
     },
     {
-      field: 'className',
-      label: '班级',
-      componentProps: () => ({
-        placeholder: '请输入',
-        modifier: {
-          trim: true,
+      field: 'startTime',
+      label: '开始时间',
+      component: DatePicker,
+      formItemProps: (formState) => {
+        const validator = async (_rule: Rule, value: Dayjs) => {
+          if (!value) {
+            return Promise.reject('请输入开始时间')
+          }
+          if (formState.endTime && value > formState.endTime) {
+            return Promise.reject('开始时间不能大于结束时间')
+          }
+          return Promise.resolve()
+        }
+        return {
+          rules: [
+            {
+              required: true,
+              validator,
+              trigger: 'change',
+            },
+          ],
+        }
+      },
+      componentProps: (formState) => ({
+        placeholder: '请选择开始时间',
+        disabledDate: (current: Dayjs) => {
+          if (formState.endTime) {
+            return current > formState.endTime
+          }
+          return false
         },
       }),
     },
     {
+      field: 'endTime',
+      label: '结束时间',
+      component: DatePicker,
+      formItemProps: (formState) => {
+        const validator = async (_rule: Rule, value: Dayjs) => {
+          if (!value) {
+            return Promise.reject('请输入结束时间')
+          }
+          if (formState.endTime && value < formState.startTime) {
+            return Promise.reject('结束时间不能小于于开始时间')
+          }
+          return Promise.resolve()
+        }
+        return {
+          rules: [
+            {
+              required: true,
+              validator,
+              trigger: 'change',
+            },
+          ],
+        }
+      },
+      componentProps: (formState) => ({
+        placeholder: '请选择结束时间',
+        disabledDate: (current: Dayjs) => {
+          if (formState.startTime) {
+            return current < formState.startTime
+          }
+          return false
+        },
+      }),
+    },
+    {
+      field: 'status',
+      label: '任务状态',
+      component: 'Select',
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            message: '请选择任务状态',
+            trigger: 'change',
+          },
+        ],
+      },
+      componentProps: {
+        placeholder: '请选择任务状态',
+        options: [
+          {
+            value: '1',
+            label: '待定',
+          },
+          {
+            value: '2',
+            label: '开始',
+          },
+          {
+            value: '3',
+            label: '结束',
+          },
+        ],
+      },
+    },
+    {
       type: 'array',
-      field: 'info',
-      label: '学生信息',
+      field: 'person',
+      label: '执行人员',
+      formItemProps: {
+        rules: [
+          {
+            required: true,
+            type: 'array',
+            message: '请添加任务执行人员',
+            trigger: 'change',
+          },
+        ],
+      },
       valueFormat: {
         name: '',
         sex: undefined,
@@ -73,11 +170,6 @@
         },
       ],
     },
-    {
-      type: 'array',
-      field: 'info2',
-      label: '学生信息',
-    },
   ]
   const initialState = reactive<{
     classLevel: number | undefined
@@ -102,6 +194,7 @@
 </script>
 <template>
   <page-layout>
+    <template #header> Todo </template>
     <basic-form
       :schemas="schemas"
       :initialState="initialState"
