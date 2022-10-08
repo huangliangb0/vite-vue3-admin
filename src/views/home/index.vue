@@ -16,37 +16,39 @@
       <a-row :gutter="[20, 20]">
         <a-col :span="24" id="background">
           <a-card title="项目背景">
-            <p
-              >相信大部分的人上git去copy一个中后台管理系统，往往会遇到以下问题</p
-            >
+            <p>
+              相信大部分的人上git去copy一个中后台管理系统，往往会遇到以下问题
+            </p>
             <ul>
               <li>
                 项目中的国际化配置、换肤、系统配置通常是很多项目中用不到的。这需要我们进行大量的手动删除
               </li>
-              <li
-                >Table组件的封装、form组件的封装太杂，局限性太强、不利于扩展</li
-              >
+              <li>
+                Table组件的封装、form组件的封装太杂，局限性太强、不利于扩展
+              </li>
               <li>
                 项目结构复杂，有时候一个组件的封装，引用各种各样的文件，不利于阅读
               </li>
               <li>各种杂七杂八的配置</li>
             </ul>
-            <p><strong>本项目只会为你做以下几点</strong></p>
+            <p><strong>为了保证项目的简洁，本项目只会为你做以下几点</strong></p>
+            <p>开发一个中后台常用的功能、比如路由权限、路由守卫等</p>
+            <p>
+              <em>
+                为了保证项目组件易阅读、易扩展，项目中的组件封装出发点总是一个思维提供，不会存在太多多花里胡哨的写法
+              </em>
+            </p>
+          </a-card>
+        </a-col>
+
+        <a-col :span="24" id="feature">
+          <a-card title="功能列表">
             <ul>
-              <li>
-                <p>Eslint + prettier 的配置</p>
-                <p>最好是把vscode也配置一下，保存自动格式化</p>
-              </li>
-              <li>Git 提交规范配置</li>
-              <li>antd自动化按需引入配置</li>
-              <li>权限路由动态生成和溢出</li>
+              <li>权限路由动态生成和移除</li>
               <li>路由守卫</li>
               <li>响应式布局</li>
               <li>标签栏</li>
-              <li>
-                <p>基于 antd 的 table 的封装</p>
-                <p>这个表格封装很灵巧，开发者可根据自己的项目需求进行扩展</p>
-              </li>
+              <li>基于 antd 的 table 的封装</li>
               <li>
                 <p>基于 antd 的 form 的封装</p>
                 <p>这里的form分成了编辑表单和过滤搜索表单</p>
@@ -55,19 +57,34 @@
                 </p>
               </li>
               <li>
-                <p>基于 antd 的 row、col封装</p>
+                modal组件 + form组件 封装一个完善的易扩展的添加、编辑对话框表单
+              </li>
+              <li>
+                <p>基于 antd 的 row、col栅格布局的封装</p>
                 <p>
                   栅格布局封装，可满足不同屏宽下每行显示的列数，对响应式带来特别好的便利性
                 </p>
               </li>
+              <li>axios的基本封装以及异步请求hook的封装</li>
             </ul>
-            <p>
-              <em>
-                为了保证项目组件易阅读、易扩展，项目中的组件封装出发点总是一个思维提供，不会存在天多花里胡哨的写法
-              </em>
-            </p>
+            <p>上面组件的封装在对应的界面写了相关例子，可自行查看</p>
           </a-card>
         </a-col>
+
+        <a-col :span="24" id="config">
+          <a-card title="项目配置">
+            <ul>
+              <li>
+                <p>Eslint + prettier 的配置</p>
+                <p>Pre-commit Hook 的配置</p>
+                <p>最好是把vscode也配置一下，保存自动格式化</p>
+              </li>
+              <li>Git 提交规范配置</li>
+              <li>antd自动化按需引入配置</li>
+            </ul>
+          </a-card>
+        </a-col>
+
         <a-col :span="24" id="globalComponentMount">
           <a-card title="全局组件挂载">
             <p>
@@ -98,7 +115,10 @@
             <p>代码提交步骤：</p>
             <ul>
               <li>git add .</li>
-              <li>git cz</li>
+              <li>
+                git cz 或者pnpm
+                commit(到这一步会弹出很多有用的提交格式信息，最好是在vscode或者powershell进行操作)
+              </li>
               <li>git push</li>
             </ul>
           </a-card>
@@ -119,9 +139,8 @@
         @click="handleAnchorClick"
       >
         <a-anchor-link href="background" title="项目背景" />
-        <a-anchor-link href="background" title="常用配置" />
-        <a-anchor-link href="background" title="功能列表" />
-        <a-anchor-link href="background" title="项目亮点" />
+        <a-anchor-link href="feature" title="功能列表" />
+        <a-anchor-link href="config" title="项目配置" />
         <a-anchor-link href="globalComponentMount" title="全局组件挂载" />
         <a-anchor-link href="adapter" title="项目适配" />
         <a-anchor-link href="question" title="常见问题" />
