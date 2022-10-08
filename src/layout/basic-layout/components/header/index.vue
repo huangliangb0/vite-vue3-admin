@@ -10,6 +10,7 @@
   import { getImageUrl } from '@/assets'
   import useUserStore from '@/store/modules/user'
   import { useRoute, useRouter } from 'vue-router'
+  import Breadcrumb from '../breadcrumb/index.vue'
   const avatar = getImageUrl('avatar.png')
   const props = defineProps({
     collapsed: Boolean,
@@ -40,10 +41,13 @@
   <a-layout-header class="app-header">
     <a-row justify="space-between">
       <a-col>
-        <div class="app-sider-collapsed" @click="collapseClick">
-          <menu-unfold-outlined v-if="collapsed" class="trigger" />
-          <menu-fold-outlined v-else class="trigger" />
-        </div>
+        <a-space>
+          <div class="app-sider-collapsed" @click="collapseClick">
+            <menu-unfold-outlined v-if="collapsed" class="trigger" />
+            <menu-fold-outlined v-else class="trigger" />
+          </div>
+          <Breadcrumb />
+        </a-space>
       </a-col>
 
       <a-col class="header-right-action-box">
@@ -74,6 +78,8 @@
     color: @text-color;
     font-size: @font-size-base;
     box-shadow: @box-shadow-base;
+    height: var(--app-header-height);
+    line-height: var(--app-header-height);
   }
   .app-sider-collapsed {
     cursor: pointer;

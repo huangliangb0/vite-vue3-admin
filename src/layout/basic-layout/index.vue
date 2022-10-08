@@ -38,7 +38,7 @@
       :trigger="null"
       collapsible
     >
-      <Title />
+      <Title :collapsed="collapsed" />
       <Menu
         :routes="routes"
         :inline-collapsed="collapsed"
