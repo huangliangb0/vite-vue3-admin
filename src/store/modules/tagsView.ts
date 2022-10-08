@@ -35,6 +35,7 @@ const useTagsViewStore = defineStore('tagsView', {
      */
     addAffixTags() {
       const routes = router.getRoutes()
+
       const tags = routes.filter((item) => item.meta && item.meta.affixInTags)
       this.tagsList = tags as unknown as RouteLocationNormalizedLoaded[]
     },

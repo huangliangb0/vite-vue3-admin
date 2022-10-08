@@ -48,6 +48,7 @@ export const patchRoutes = (menuList: Menu.MenuList): MenuList => {
         children: [
           {
             ...reset,
+            affixInTags,
             path: 'index',
           },
         ],

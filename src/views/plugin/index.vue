@@ -44,9 +44,6 @@
     <a-descriptions-item label="vue-request v2">
       <a href="https://next.attojs.com/" target="_blank">链接跳转</a>
     </a-descriptions-item>
-    <a-descriptions-item label="vue-request v2">
-      <a href="https://next.attojs.com/" target="_blank">链接跳转</a>
-    </a-descriptions-item>
     <a-descriptions-item label="axios">
       <a href="https://axios-http.com/" target="_blank">链接跳转</a>
     </a-descriptions-item>

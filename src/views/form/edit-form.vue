@@ -4,6 +4,7 @@
   import { Rule } from 'ant-design-vue/lib/form'
   import { Dayjs } from 'dayjs'
   import { onMounted, reactive } from 'vue'
+  import { Form } from '@/components/form'
   const schemas: FormSchemas = [
     {
       field: 'title',
@@ -195,7 +196,7 @@
 <template>
   <page-layout>
     <template #header> Todo </template>
-    <basic-form
+    <Form
       :schemas="schemas"
       :initialState="initialState"
       :label-col="{ span: 4 }"

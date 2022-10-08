@@ -1,5 +1,5 @@
 import { permissionRouteNames } from '@/router'
-import { getMenuList, patchMenu } from '@/server/menu'
+import { getMenuList } from '@/server/menu'
 import { treeData } from '@/utils/util'
 import { defineStore } from 'pinia'
 
@@ -43,7 +43,7 @@ const useMenuStore = defineStore({
     },
     getMenuList() {
       return getMenuList().then((res) => {
-        this.setMenus(res)
+        this.setMenus(res as Menu.MenuList)
         return res
       })
     },
