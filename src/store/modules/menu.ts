@@ -43,7 +43,7 @@ const useMenuStore = defineStore({
     },
     getMenuList() {
       return getMenuList().then((res) => {
-        this.setMenus(res as Menu.MenuList)
+        this.setMenus(res)
         return res
       })
     },

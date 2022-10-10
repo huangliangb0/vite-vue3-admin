@@ -1,3 +1,43 @@
-# Vue 3 + TypeScript + Vite
+# Vue3 + TypeScript + Vite 中后台管理系统
 
-[vue3 docs](https://vuejs.org/api/sfc-script-setup.html#script-setup) [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+## 项目背景
+
+在引用这个项目之前，你也许使用过其它的项目，大部分的项目都有一个通病：
+
+    1. 项目目录结构复杂，目录文件之间引用混乱，完全脱离vue 3的思想(composite api),不易阅读。
+
+    2. 项目功能过多，往往需要大量删除不需要的文件。
+    3. 组件过度封装，很难满足业务的需求，由于封装太杂，更是出现难以修改的情况。
+    4. 各种复杂的配置。
+    5. 最重要的一点，你会感觉你的规范被人家限定了，有些东西过分表现作者的技术存储量。
+
+相信这种项目也已经泛滥了，做这个项目主要是为了一下几点：
+
+    简化项目的目录结构。
+
+    简化常用通用组件的封装，比如form组件、table组件。当然不仅仅只是简化这些组件的封装，还得保证组件的易用性、扩展性。
+
+当然写这个项目也是因为在某些组件的设计上也有自己独特的方法。你不妨试着下载这个项目，试着用几十行的代码完成一个项目的增删改查的操作流程。
+
+## 项目功能清单
+
+1. 路由守卫
+2. 路由菜单权限的添加
+3. form 组件封装
+4. table 组件封装
+5. modal 组件 + form 组件 封装一个添加、编辑对话框表单的组件
+6. 响应式布局
+7. 标签栏
+8. 面包屑
+9. axios 的封装
+10. async hook 异步请求封装
+
+## 结语
+
+项目中不会有太多花里胡哨的东西，主要是方便使用者的阅读，项目的初衷就是希望使用的同学能够从中能够学到一些有价值的东西，在组件的设计中获取一些启发。
+
+你完全可以直接引用此项目，也可以当作一个参考。
+
+如果项目对你有帮助的话，不妨请作者喝杯 coffee
+
+![支付宝 二维码](./src/assets//images/zfb.jpg) ![微信 二维码](./src/assets//images/wx.jpg)

@@ -8,10 +8,7 @@ export interface ResponseResult<T> {
   msg: string
 }
 
-export interface RequestConfig {
-  /** 是否直接获取data，而忽略code、message等 */
-  isDirectly?: boolean
-}
+export type RequestConfig = Recordable
 
 class HttpRequest {
   public baseURL = import.meta.env.VITE_BASE_API ?? '/'
@@ -81,10 +78,10 @@ class HttpRequest {
     config: RequestConfig = {},
   ) {
     try {
-      const { isDirectly = true } = config
       const res = await this.init(options)
 
-      return isDirectly ? (res.data.data as T) : (res.data as ResponseResult<T>)
+      // return res.data as ResponseResult<T> // 真实接口中，你可能会用到这个
+      return res.data as T
     } catch (error) {
       return Promise.reject(error)
     }

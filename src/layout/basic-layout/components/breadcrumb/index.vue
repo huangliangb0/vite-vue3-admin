@@ -1,14 +1,8 @@
 <script lang="ts" setup>
-  import { computed, watch } from 'vue'
+  import { computed } from 'vue'
   import { useRoute } from 'vue-router'
   const route = useRoute()
-  console.log('routeroute', route)
-  watch(
-    () => route.path,
-    () => {
-      console.log(console.log('routeroute', route))
-    },
-  )
+
   const matched = computed(() => route.matched)
 </script>
 
