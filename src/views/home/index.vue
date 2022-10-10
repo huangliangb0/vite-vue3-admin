@@ -1,72 +1,75 @@
 <script lang="ts" setup>
+  import { getImageUrl } from '@/assets'
+
+  const ewm = getImageUrl('ewm.jpg')
+
   const handleAnchorClick = (e: Event, link: Recordable) => {
-    console.log(2222, link)
     // 阻止点击的默认事件修改路由
     e.preventDefault()
-    const srcolls = document.getElementById(link.href)
-    srcolls && srcolls.scrollIntoView({ block: 'start', behavior: 'smooth' })
-  }
-  const getCurrentAnchor = () => {
-    return 'background'
+    const scroll = document.getElementById(link.href)
+    scroll && scroll.scrollIntoView({ block: 'start', behavior: 'smooth' })
   }
 </script>
 <template>
   <a-layout theme="light">
-    <a--layout-content>
+    <a-layout-content>
       <a-row :gutter="[20, 20]">
         <a-col :span="24" id="background">
           <a-card title="项目背景">
-            <p>
-              相信大部分的人上git去copy一个中后台管理系统，往往会遇到以下问题
-            </p>
+            <p
+              >在引用这个项目之前，你也许使用过其它的项目，大部分的项目都有一个通病：</p
+            >
             <ul>
               <li>
-                项目中的国际化配置、换肤、系统配置通常是很多项目中用不到的。这需要我们进行大量的手动删除
+                1. 项目目录结构复杂，目录文件之间引用混乱，完全脱离 vue 3
+                的思想(composite api),不易阅读。
               </li>
+              <li> 2. 项目功能过多，往往需要大量删除不需要的文件。 </li>
               <li>
-                Table组件的封装、form组件的封装太杂，局限性太强、不利于扩展
+                3.
+                组件过度封装，很难满足业务的需求，由于封装太杂，更是出现难以修改的情况。
               </li>
+              <li> 4. 各种复杂的配置。 </li>
               <li>
-                项目结构复杂，有时候一个组件的封装，引用各种各样的文件，不利于阅读
+                5.
+                最重要的一点，你会感觉你的规范被人家限定了，有些东西过分表现作者的技术存储量。
               </li>
-              <li>各种杂七杂八的配置</li>
             </ul>
-            <p><strong>为了保证项目的简洁，本项目只会为你做以下几点</strong></p>
-            <p>开发一个中后台常用的功能、比如路由权限、路由守卫等</p>
-            <p>
-              <em>
-                为了保证项目组件易阅读、易扩展，项目中的组件封装出发点总是一个思维提供，不会存在太多多花里胡哨的写法
-              </em>
-            </p>
+
+            <p>相信这种项目也已经泛滥了，做这个项目主要是为了以下几点：</p>
+
+            <ul>
+              <li>1. 简化项目的目录结构。</li>
+              <li>
+                2. 简化常用通用组件的封装，比如 form
+                组件、table组件。当然不仅仅只是简化这些组件的封装，还得保证组件的易用性、扩展性。
+              </li>
+            </ul>
+
+            <p
+              >当然写这个项目也是因为在某些组件的设计上也有自己独特的方法。你不妨试着下载这个项目，试着用几十行的代码完成一个项目的增删改查的操作流程。</p
+            >
           </a-card>
         </a-col>
 
         <a-col :span="24" id="feature">
-          <a-card title="功能列表">
+          <a-card title="项目功能清单">
             <ul>
-              <li>权限路由动态生成和移除</li>
-              <li>路由守卫</li>
-              <li>响应式布局</li>
-              <li>标签栏</li>
-              <li>基于 antd 的 table 的封装</li>
+              <li>1. 路由守卫</li>
+              <li>2. 路由菜单权限的添加</li>
+              <li>3. form 组件封装</li>
+              <li>4. table 组件封装</li>
               <li>
-                <p>基于 antd 的 form 的封装</p>
-                <p>这里的form分成了编辑表单和过滤搜索表单</p>
-                <p>
-                  看到很多的项目，往往把过滤搜索表单和编辑表单封装在一个组件上，每隔一段时间就添加一个prop来满足一些额外的需求，这不仅仅造成团队的阅读困难，而且使用特别困难，因为过滤搜索表单和编辑表单本身定位就不一样，布局差异大，因此本项目进行了各自的封装。
-                </p>
+                5. modal 组件 + form 组件 封装一个添加、编辑对话框表单的组件
               </li>
-              <li>
-                modal组件 + form组件 封装一个完善的易扩展的添加、编辑对话框表单
-              </li>
-              <li>
-                <p>基于 antd 的 row、col栅格布局的封装</p>
-                <p>
-                  栅格布局封装，可满足不同屏宽下每行显示的列数，对响应式带来特别好的便利性
-                </p>
-              </li>
-              <li>axios的基本封装以及异步请求hook的封装</li>
+              <li> 6. 响应式布局 </li>
+              <li>7. 标签栏</li>
+              <li>8. 面包屑</li>
+              <li>9. axios 的封装</li>
+              <li>10. async hook 异步请求封装</li>
+              <li>11. 跨行表格的处理</li>
             </ul>
+
             <p>上面组件的封装在对应的界面写了相关例子，可自行查看</p>
           </a-card>
         </a-col>
@@ -124,26 +127,27 @@
           </a-card>
         </a-col>
         <a-col :span="24" id="question">
-          <a-card title="常见问题" />
+          <a-card title="赞助">
+            <img :src="ewm" width="400" alt="二维码收款" />
+          </a-card>
         </a-col>
         <a-col :span="24" id="contact">
           <a-card title="联系方式"> QQ: 864181495 </a-card>
         </a-col>
       </a-row>
-    </a--layout-content>
+    </a-layout-content>
     <a-layout-sider theme="light" :width="200" class="home-layout-sider">
       <a-anchor
         class="home-anchor-wrapper"
         :affix="true"
-        :get-current-anchor="getCurrentAnchor"
         @click="handleAnchorClick"
       >
         <a-anchor-link href="background" title="项目背景" />
-        <a-anchor-link href="feature" title="功能列表" />
+        <a-anchor-link href="feature" title="项目功能清单" />
         <a-anchor-link href="config" title="项目配置" />
         <a-anchor-link href="globalComponentMount" title="全局组件挂载" />
         <a-anchor-link href="adapter" title="项目适配" />
-        <a-anchor-link href="question" title="常见问题" />
+        <a-anchor-link href="question" title="赞助" />
         <a-anchor-link href="contact" title="联系方式" />
       </a-anchor>
     </a-layout-sider>

@@ -31,6 +31,7 @@
 8. 面包屑
 9. axios 的封装
 10. async hook 异步请求封装
+11. 跨行表格的处理
 
 ## 结语
 
@@ -41,3 +42,7 @@
 如果项目对你有帮助的话，不妨请作者喝杯 coffee
 
 <img src="./src/assets//images/ewm.jpg" width="400" alt="收款二维码">
+
+联系方式：
+
+QQ: 864181495
