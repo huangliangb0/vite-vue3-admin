@@ -40,4 +40,4 @@
 
 如果项目对你有帮助的话，不妨请作者喝杯 coffee
 
-![支付宝 二维码](./src/assets//images/zfb.jpg) ![微信 二维码](./src/assets//images/wx.jpg)
+<img src="./src/assets//images/ewm.jpg" width="400" alt="收款二维码">
