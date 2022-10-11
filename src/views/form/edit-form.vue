@@ -196,12 +196,19 @@
 <template>
   <page-layout>
     <template #header> Todo </template>
-    <Form
-      :schemas="schemas"
-      :initialState="initialState"
-      :label-col="{ span: 4 }"
-      @create-submit="handleSubmit"
-    />
+    <Suspense>
+      <template #default>
+        <Form
+          :schemas="schemas"
+          :initialState="initialState"
+          :label-col="{ span: 4 }"
+          @create-submit="handleSubmit"
+        />
+      </template>
+      <template #fallback>
+        <h3>加载中.....</h3>
+      </template>
+    </Suspense>
   </page-layout>
 </template>
 <style lang="less"></style>
