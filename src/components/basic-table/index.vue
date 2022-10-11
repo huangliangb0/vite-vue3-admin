@@ -40,13 +40,9 @@
       const columns = computed(() => {
         const { columns, showIndex, pagination } = props
         const columnsList = [...columns]
-        if (
-          showIndex &&
-          !columns.some((item) => item.dataIndex === 'my--index')
-        ) {
+        if (showIndex) {
           columnsList.unshift({
             title: '序号',
-            dataIndex: 'my--index',
             width: 72,
             minWidth: 72,
             fixed: 'left',

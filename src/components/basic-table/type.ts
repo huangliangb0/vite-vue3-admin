@@ -21,6 +21,7 @@ export interface TableColumnItem<T = any>
   hideInEdit?: boolean
   // 是否可编辑
   isEdit?: boolean
+  options?: OptionsType
   // 表单控件属性
   widgetProps?: WidgetProps & {
     component?: WidgetKeys
