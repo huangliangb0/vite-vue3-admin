@@ -1,14 +1,30 @@
 import { RouteRecordRaw } from 'vue-router'
+import NotFound from '@/views/error/not-found.vue'
+import BasicLayout from '@/layout/basic-layout/index.vue'
 
-const constantRoutes: RouteRecordRaw[] = [
+const errorRoutes: RouteRecordRaw[] = [
   {
-    path: '/not-found',
+    path: '/:pathMatch(.*)*',
     name: 'NotFound',
+    redirect: '/not-fount',
     meta: {
       title: '页面找不到',
+      hideInMenu: true,
+      hideInTags: true,
     },
-    component: () =>
-      import(/* webpackChunkName: "not-found" */ '@/views/error/not-found.vue'),
+    component: BasicLayout,
+    children: [
+      {
+        path: 'not-fount',
+        name: 'NotFound',
+        meta: {
+          title: '页面找不到',
+          hideInMenu: true,
+          hideInTags: true,
+        },
+        component: NotFound,
+      },
+    ],
   },
 ]
-export default constantRoutes
+export default errorRoutes

@@ -195,20 +195,15 @@
 </script>
 <template>
   <page-layout>
-    <template #header> Todo </template>
-    <Suspense>
-      <template #default>
-        <Form
-          :schemas="schemas"
-          :initialState="initialState"
-          :label-col="{ span: 4 }"
-          @create-submit="handleSubmit"
-        />
-      </template>
-      <template #fallback>
-        <h3>加载中.....</h3>
-      </template>
-    </Suspense>
+    <template #header>
+      <h3>表单的基本使用</h3>
+    </template>
+    <Form
+      :schemas="schemas"
+      :initialState="initialState"
+      :label-col="{ span: 4 }"
+      @create-submit="handleSubmit"
+    />
   </page-layout>
 </template>
 <style lang="less"></style>

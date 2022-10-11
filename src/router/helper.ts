@@ -7,6 +7,7 @@
 import { routesFlat } from '@/utils/routes'
 import { isExternal } from '@/utils/validate'
 import { Router, RouteRecordRaw } from 'vue-router'
+import errorRoutes from './errorRoutes'
 
 export class RouterHandle {
   private removeRouteGroup: Array<() => void> = []
@@ -20,9 +21,7 @@ export class RouterHandle {
      * routesFlat就是对这个做出处理
      * 这里依然存在一个问题，就是等多级路由的父路由的component存在时，缓存会失效。因为父路由存在component，无法对其进行路由提升
      */
-    const routes = routesFlat(dynamicRoutes)
-
-    // console.log('扁平后的路由', routes)
+    const routes = routesFlat(dynamicRoutes).concat(errorRoutes)
 
     routes.forEach((route: RouteRecordRaw) => {
       if (!isExternal(route.path) && this.router) {
