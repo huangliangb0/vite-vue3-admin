@@ -1,6 +1,6 @@
 <script lang="tsx">
   import { getIconNameList } from '@/assets'
-  import { defineComponent, PropType, reactive, toRefs } from 'vue'
+  import { defineComponent, PropType } from 'vue'
   export default defineComponent({
     name: 'IconSelect',
     inheritAttrs: false,

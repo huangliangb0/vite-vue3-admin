@@ -1,6 +1,5 @@
 <script lang="ts" setup>
   import { computed, provide, ref } from 'vue'
-  import zhCN from 'ant-design-vue/es/locale/zh_CN'
   import { Menu, Header, Title, View, TagsView } from './components'
   import dayjs from 'dayjs'
   import 'dayjs/locale/zh-cn'

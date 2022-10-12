@@ -1,6 +1,5 @@
 <script lang="tsx">
-  import { Item } from 'ant-design-vue/lib/menu'
-  import { computed, defineComponent, PropType, reactive, ref } from 'vue'
+  import { computed, defineComponent, PropType, ref } from 'vue'
   export default defineComponent({
     name: 'InputSelect',
     inheritAttrs: false,
@@ -11,7 +10,7 @@
         default: () => [],
       },
       onChange: {
-        type: Function as PropType<(arg: String) => void>,
+        type: Function as PropType<(_arg: String) => void>,
       },
     },
     emits: ['update:value'],

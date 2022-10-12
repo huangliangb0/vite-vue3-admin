@@ -14,7 +14,7 @@
   </router-view>
 </template>
 <script lang="ts" setup>
-  import { computed, watch } from 'vue'
+  import { computed } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
 
   defineProps({
@@ -32,5 +32,5 @@
         .map((item) => item.name) as string[],
   )
 
-  const activePath = computed(() => route.fullPath)
+  // const activePath = computed(() => route.fullPath)
 </script>

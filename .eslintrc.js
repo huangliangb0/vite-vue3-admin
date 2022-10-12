@@ -17,7 +17,7 @@ module.exports = defineConfig({
   root: true,
   env: {
     browser: true,
-    node: true,
+    // node: true,
     es2021: true,
     'vue/setup-compiler-macros': true,
   },
@@ -63,7 +63,7 @@ module.exports = defineConfig({
     '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-unused-vars': [
-      'off',
+      'error',
       {
         argsIgnorePattern: '^_',
         varsIgnorePattern: '^_',

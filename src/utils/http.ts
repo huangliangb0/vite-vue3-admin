@@ -75,7 +75,7 @@ class HttpRequest {
 
   public async request<T = any>(
     options: AxiosRequestConfig,
-    config: RequestConfig = {},
+    _config: RequestConfig = {},
   ) {
     try {
       const res = await this.init(options)

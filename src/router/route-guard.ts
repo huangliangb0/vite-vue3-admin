@@ -43,7 +43,7 @@ router.beforeEach(async (to, _from, next) => {
         next()
       } else {
         try {
-          const res = await userStore.getUserInfo()
+          await userStore.getUserInfo()
           const menus = await menuStore.getMenuList()
 
           const data = treeData(menus)
