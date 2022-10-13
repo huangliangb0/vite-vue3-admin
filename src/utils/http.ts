@@ -2,7 +2,7 @@ import { message } from 'ant-design-vue'
 import axios, { AxiosInstance, AxiosRequestConfig } from 'axios'
 import { getToken } from './auth'
 
-export interface ResponseResult<T> {
+export interface ResponseResult<T = unknown> {
   code: number
   data: T
   msg: string
@@ -73,7 +73,7 @@ class HttpRequest {
     )
   }
 
-  public async request<T = any>(
+  public async request<T = unknown>(
     options: AxiosRequestConfig,
     _config: RequestConfig = {},
   ) {

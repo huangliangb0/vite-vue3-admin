@@ -1,6 +1,6 @@
 import { FilterSearch, FilterSearchInstance } from '@/components/form'
 import useAppStore from '@/store/modules/app'
-import { Button, ModalProps } from 'ant-design-vue'
+import { Button, Drawer, DrawerProps } from 'ant-design-vue'
 import { cloneDeep } from 'lodash-es'
 import { computed, watch, h, ref, Slot } from 'vue'
 import useModal from './modal'
@@ -15,7 +15,7 @@ const useSearchModal = (
 
   const searchRef = ref<FilterSearchInstance | null>(null)
   const initialState = ref<Recordable>()
-  const { Modal, visible, openModal, closeModal } = useModal()
+  const { visible, openModal, closeModal } = useModal()
   const isModal = ref(false)
   const breakpoint = computed(() => appStore.breakpoint)
   watch(
@@ -33,7 +33,7 @@ const useSearchModal = (
   )
 
   const SearchForm = (
-    props: ModalProps,
+    props: DrawerProps,
     { slots, attrs }: { slots: Slot; attrs: Recordable },
   ) => {
     if (isModal.value) {
@@ -57,11 +57,11 @@ const useSearchModal = (
               },
             ),
             h(
-              Modal,
+              Drawer,
               {
                 visible: visible.value,
                 footer: null,
-                onCancel: closeModal,
+                onClose: closeModal,
                 title: '按筛选条件进行搜索',
                 width: '88%',
                 ...props,

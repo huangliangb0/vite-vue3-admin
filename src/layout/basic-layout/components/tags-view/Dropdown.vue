@@ -17,7 +17,7 @@
   defineProps({
     onClose: {
       type: Function as PropType<
-        (_arg: 'other' | 'left' | 'right' | 'all') => void
+        (arg: 'other' | 'left' | 'right' | 'all') => void
       >,
       required: true,
     },
