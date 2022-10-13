@@ -2,7 +2,7 @@
   import { computed, defineComponent, PropType, ref, watch } from 'vue'
   import { TableColumns } from './type'
   import { Widget } from '../form/widgets'
-  import { cloneDeep } from 'lodash'
+  import { cloneDeep } from 'lodash-es'
 
   export default defineComponent({
     name: 'BasicTable',

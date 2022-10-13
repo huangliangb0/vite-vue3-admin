@@ -2,7 +2,7 @@
   import { computed, defineComponent, PropType } from 'vue'
   import { Widget } from '../widgets'
   import type { FormSchemaItem, FormSchemas, WidgetProps } from '../type'
-  import { cloneDeep } from 'lodash'
+  import { cloneDeep } from 'lodash-es'
   import { MinusOutlined } from '@ant-design/icons-vue'
   import { GRID_KEYS } from '@/constant/app'
   export default defineComponent({

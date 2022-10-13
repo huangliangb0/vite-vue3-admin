@@ -22,8 +22,8 @@
     <a-descriptions-item label="VueUse （vue hook 常用封装）">
       <a href="https://vueuse.org/" target="_blank">链接跳转</a>
     </a-descriptions-item>
-    <a-descriptions-item label="Lodash">
-      <a href="https://www.lodashjs.com/" target="_blank">链接跳转</a>
+    <a-descriptions-item label="lodash-es">
+      <a href="https://www.lodash-esjs.com/" target="_blank">链接跳转</a>
     </a-descriptions-item>
 
     <a-descriptions-item label="vue-echarts">
@@ -46,6 +46,9 @@
     </a-descriptions-item>
     <a-descriptions-item label="axios">
       <a href="https://axios-http.com/" target="_blank">链接跳转</a>
+    </a-descriptions-item>
+    <a-descriptions-item label="单元测试">
+      <a href="https://cn.vitest.dev/guide/" target="_blank">链接跳转</a>
     </a-descriptions-item>
   </a-descriptions>
 </template>

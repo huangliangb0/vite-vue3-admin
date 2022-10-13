@@ -1,5 +1,5 @@
 import { RouteRecordRaw } from 'vue-router'
-import { cloneDeep } from 'lodash'
+import { cloneDeep } from 'lodash-es'
 import type { RoutesMap } from '@/router/permissionRoutes'
 import { isExternal } from './validate'
 import BasicLayout from '@/layout/basic-layout/index.vue'

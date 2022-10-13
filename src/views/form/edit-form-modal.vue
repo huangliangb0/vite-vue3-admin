@@ -3,7 +3,7 @@
 
   import { useFormModal } from '@/hook'
   import { Rule } from 'ant-design-vue/lib/form'
-  import { omit, pick } from 'lodash'
+  import { omit, pick } from 'lodash-es'
   const checkLinkman = (
     _rule: Rule,
     value: Array<{ name: string; phone: string }>,
@@ -24,117 +24,113 @@
     return Promise.resolve()
   }
 
-  const { FormModal, visible, openFormModal, openEditFormModal } = useFormModal(
-    {
-      schemas: [
-        {
-          field: 'grade',
-          label: '年级',
-          component: 'Select',
-          formItemProps: {
-            rules: [
-              { required: true, message: '请选择年级', trigger: 'change' },
-            ],
-          },
-          componentProps: () => ({
-            placeholder: '请选择年级',
-            options: [
-              {
-                label: '一年级',
-                value: 1,
-              },
-              {
-                label: '二年级',
-                value: 2,
-              },
-            ],
-          }),
+  const { FormModal, openFormModal, openEditFormModal } = useFormModal({
+    schemas: [
+      {
+        field: 'grade',
+        label: '年级',
+        component: 'Select',
+        formItemProps: {
+          rules: [{ required: true, message: '请选择年级', trigger: 'change' }],
         },
-        {
-          field: 'class',
-          label: '班级',
-          component: 'Select',
-          componentProps: () => ({
-            placeholder: '请选择班级',
-            options: [
-              {
-                label: '一班',
-                value: 1,
-              },
-              {
-                label: '二班',
-                value: 2,
-              },
-              {
-                label: '三年级',
-                value: 3,
-              },
-            ],
-          }),
-        },
-        {
-          field: 'name',
-          label: '学生姓名',
-          formItemProps: {
-            rules: [
-              { required: true, message: '请输入学生姓名', trigger: 'blur' },
-            ],
-          },
-          componentProps: () => ({
-            placeholder: '请输入学生姓名',
-
-            modifier: {
-              trim: true,
-            },
-          }),
-        },
-
-        {
-          type: 'array',
-          field: 'linkman',
-          label: '联系人',
-          default: [],
-          valueFormat: {
-            name: '张三',
-            phone: '18888888888',
-          },
-          formItemProps: {
-            rules: [
-              {
-                validator: checkLinkman,
-                trigger: 'change',
-              },
-            ],
-          },
-          schemas: [
+        componentProps: () => ({
+          placeholder: '请选择年级',
+          options: [
             {
-              field: 'name',
-              label: '家长姓名',
-              componentProps: () => ({
-                placeholder: '请输入联系人姓名',
-              }),
+              label: '一年级',
+              value: 1,
             },
             {
-              field: 'phone',
-              label: '联系电话',
-              componentProps: () => ({
-                placeholder: '请输入联系人电话',
-              }),
+              label: '二年级',
+              value: 2,
+            },
+          ],
+        }),
+      },
+      {
+        field: 'class',
+        label: '班级',
+        component: 'Select',
+        componentProps: () => ({
+          placeholder: '请选择班级',
+          options: [
+            {
+              label: '一班',
+              value: 1,
+            },
+            {
+              label: '二班',
+              value: 2,
+            },
+            {
+              label: '三年级',
+              value: 3,
+            },
+          ],
+        }),
+      },
+      {
+        field: 'name',
+        label: '学生姓名',
+        formItemProps: {
+          rules: [
+            { required: true, message: '请输入学生姓名', trigger: 'blur' },
+          ],
+        },
+        componentProps: () => ({
+          placeholder: '请输入学生姓名',
+
+          modifier: {
+            trim: true,
+          },
+        }),
+      },
+
+      {
+        type: 'array',
+        field: 'linkman',
+        label: '联系人',
+        default: [],
+        valueFormat: {
+          name: '张三',
+          phone: '18888888888',
+        },
+        formItemProps: {
+          rules: [
+            {
+              validator: checkLinkman,
+              trigger: 'change',
             },
           ],
         },
-        {
-          type: 'array',
-          field: 'specialty',
-          label: '特长',
-          default: [],
-          componentProps: () => ({
-            placeholder: '请输入',
-          }),
-        },
-      ],
-    },
-  )
+        schemas: [
+          {
+            field: 'name',
+            label: '家长姓名',
+            componentProps: () => ({
+              placeholder: '请输入联系人姓名',
+            }),
+          },
+          {
+            field: 'phone',
+            label: '联系电话',
+            componentProps: () => ({
+              placeholder: '请输入联系人电话',
+            }),
+          },
+        ],
+      },
+      {
+        type: 'array',
+        field: 'specialty',
+        label: '特长',
+        default: [],
+        componentProps: () => ({
+          placeholder: '请输入',
+        }),
+      },
+    ],
+  })
 
   /**
    * 编辑

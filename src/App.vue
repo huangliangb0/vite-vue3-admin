@@ -2,7 +2,7 @@
   // This starter template is using Vue 3 <script setup> SFCs
   // Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
   import { onMounted } from 'vue'
-  import { debounce } from 'lodash'
+  import { debounce } from 'lodash-es'
   import elementResizeDetectorMaker from 'element-resize-detector'
   import useAppStore from './store/modules/app'
   import zhCN from 'ant-design-vue/es/locale/zh_CN'

@@ -16,7 +16,7 @@
   import { RowWrapper } from '@/components/row-layout'
   import useAppStore from '@/store/modules/app'
   import { emitFilterSearchReset, takeOffFilterSearchReset } from './helper'
-  import { omit, pick } from 'lodash'
+  import { omit, pick } from 'lodash-es'
   export default defineComponent({
     name: 'FilterSearch',
     // expose: ['formState', 'change', 'reset', 'submit'],

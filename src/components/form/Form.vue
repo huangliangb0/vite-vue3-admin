@@ -13,7 +13,7 @@
   import FormList from './components/FormList.vue'
   import type { FormSchemas } from './type'
   import useAppStore from '@/store/modules/app'
-  import { omit, pick } from 'lodash'
+  import { omit, pick } from 'lodash-es'
 
   const FormItemGrid: GridColType = {
     xs: 24,
