@@ -12,7 +12,7 @@
 </script>
 <template>
   <a-layout theme="light">
-    <a-layout-content>
+    <a-layout-content class="home-main">
       <a-row :gutter="[20, 20]">
         <a-col :span="24" id="background">
           <a-card title="项目背景">
@@ -155,6 +155,11 @@
 </template>
 
 <style lang="less" scoped>
+  .home-main {
+    .ant-card {
+      font-size: 16px;
+    }
+  }
   .home-layout-sider {
     margin-left: 20px;
   }
