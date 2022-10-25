@@ -4,7 +4,6 @@
   import MenuTable from './components/MenuTable.vue'
   import { message } from 'ant-design-vue'
   import useMenuStore from '@/store/modules/menu'
-  import { omit } from 'lodash-es'
   import { ref } from 'vue'
 
   defineOptions({

@@ -23,11 +23,6 @@
       value: 2,
     },
   ]
-  const params = {
-    1: 'success',
-    2: 'error',
-  }
-
   const text = computed(() => {
     const o = options.find((item) => item.value === props.type)
     return o?.label
