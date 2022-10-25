@@ -1,5 +1,5 @@
 import { Button, ModalProps, Space } from 'ant-design-vue'
-import { computed, h, nextTick, ref, Slot } from 'vue'
+import { computed, h, ref, Slot } from 'vue'
 import 'ant-design-vue/lib/modal/style/index.css'
 import { Form, EditFormInstance } from '@/components/form'
 import useModal from './modal'
@@ -52,11 +52,7 @@ const useFormModal = (
   const openEditFormModal = (initValue: Recordable) => {
     isEdit.value = true
     visible.value = true
-    setTimeout(() => {
-      nextTick(() => {
-        initialState.value = initValue
-      })
-    }, 0)
+    initialState.value = initValue
   }
 
   /***** render 或者 component **********/

@@ -58,7 +58,7 @@
       props.schemas.forEach((item) => {
         o[item.field] = item.default
       })
-      const formState = reactive({ ...o })
+      const formState = reactive({ ...o, ...props.initialState })
       const formRef = ref<FormInstance>()
       const appStore = useAppStore()
 
