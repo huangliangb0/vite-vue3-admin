@@ -1,5 +1,5 @@
 import { Button, ModalProps, Space } from 'ant-design-vue'
-import { computed, h, ref, Slot } from 'vue'
+import { computed, h, provide, ref, Slot } from 'vue'
 import 'ant-design-vue/lib/modal/style/index.css'
 import { Form, EditFormInstance } from '@/components/form'
 import useModal from './modal'
@@ -36,6 +36,20 @@ const useFormModal = (
     const width = o[appStore.breakpoint]
     return width
   })
+
+  /***** provide **********/
+
+  // 你的表单部件可能需要监听modal关闭时做一些操作
+  /**
+   * 你的表单部件可能需要监听modal关闭时做一些操作，比如 Input组件
+   *
+   * const visible = inject('form-modal-visible')
+   *
+   * const watch(() => visible.value, () => {
+   *   一些额外的操作
+   * })
+   */
+  provide('form-modal-visible', visible)
 
   /***** methods **********/
 

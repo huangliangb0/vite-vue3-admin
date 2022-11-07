@@ -15,10 +15,6 @@
   import useAppStore from '@/store/modules/app'
   import { omit, pick } from 'lodash-es'
 
-  const FormItemGrid: GridColType = {
-    xs: 24,
-  }
-
   export default defineComponent({
     name: 'BasicForm',
     components: {
@@ -50,6 +46,10 @@
       isEdit: {
         type: Boolean,
         default: false,
+      },
+      grid: {
+        type: Object as PropType<GridColType>,
+        default: () => ({ xs: 24 }),
       },
     },
     emits: ['create-submit', 'reset', 'edit-submit'],
@@ -184,7 +184,7 @@
               return (
                 <a-col
                   key={item.field}
-                  {...Object.assign({}, FormItemGrid, item.grid)}
+                  {...Object.assign({}, props.grid, item.grid)}
                 >
                   <a-form-item
                     label={item.label}
