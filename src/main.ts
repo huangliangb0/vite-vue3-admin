@@ -11,11 +11,22 @@ import 'virtual:svg-icons-register' // 注册svg-icon脚本
 import { setupGlobalComponent } from './components'
 import { setupRouter } from './router'
 import '@/styles/index.less'
+
 import { setupStore } from './store'
 /* 路由守卫 */
 import '@/router/route-guard'
 import '@/assets'
-import 'ant-design-vue/lib/message/style/index.css'
+
+// ============================ 根据开发环境和生产环境使用不同的方法引入antd的样式 start ==================================================
+// 仅在开发环境(vite serve命令)全量引入antd样式，生产环境(vite build命令)使用unplugin-vue-components按需引入(参见：vite.config.js)
+/// #if COMMAND === 'serve'
+import 'ant-design-vue/dist/antd.less'
+/// #else
+// unplugin-vue-components 无法按需引入非组件模块的样式，故在此处引入
+import 'ant-design-vue/lib/message/style/index.less'
+import 'ant-design-vue/lib/notification/style/index.less'
+/// #endif
+// ============================ 根据开发环境和生产环境使用不同的方法引入antd的样式 end ==================================================
 
 const app = createApp(App)
 

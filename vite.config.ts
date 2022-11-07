@@ -12,86 +12,99 @@ import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import { createHtmlPlugin } from 'vite-plugin-html'
 import Components from 'unplugin-vue-components/vite'
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
+import ifdef from 'vite-plugin-ifdef'
 import { getThemeVariables } from 'ant-design-vue/dist/theme'
 import eslintPlugin from 'vite-plugin-eslint' //导入包
 import DefineOptions from 'unplugin-vue-define-options/vite'
 const path = require('path')
+/** vite-plugin-ifdef插件的配置项 */
+type IfdefConfig = { 'ifdef-define': any; 'ifdef-option': any }
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [
-    vue(),
-    vueJsx(),
-    DefineOptions(),
-    Components({
-      resolvers: [AntDesignVueResolver({ importStyle: 'less' })],
-    }),
-    createSvgIconsPlugin({
-      // 指定需要缓存的图标文件夹
-      iconDirs: [path.resolve(process.cwd(), 'src/assets/icons')],
-      // 指定symbolId格式
-      symbolId: 'icon-[name]',
-    }),
-    createHtmlPlugin({
-      minify: process.env.NODE_ENV === 'production',
-      inject: {
-        data: {
-          title: '平台管理系统',
+export default defineConfig(({ command }) => {
+  return {
+    plugins: [
+      vue(),
+      vueJsx(),
+      DefineOptions(),
+      ifdef(),
+      Components({
+        resolvers: [AntDesignVueResolver({ importStyle: 'less' })],
+      }),
+      createSvgIconsPlugin({
+        // 指定需要缓存的图标文件夹
+        iconDirs: [path.resolve(process.cwd(), 'src/assets/icons')],
+        // 指定symbolId格式
+        symbolId: 'icon-[name]',
+      }),
+      createHtmlPlugin({
+        minify: process.env.NODE_ENV === 'production',
+        inject: {
+          data: {
+            title: '平台管理系统',
+          },
         },
-      },
-    }),
-    // 增加下面的配置项,这样在运行时就能检查eslint规范
-    eslintPlugin({
-      include: [
-        'src/**/*.ts',
-        'src/**/*.d.ts',
-        'src/**/*.tsx',
-        'src/**/*.vue',
-        'types/**/*.d.ts',
-        'types/**/*.ts',
-      ],
-      exclude: ['./node_modules/**'],
-      // cache: false,
-      // emitWarning: false,
-      // emitError: false,
-      // failOnWarning: false,
-      // failOnError: false,
-      // throwOnWarning: false,
-    }),
-  ],
-  css: {
-    preprocessorOptions: {
-      less: {
-        /* 引入 antd less 的变量（https://www.antdv.com/docs/vue/customize-theme-cn） */
-        modifyVars: {
-          ...getThemeVariables({ dark: false }),
-          // 覆盖 antd 的主题颜色
-          'primary-color': '#0960bd',
+      }),
+      // 增加下面的配置项,这样在运行时就能检查eslint规范
+      eslintPlugin({
+        include: [
+          'src/**/*.ts',
+          'src/**/*.d.ts',
+          'src/**/*.tsx',
+          'src/**/*.vue',
+          'types/**/*.d.ts',
+          'types/**/*.ts',
+        ],
+        exclude: ['./node_modules/**'],
+        // cache: false,
+        // emitWarning: false,
+        // emitError: false,
+        // failOnWarning: false,
+        // failOnError: false,
+        // throwOnWarning: false,
+      }),
+    ],
+    'ifdef-define': {
+      COMMAND: command,
+    },
+    // 注意此处有坑，vite-plugin-ifdef的文档中给的键名 ifdef-config 是错误的
+    'ifdef-option': {
+      verbose: false,
+    },
+    css: {
+      preprocessorOptions: {
+        less: {
+          /* 引入 antd less 的变量（https://www.antdv.com/docs/vue/customize-theme-cn） */
+          modifyVars: {
+            ...getThemeVariables({ dark: false }),
+            // 覆盖 antd 的主题颜色
+            'primary-color': '#0960bd',
 
-          // 自定义全局 less 变量
-          margin: '20px',
+            // 自定义全局 less 变量
+            margin: '20px',
+          },
+          javascriptEnabled: true,
         },
-        javascriptEnabled: true,
       },
     },
-  },
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, 'src'),
-      comps: path.resolve(__dirname, 'src/components'),
-      '#': path.resolve(__dirname, 'type'),
-    },
-  },
-  server: {
-    host: '0.0.0.0',
-    // https: true,
-    port: 3000,
-    proxy: {
-      '/api': {
-        target: 'http://localhost:3004',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ''),
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, 'src'),
+        comps: path.resolve(__dirname, 'src/components'),
+        '#': path.resolve(__dirname, 'type'),
       },
     },
-  },
+    server: {
+      host: '0.0.0.0',
+      // https: true,
+      port: 3000,
+      proxy: {
+        '/api': {
+          target: 'http://localhost:3004',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, ''),
+        },
+      },
+    },
+  }
 })
