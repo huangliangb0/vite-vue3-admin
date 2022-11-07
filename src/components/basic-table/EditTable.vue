@@ -20,7 +20,7 @@
     setup(props, { attrs, emit, slots }) {
       const isEdit = ref(false)
       const data = ref<any[]>(cloneDeep(props.data))
-      const _data = computed(() => (isEdit.value ? data.value : props.data))
+      // const _data = computed(() => (isEdit.value ? data.value : props.data))
 
       const columns = computed(() => {
         if (isEdit.value) {
@@ -69,11 +69,16 @@
         return props.columns
       })
 
-      const onIsEdit = (v: boolean) => {
+      const onEdit = (v: boolean) => {
         isEdit.value = v
       }
       const onFinish = (record: any) => {
+        isEdit.value = false
         emit('finish', record || data.value)
+      }
+      const onCancel = () => {
+        isEdit.value = false
+        data.value = cloneDeep(props.data)
       }
 
       watch(
@@ -88,14 +93,16 @@
             v-slots={{
               header: () => (
                 <div class="edit-table-header">
-                  <div>{slots.header ? slots.header() : null}</div>
+                  {slots.header ? (
+                    <div class={'edit-table-header-left'}>{slots.header()}</div>
+                  ) : null}
                   <div class="edit-table-action">
                     <a-space>
                       {!isEdit.value ? (
                         <a-button
                           size="small"
                           type="primary"
-                          onClick={() => onIsEdit(true)}
+                          onClick={() => onEdit(true)}
                         >
                           编辑
                         </a-button>
@@ -108,10 +115,7 @@
                           >
                             完成
                           </a-button>
-                          <a-button
-                            size="small"
-                            onClick={() => onIsEdit(false)}
-                          >
+                          <a-button size="small" onClick={() => onCancel()}>
                             取消
                           </a-button>
                         </>
@@ -125,7 +129,7 @@
             <basic-table
               class="basic-table"
               columns={columns.value}
-              data={_data.value}
+              data={data.value}
               {...attrs}
             />
           </page-layout>

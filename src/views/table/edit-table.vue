@@ -1,17 +1,3 @@
-<template>
-  <div class="page--container">
-    <edit-table
-      :columns="columns"
-      :data="data"
-      :pagination="pagination"
-      @finish="handleFinish"
-    >
-      <template #header>
-        <h3> 可编辑表格 </h3>
-      </template>
-    </edit-table>
-  </div>
-</template>
 <script lang="tsx" setup>
   import { TableColumns, EditTable } from '@/components/basic-table'
   import { reactive } from 'vue'
@@ -129,4 +115,18 @@
     console.log('edit-table finish', v)
   }
 </script>
+<template>
+  <div class="page--container">
+    <edit-table
+      :columns="columns"
+      :data="data"
+      :pagination="pagination"
+      @finish="handleFinish"
+    >
+      <template #header>
+        <h3 style="margin: 0"> 可编辑表格 </h3>
+      </template>
+    </edit-table>
+  </div>
+</template>
 <style lang="less"></style>
