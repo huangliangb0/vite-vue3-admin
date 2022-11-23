@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-  import { getImageUrl } from '@/assets'
+  // import { getImageUrl } from '@/assets'
 
-  const ewm = getImageUrl('ewm.jpg')
+  // const ewm = getImageUrl('ewm.jpg')
 
   const handleAnchorClick = (e: Event, link: Recordable) => {
     // 阻止点击的默认事件修改路由
@@ -14,44 +14,6 @@
   <a-layout theme="light">
     <a-layout-content class="home-main">
       <a-row :gutter="[20, 20]">
-        <a-col :span="24" id="background">
-          <a-card title="项目背景">
-            <p
-              >在引用这个项目之前，你也许使用过其它的项目，大部分的项目都有一个通病：</p
-            >
-            <ul>
-              <li>
-                1. 项目目录结构复杂，目录文件之间引用混乱，完全脱离 vue 3
-                的思想(composite api),不易阅读。
-              </li>
-              <li> 2. 项目功能过多，往往需要大量删除不需要的文件。 </li>
-              <li>
-                3.
-                组件过度封装，很难满足业务的需求，由于封装太杂，更是出现难以修改的情况。
-              </li>
-              <li> 4. 各种复杂的配置。 </li>
-              <li>
-                5.
-                最重要的一点，你会感觉你的规范被人家限定了，有些东西过分表现作者的技术存储量。
-              </li>
-            </ul>
-
-            <p>相信这种项目也已经泛滥了，做这个项目主要是为了以下几点：</p>
-
-            <ul>
-              <li>1. 简化项目的目录结构。</li>
-              <li>
-                2. 简化常用通用组件的封装，比如 form
-                组件、table组件。当然不仅仅只是简化这些组件的封装，还得保证组件的易用性、扩展性。
-              </li>
-            </ul>
-
-            <p
-              >当然写这个项目也是因为在某些组件的设计上也有自己独特的方法。你不妨试着下载这个项目，试着用几十行的代码完成一个项目的增删改查的操作流程。</p
-            >
-          </a-card>
-        </a-col>
-
         <a-col :span="24" id="feature">
           <a-card title="项目功能清单">
             <ul>
@@ -126,11 +88,11 @@
             </ul>
           </a-card>
         </a-col>
-        <a-col :span="24" id="question">
+        <!-- <a-col :span="24" id="question">
           <a-card title="赞助">
             <img :src="ewm" width="400" alt="二维码收款" />
           </a-card>
-        </a-col>
+        </a-col> -->
         <a-col :span="24" id="contact">
           <a-card title="联系方式"> QQ: 864181495 </a-card>
         </a-col>
@@ -142,12 +104,11 @@
         :affix="true"
         @click="handleAnchorClick"
       >
-        <a-anchor-link href="background" title="项目背景" />
         <a-anchor-link href="feature" title="项目功能清单" />
         <a-anchor-link href="config" title="项目配置" />
         <a-anchor-link href="globalComponentMount" title="全局组件挂载" />
         <a-anchor-link href="adapter" title="项目适配" />
-        <a-anchor-link href="question" title="赞助" />
+        <!-- <a-anchor-link href="question" title="赞助" /> -->
         <a-anchor-link href="contact" title="联系方式" />
       </a-anchor>
     </a-layout-sider>

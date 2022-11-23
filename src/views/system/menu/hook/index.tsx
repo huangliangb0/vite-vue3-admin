@@ -1,13 +1,14 @@
 import { FormSchemas } from '@/components/form'
 import { useFormModal } from '@/hook'
 import useMenuStore from '@/store/modules/menu'
-import { computed, Ref } from 'vue'
+import { computed, onMounted, ref, Ref } from 'vue'
 import { QuestionCircleOutlined } from '@ant-design/icons-vue'
 import { Space, Tooltip } from 'ant-design-vue'
 import { Rule } from 'ant-design-vue/lib/form'
 
 export const useForm = ({ name }: { name: Ref<string> }) => {
   const menuStore = useMenuStore()
+  const redict = ref('bobo')
   const schemas = computed(
     () =>
       [
@@ -93,6 +94,7 @@ export const useForm = ({ name }: { name: Ref<string> }) => {
           field: 'redirect',
           label: '重定向',
           component: 'Input',
+          default: redict.value,
           formItemProps: {},
           componentProps: () => ({
             placeholder: '请输入重定向',
@@ -269,6 +271,12 @@ export const useForm = ({ name }: { name: Ref<string> }) => {
       title: '添加菜单',
     },
   )
+
+  onMounted(() => {
+    setTimeout(() => {
+      redict.value = 'dfsdfsdf'
+    }, 1000)
+  })
 
   return {
     ...reset,

@@ -39,7 +39,6 @@ const useFormModal = (
 
   /***** provide **********/
 
-  // 你的表单部件可能需要监听modal关闭时做一些操作
   /**
    * 你的表单部件可能需要监听modal关闭时做一些操作，比如 Input组件
    *
