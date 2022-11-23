@@ -2,9 +2,11 @@
 
 ## 项目背景
 
-<font color="LightSeaGreen" size="6">一切都是 hook</font>
+<font color=yellow size=3>一个早点摸鱼、早点下班的项目</font>
 
-自从 vue hook 的出现，我一直就在思考，我是不是可以把页面操作逻辑（js）和对应组件模板（vue 组件）整合到一个 hook 中，然后 hook 导出响应组件进行使用，这样的 hook 不再只是一个 js 业务操作的封装，而是 js 业务 + vue 组件整合，这很方面我们复用,我仅仅传几个参数，几十行的代码，完成比较复杂的业务操作功能。例如：
+<font color=LightSeaGreen size=6>一切都是 hook</font>
+
+自从 vue hook 的出现，我一直就在思考，我是不是可以把页面操作逻辑（js）和对应组件模板（vue 组件）整合到一个 hook 中，然后 hook 导出响应组件进行使用，这样的 hook 不再只是一个 js 业务操作的封装，而是 js 业务 + vue 组件整合，这很方便我们复用,我仅仅传几个参数，几十行的代码，完成比较复杂的业务操作功能。例如：
 
 ```html
 <script setup lang="ts">
