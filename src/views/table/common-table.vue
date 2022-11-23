@@ -3,98 +3,19 @@
     <template #header>
       <h3> 普通表格 </h3>
     </template>
-    <basic-table :columns="columns" :data="data" :pagination="pagination" />
+    <Table :pagination="pagination" />
   </page-layout>
 </template>
 <script lang="tsx" setup>
-  import { TableColumns } from '@/components/basic-table'
-  import { ExceptionTag, SexTag } from '@/components/tags'
   import { reactive } from 'vue'
+  import useCommonTable from './hook/useCommonTable'
 
   const pagination = reactive<PaginationType>({
     pageSize: 10,
     current: 1,
     total: 100,
   })
-  const columns: TableColumns = [
-    {
-      title: '年级',
-      dataIndex: 'grade',
-      options: [
-        {
-          label: '一年级',
-          value: 1,
-        },
-        {
-          label: '二年级',
-          value: 2,
-        },
-        {
-          label: '三年级',
-          value: 3,
-        },
-      ],
-    },
-    {
-      title: '班级',
-      dataIndex: 'class',
-      options: [
-        {
-          label: '一班',
-          value: 1,
-        },
-        {
-          label: '二班',
-          value: 2,
-        },
-        {
-          label: '三班',
-          value: 3,
-        },
-        {
-          label: '四班',
-          value: 4,
-        },
-      ],
-    },
-    {
-      title: '姓名',
-      dataIndex: 'name',
-      ellipsis: true,
-    },
-    {
-      title: '性别',
-      dataIndex: 'sex',
-      slot: ({ value }) => <SexTag type={value}></SexTag>,
-    },
-    {
-      title: '状态',
-      dataIndex: 'exception',
-      slot: ({ value }) => <ExceptionTag type={value}></ExceptionTag>,
-    },
-  ]
-  const data = [
-    {
-      grade: 1,
-      class: 1,
-      name: '小花',
-      sex: 2,
-      exception: 1,
-    },
-    {
-      grade: 2,
-      class: 1,
-      name: '小丽',
-      sex: 2,
-      exception: 1,
-    },
-    {
-      grade: 3,
-      class: 4,
-      name: '小明',
-      sex: 1,
-      exception: 2,
-    },
-  ]
+
+  const Table = useCommonTable()
 </script>
 <style lang="less"></style>
