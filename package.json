@@ -20,6 +20,7 @@
     "ant-design-vue": "^3.2.10",
     "axios": "^0.27.2",
     "dayjs": "^1.11.3",
+    "echarts": "^5.4.0",
     "element-resize-detector": "^1.2.4",
     "js-cookie": "^3.0.1",
     "json-server": "^0.17.0",
@@ -29,6 +30,7 @@
     "pinia": "^2.0.16",
     "uuid": "^8.3.2",
     "vue": "^3.2.25",
+    "vue-echarts": "^6.2.3",
     "vue-router": "^4.1.2"
   },
   "devDependencies": {

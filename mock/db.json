@@ -353,6 +353,20 @@
       "componentKey": "Home",
       "children": [],
       "id": "8baa11aa-1b8a-4908-be7f-bd31e9c4605a"
+    },
+    {
+      "id": "8e42f12a-23a7-4eec-b242-79c19a2feadc",
+      "name": "Chart",
+      "path": "/chart",
+      "redirect": "",
+      "title": "可视化",
+      "icon": "table",
+      "sort": 8,
+      "isCache": false,
+      "hideInMenu": false,
+      "hideInTags": false,
+      "affixInTags": false,
+      "alwayShowChildInMenu": false
     }
   ],
   "student": [
