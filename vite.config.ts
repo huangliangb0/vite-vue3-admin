@@ -4,7 +4,7 @@
  * @LastEditTime: 2022-07-22 17:38:05
  * @FilePath: \vite-vue3-admin\vite.config.ts
  */
-import { defineConfig } from 'vite'
+import { ConfigEnv, UserConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 // import path from 'path' // ts如果报错 npm i @types/node -D
@@ -21,7 +21,7 @@ const path = require('path')
 type IfdefConfig = { 'ifdef-define': any; 'ifdef-option': any }
 
 // https://vitejs.dev/config/
-export default defineConfig(({ command }) => {
+export default ({ command }: ConfigEnv): UserConfig & IfdefConfig => {
   return {
     plugins: [
       vue(),
@@ -29,7 +29,16 @@ export default defineConfig(({ command }) => {
       DefineOptions(),
       ifdef(),
       Components({
-        resolvers: [AntDesignVueResolver({ importStyle: 'less' })],
+        /**
+         * 开发环境(serve命令)若配置importStyle会导致使用ant-design的组件加载时间长达10s以上，
+         * 故仅在打包环境(build命令)按需加载ant-design的样式，开发环境全量引入样式文件
+         * https://github.com/antfu/unplugin-vue-components/issues/361
+         */
+        resolvers: [
+          AntDesignVueResolver({
+            importStyle: command === 'build' ? 'less' : false,
+          }),
+        ],
       }),
       createSvgIconsPlugin({
         // 指定需要缓存的图标文件夹
@@ -107,4 +116,4 @@ export default defineConfig(({ command }) => {
       },
     },
   }
-})
+}

@@ -26,7 +26,7 @@
       "isCache": false,
       "hideInMenu": false,
       "hideInTags": false,
-      "affixInTags": true,
+      "affixInTags": false,
       "alwayShowChildInMenu": false,
       "componentKey": "Home",
       "children": [
@@ -133,7 +133,7 @@
       "isCache": false,
       "hideInMenu": false,
       "hideInTags": false,
-      "affixInTags": true,
+      "affixInTags": false,
       "alwayShowChildInMenu": false,
       "componentKey": "Home",
       "children": [
@@ -270,7 +270,7 @@
       "isCache": false,
       "hideInMenu": false,
       "hideInTags": false,
-      "affixInTags": true,
+      "affixInTags": false,
       "alwayShowChildInMenu": false,
       "componentKey": "Row",
       "children": [],
@@ -287,7 +287,7 @@
       "isCache": false,
       "hideInMenu": false,
       "hideInTags": false,
-      "affixInTags": true,
+      "affixInTags": false,
       "alwayShowChildInMenu": true,
       "children": [],
       "id": "d6093060-1241-4139-b15e-7a964f6f4525"
@@ -302,7 +302,7 @@
       "isCache": false,
       "hideInMenu": false,
       "hideInTags": false,
-      "affixInTags": true,
+      "affixInTags": false,
       "alwayShowChildInMenu": true,
       "componentKey": "Home",
       "children": [
@@ -348,7 +348,7 @@
       "isCache": false,
       "hideInMenu": false,
       "hideInTags": false,
-      "affixInTags": true,
+      "affixInTags": false,
       "alwayShowChildInMenu": false,
       "componentKey": "Home",
       "children": [],
