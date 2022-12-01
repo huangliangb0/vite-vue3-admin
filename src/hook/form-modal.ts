@@ -7,7 +7,7 @@ import useAppStore from '@/store/modules/app'
 // 添加-编辑模态框
 const useFormModal = (
   formProps: Partial<EditFormInstance>,
-  modalProps: ModalProps = {},
+  modalProps: ModalProps & { updateTitle?: string } = {},
 ) => {
   /***** hook **********/
 
@@ -18,6 +18,7 @@ const useFormModal = (
 
   const formRef = ref<EditFormInstance | null>(null)
   const initialState = ref<Recordable>()
+  const loading = ref(false)
   const isEdit = ref(false)
 
   /***** computed **********/
@@ -52,6 +53,16 @@ const useFormModal = (
 
   /***** methods **********/
 
+  // 提交按钮
+  const startLoading = () => {
+    loading.value = true
+  }
+
+  // 提交表单成功处理后或者出现异常，关闭loading
+  const stopLoading = () => {
+    loading.value = false
+  }
+
   const openFormModal = () => {
     visible.value = true
   }
@@ -70,9 +81,12 @@ const useFormModal = (
 
   /***** render 或者 component **********/
   const FormModal = (
-    props: ModalProps,
+    props: ModalProps & { updateTitle?: string },
     { slots, attrs }: { slots: Slot; attrs: Recordable },
   ) => {
+    const title = props.title || modalProps.title
+    const updateTitle = props.updateTitle || modalProps.updateTitle
+
     return h(
       Modal,
       {
@@ -81,6 +95,7 @@ const useFormModal = (
         width: modalWidth.value,
         ...modalProps,
         ...props,
+        title: isEdit.value ? updateTitle || title : title,
       },
       {
         default: () =>
@@ -111,7 +126,11 @@ const useFormModal = (
                 ),
                 h(
                   Button,
-                  { onClick: formRef.value?.submit, type: 'primary' },
+                  {
+                    type: 'primary',
+                    loading: loading.value,
+                    onClick: formRef.value?.submit,
+                  },
                   {
                     default: () => '提交',
                   },
@@ -125,6 +144,9 @@ const useFormModal = (
   return {
     formRef,
     visible,
+    isEdit,
+    startLoading,
+    stopLoading,
     openEditFormModal,
     openFormModal,
     closeFormModal,

@@ -3,11 +3,13 @@ import { type TableColumns } from '@/components/basic-table/type'
 import { type TableProps } from 'ant-design-vue'
 import { h, isRef, type Ref, ref } from 'vue'
 
-type Props = Omit<InstanceType<typeof BasicTable>, 'data' | 'columns'> &
-  Omit<TableProps, 'columns'> & {
-    data: Ref<any[]> | any[]
-    columns: Ref<TableColumns> | TableColumns
-  }
+type Props = Partial<
+  Omit<InstanceType<typeof BasicTable>, 'data' | 'columns'> &
+    Omit<TableProps, 'columns'>
+> & {
+  data: Ref<any[]> | any[]
+  columns: Ref<TableColumns> | TableColumns
+}
 
 const useTable = (props: Props) => {
   const { data, columns, loading: _loading = true, ...reset } = props

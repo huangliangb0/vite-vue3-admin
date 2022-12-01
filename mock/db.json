@@ -367,6 +367,19 @@
       "hideInTags": false,
       "affixInTags": false,
       "alwayShowChildInMenu": false
+    },
+    {
+      "id": "0eaa0088-f25e-47cf-9385-2742c0e37680",
+      "name": "Article",
+      "path": "/article",
+      "title": "经典案例",
+      "icon": "article",
+      "sort": 3,
+      "isCache": false,
+      "hideInMenu": false,
+      "hideInTags": false,
+      "affixInTags": false,
+      "alwayShowChildInMenu": false
     }
   ],
   "student": [
@@ -493,6 +506,29 @@
           ]
         }
       ]
+    }
+  ],
+  "article": [
+    {
+      "title": "文章标题111123123",
+      "content": "文章标题111文章标题111文章标题111",
+      "id": "2a75e0d6-dc8e-4d48-b735-334f623debff",
+      "createTime": "2022-12-01",
+      "updateTime": "2022-12-01"
+    },
+    {
+      "id": "c386beff-a055-4157-b7f6-0811661ae3b1",
+      "createTime": "2022-12-01",
+      "updateTime": "2022-12-01",
+      "title": "文章标题111",
+      "content": "文章标题111文章标题111文章标题111"
+    },
+    {
+      "id": "9d9f5f7a-4dba-4080-acfd-98c6e0aebaf8",
+      "createTime": "2022-12-01",
+      "updateTime": "2022-12-01",
+      "title": "手动阀手动阀",
+      "content": "手动阀手动阀"
     }
   ]
 }
