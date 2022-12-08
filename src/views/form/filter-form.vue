@@ -5,14 +5,13 @@
     </template>
   </page-layout>
 </template>
-<script lang="ts" setup>
+<script lang="ts" setup name="FilterForm">
   import { FilterSearch } from '@/components/form'
   import { FormSchemas } from '@/components/form/type'
-  import { ref } from 'vue'
 
-  defineOptions({
-    name: 'FilterForm',
-  })
+  // defineOptions({
+  //   name: 'FilterForm',
+  // })
 
   const filter = ref<InstanceType<typeof FilterSearch>>()
   const schemas: FormSchemas = [

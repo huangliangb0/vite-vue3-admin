@@ -8,6 +8,7 @@ import { ConfigEnv, UserConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 // import path from 'path' // ts如果报错 npm i @types/node -D
+const path = require('path')
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import { createHtmlPlugin } from 'vite-plugin-html'
 import Components from 'unplugin-vue-components/vite'
@@ -15,9 +16,15 @@ import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 import ifdef from 'vite-plugin-ifdef'
 import { getThemeVariables } from 'ant-design-vue/dist/theme'
 import eslintPlugin from 'vite-plugin-eslint' //导入包
+// defineOptions 定义 name、components等，不用写两个script
 import DefineOptions from 'unplugin-vue-define-options/vite'
-const path = require('path')
-/** vite-plugin-ifdef插件的配置项 */
+// 可以直接在script命名 name 属性，但是这个不怎么需要
+import VueSetupExtend from 'vite-plugin-vue-setup-extend'
+// vue 自动导入
+import AutoImport from 'unplugin-auto-import/vite'
+// 自动导入图片，再也不用import img 了
+import ViteImages from 'vite-plugin-vue-images'
+/** vite-plugin-ifdef插件的配置项，解决开发环境按需导入，加载less过慢的问题 */
 type IfdefConfig = { 'ifdef-define': any; 'ifdef-option': any }
 
 // https://vitejs.dev/config/
@@ -27,6 +34,19 @@ export default ({ command }: ConfigEnv): UserConfig & IfdefConfig => {
       vue(),
       vueJsx(),
       DefineOptions(),
+      VueSetupExtend(),
+      AutoImport({
+        // 可以自定义文件生成的位置，默认是根目录下，使用ts的建议放src目录下
+        dts: 'src/auto-imports.d.ts',
+        imports: ['vue'],
+        // 解决eslint报错问题
+        eslintrc: {
+          enabled: true,
+        },
+      }),
+      ViteImages({
+        dirs: ['src/assets/images'], // 指明图片存放目录
+      }),
       ifdef(),
       Components({
         /**
