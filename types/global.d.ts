@@ -1,7 +1,12 @@
 import { CreateAppFunction } from 'vue'
 import { GRID_KEYS, GRID_VALUES } from '@/constant/app'
 
+import type { VNodeChild, PropType as VuePropType } from 'vue'
+
 declare global {
+  declare type PropType<T> = VuePropType<T>
+  declare type VueNode = VNodeChild | JSX.Element
+
   /* App 实例 */
   type AppInstance = ReturnType<CreateAppFunction<Element>>
   /* 触发响应式布局的断点标识符 */
