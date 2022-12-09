@@ -159,7 +159,7 @@
 
 <template>
   <page-layout>
-    <div>
+    <page-content>
       <a-card>
         <template #title>
           <h3>添加/编辑</h3>
@@ -191,6 +191,6 @@
           </template>
         </FormModal>
       </a-card>
-    </div>
+    </page-content>
   </page-layout>
 </template>

@@ -1,10 +1,3 @@
-<template>
-  <page-layout>
-    <template #header>
-      <filter-search ref="filter" :schemas="schemas" @submit="handleSubmit" />
-    </template>
-  </page-layout>
-</template>
 <script lang="ts" setup name="FilterForm">
   import { FilterSearch } from '@/components/form'
   import { FormSchemas } from '@/components/form/type'
@@ -62,4 +55,13 @@
     console.log('搜索参数', arg)
   }
 </script>
+
+<template>
+  <page-layout>
+    <page-content>
+      <filter-search ref="filter" :schemas="schemas" @submit="handleSubmit" />
+    </page-content>
+  </page-layout>
+</template>
+
 <style lang="less"></style>

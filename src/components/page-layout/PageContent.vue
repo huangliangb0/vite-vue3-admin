@@ -5,18 +5,13 @@
 </script>
 
 <template>
-  <div class="page--content">
+  <div class="page--layout_content">
     <slot></slot>
   </div>
 </template>
 
 <style lang="less" scoped>
-  .page--content {
+  .page--layout_content {
     padding: @margin;
-  }
-</style>
-<style lang="less">
-  .page--header + .page--content {
-    padding-top: 0;
   }
 </style>

@@ -48,11 +48,9 @@
 
 <template>
   <page-layout>
-    <template #header>
-      <page-header>
-        <a-button type="primary" @click="openFormModal">添加文章</a-button>
-      </page-header>
-    </template>
+    <page-header>
+      <a-button type="primary" @click="openFormModal">添加文章</a-button>
+    </page-header>
     <page-content>
       <ArticleTable />
       <FormModal @create-submit="handleCreate" @edit-submit="handleUpdate" />

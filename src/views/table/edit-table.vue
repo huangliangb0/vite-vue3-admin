@@ -116,17 +116,19 @@
   }
 </script>
 <template>
-  <div class="page--container">
-    <edit-table
-      :columns="columns"
-      :data="data"
-      :pagination="pagination"
-      @finish="handleFinish"
-    >
-      <template #header>
-        <h3 style="margin: 0"> 可编辑表格 </h3>
-      </template>
-    </edit-table>
-  </div>
+  <page-layout>
+    <page-content>
+      <edit-table
+        :columns="columns"
+        :data="data"
+        :pagination="pagination"
+        @finish="handleFinish"
+      >
+        <template #header>
+          <h3 style="margin: 0"> 可编辑表格 </h3>
+        </template>
+      </edit-table>
+    </page-content>
+  </page-layout>
 </template>
 <style lang="less"></style>

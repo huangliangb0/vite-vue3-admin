@@ -195,15 +195,15 @@
 </script>
 <template>
   <page-layout>
-    <template #header>
-      <h3>表单的基本使用</h3>
-    </template>
-    <Form
-      :schemas="schemas"
-      :initialState="initialState"
-      :label-col="{ span: 4 }"
-      @create-submit="handleSubmit"
-    />
+    <page-header><h3>表单的基本使用</h3></page-header>
+    <page-content>
+      <Form
+        :schemas="schemas"
+        :initialState="initialState"
+        :label-col="{ span: 4 }"
+        @create-submit="handleSubmit"
+      />
+    </page-content>
   </page-layout>
 </template>
 <style lang="less"></style>

@@ -1,9 +1,11 @@
 <template>
   <page-layout>
-    <template #header>
+    <page-header>
       <h3> 普通表格 </h3>
-    </template>
-    <Table :pagination="pagination" />
+    </page-header>
+    <page-content>
+      <Table :pagination="pagination" />
+    </page-content>
   </page-layout>
 </template>
 <script lang="tsx" setup>
