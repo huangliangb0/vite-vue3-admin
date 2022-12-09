@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+  import { Button } from '@/components/antd'
   // import { getImageUrl } from '@/assets'
 
   // const ewm = getImageUrl('ewm.jpg')
@@ -13,6 +14,7 @@
 <template>
   <a-layout theme="light">
     <a-layout-content class="home-main">
+      <Button>sdfdsf</Button>
       <a-row :gutter="[20, 20]">
         <a-col :span="24" id="feature">
           <a-card title="项目功能清单">
