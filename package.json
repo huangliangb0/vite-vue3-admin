@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
-    "json:server": "json-server --watch   ./mock/db.json --port 3004 --delay 2000",
+    "json:server": "json-server --watch   ./mock/db.json --port 3004 --delay 1000",
     "serve": "vite",
     "preview": "vite preview",
     "lint": "eslint . --ext .vue,.js,.ts,.jsx,.tsx --fix",
