@@ -34,7 +34,7 @@ export function useAsync<T = unknown>(
   config: Config = {},
   done?: () => void,
 ) {
-  const { initState, delay = 0 } = config
+  const { initState, delay = 0, ...responseConfig } = config
   const result = reactive<State<T>>({
     data: initState ? (initState as T) : undefined,
     loading: false,
@@ -57,7 +57,7 @@ export function useAsync<T = unknown>(
           // 参数 c 也是个函数
           cancel.value = c
         }),
-        ...config,
+        ...responseConfig,
         ...conf,
       })
       result.data = data as UnwrapRef<T>
@@ -100,7 +100,7 @@ export const useQueryWithPagination = <T>(
   config: Config = {},
   done?: () => void,
 ) => {
-  const { current = 1, pageSize = 10 } = config
+  const { current = 1, pageSize = 10, ...conf } = config
 
   const pagination = reactive<PaginationType>({
     current: current,
@@ -115,9 +115,7 @@ export const useQueryWithPagination = <T>(
       page: pagination.current,
       ...params,
     },
-    {
-      ...config,
-    },
+    conf,
     done,
   )
 
