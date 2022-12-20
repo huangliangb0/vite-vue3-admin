@@ -2,10 +2,14 @@ import http from '@/utils/http'
 import dayjs from 'dayjs'
 import { v4 as uuidv4 } from 'uuid'
 
-export const fetchArticleList = () => {
-  return http.get<Article.ArticleList>({
-    url: '/article',
-  })
+export const fetchArticleList = (params: Recordable, config: Recordable) => {
+  return http.get<Article.ArticleList>(
+    {
+      url: '/article',
+      params,
+    },
+    config,
+  )
 }
 
 export const createArticle = (

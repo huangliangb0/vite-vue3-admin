@@ -1,7 +1,9 @@
 <template>
   <page-layout>
-    <page-header>
-      <h3> 普通表格 </h3>
+    <page-header border="fdsf">
+      <div>
+        <h3> 普通表格 </h3>
+      </div>
     </page-header>
     <page-content>
       <Table :pagination="pagination" />
@@ -9,7 +11,6 @@
   </page-layout>
 </template>
 <script lang="tsx" setup>
-  import { reactive } from 'vue'
   import useCommonTable from './hook/useCommonTable'
 
   const pagination = reactive<PaginationType>({

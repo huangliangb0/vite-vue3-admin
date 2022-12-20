@@ -8,6 +8,7 @@ import {
   updateArticle,
 } from '@/server/article'
 import { Button, Space } from 'ant-design-vue'
+import { useQueryWithPagination } from '@/hook/useAsync'
 
 interface props {
   openEditFormModal: (formState: Recordable<any>) => void
@@ -49,39 +50,17 @@ const useArticleTable = ({ openEditFormModal }: props) => {
 
   /* state状态值 ref reactive computed*/
 
-  const data = ref<Article.ArticleList>([])
-
-  /* 钩子函数 && watch */
-
-  onMounted(() => {
-    getList()
-  })
+  const { data, loading, run, pagination, onPageChange } =
+    useQueryWithPagination<Article.ArticleList>(fetchArticleList)
 
   /******************* method *******************/
-
-  // 获取文章
-  const getList = () => {
-    fetchArticleList()
-      .then((ret) => {
-        console.log(ret)
-        data.value = ret
-      })
-      .finally(() => {
-        done()
-      })
-  }
 
   // 添加文章
   const onCreate = async (
     data: Pick<Article.ArticleItem, 'content' | 'title'>,
   ) => {
-    await new Promise((resolve) =>
-      setTimeout(() => {
-        resolve(null)
-      }, 2000),
-    )
     return createArticle(data).then(() => {
-      getList()
+      run()
     })
   }
 
@@ -90,26 +69,25 @@ const useArticleTable = ({ openEditFormModal }: props) => {
     id: Article.ArticleItem['id'],
     data: Pick<Article.ArticleItem, 'content' | 'title'>,
   ) => {
-    await new Promise((resolve) =>
-      setTimeout(() => {
-        resolve(null)
-      }, 2000),
-    )
     return updateArticle(id, data).then(() => {
-      getList()
+      run()
     })
   }
 
   // 删除文章
   const onDelete = (id: Article.ArticleItem['id']) => {
     return deleteArticle(id).then(() => {
-      getList()
+      run()
     })
   }
 
-  const { Table, done } = useTable({ columns, data })
+  const Table = useTable({
+    columns,
+    data,
+    loading,
+  })
 
-  return { onCreate, onUpdate, ArticleTable: Table }
+  return { pagination, onCreate, onUpdate, onPageChange, ArticleTable: Table }
 }
 
 export default useArticleTable

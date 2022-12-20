@@ -54,6 +54,9 @@ class HttpRequest {
       (error) => {
         // 处理 422 或者 500 的错误异常提示
         const errMsg = error?.response?.data?.message ?? '未知错误，请重试'
+        if (error.code === 'ERR_CANCELED') {
+          return Promise.reject(error)
+        }
         message.error(errMsg)
         error.message = errMsg
         return Promise.reject(error)
@@ -75,10 +78,10 @@ class HttpRequest {
 
   public async request<T = unknown>(
     options: AxiosRequestConfig,
-    _config: RequestConfig = {},
+    config: RequestConfig = {},
   ) {
     try {
-      const res = await this.init(options)
+      const res = await this.init({ ...options, ...config })
 
       // return res.data as ResponseResult<T> // 真实接口中，你可能会用到这个
       return res.data as T

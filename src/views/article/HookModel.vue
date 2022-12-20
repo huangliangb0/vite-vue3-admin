@@ -16,9 +16,10 @@
     FormModal,
   } = useArticleFormModal()
 
-  const { onCreate, onUpdate, ArticleTable } = useArticleTable({
-    openEditFormModal,
-  })
+  const { pagination, onCreate, onUpdate, ArticleTable, onPageChange } =
+    useArticleTable({
+      openEditFormModal,
+    })
 
   // 创建逻辑
   const handleCreate = async (formState: Article.ArticleItem) => {
@@ -52,7 +53,7 @@
       <a-button type="primary" @click="openFormModal">添加文章</a-button>
     </page-header>
     <page-content>
-      <ArticleTable />
+      <ArticleTable :pagination="pagination" @change="onPageChange" />
       <FormModal @create-submit="handleCreate" @edit-submit="handleUpdate" />
     </page-content>
   </page-layout>
