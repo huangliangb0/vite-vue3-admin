@@ -1,11 +1,3 @@
-<template>
-  <page-layout>
-    <template #header>
-      <h3> 普通表格 </h3>
-    </template>
-    <Table :pagination="pagination" />
-  </page-layout>
-</template>
 <script lang="tsx" setup>
   import { reactive } from 'vue'
   import useCommonTable from './hook/useCommonTable'
@@ -18,4 +10,12 @@
 
   const Table = useCommonTable()
 </script>
+<template>
+  <page-layout>
+    <template #header>
+      <h3> 普通表格 </h3>
+    </template>
+    <Table :pagination="pagination" />
+  </page-layout>
+</template>
 <style lang="less"></style>

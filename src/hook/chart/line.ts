@@ -10,7 +10,7 @@ type Props = {
 
 const CHART_Type = 'line'
 
-const useLineChart = (props: Props) => {
+const useLineChart = (props: Partial<Props>) => {
   const { data, label, options, loading: _loading = true, ...reset } = props
 
   const o = computed(() => {
@@ -44,7 +44,7 @@ const useLineChart = (props: Props) => {
 
   /***** render 或者 component **********/
   const LineChart = (
-    _props: Props,
+    _props: Partial<Props>,
     {
       attrs,
     }: {

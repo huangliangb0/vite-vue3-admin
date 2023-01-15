@@ -12,7 +12,7 @@ type Props = {
 
 const CHART_Type = 'pie'
 
-const usePieChart = (props: Props) => {
+const usePieChart = (props: Partial<Props>) => {
   const { data, label, options, loading: _loading = true, ...reset } = props
 
   const o = computed(() => {
@@ -58,7 +58,7 @@ const usePieChart = (props: Props) => {
 
   /***** render 或者 component **********/
   const PieChart = (
-    _props: Props,
+    _props: Partial<Props>,
     {
       attrs,
     }: {

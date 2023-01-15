@@ -97,7 +97,7 @@ export const generatePermissionRoutes = (
         children: children
           ? rec(permissionRoutesMap, children, item)
           : undefined,
-      } as RouteRecordRaw
+      } as unknown as RouteRecordRaw
     })
   }
 

@@ -24,7 +24,7 @@ const useTable = (props: Props) => {
 
   /***** render 或者 component **********/
   const Table = (
-    _props: Props,
+    _props: Partial<Props>,
     {
       attrs,
     }: {

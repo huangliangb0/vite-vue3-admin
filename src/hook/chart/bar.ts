@@ -10,7 +10,7 @@ type Props = {
 
 const CHART_Type = 'bar'
 
-const useBarChart = (props: Props) => {
+const useBarChart = (props: Partial<Props>) => {
   const { data, label, options, loading: _loading = true, ...reset } = props
 
   const o = computed(() => {
@@ -44,7 +44,7 @@ const useBarChart = (props: Props) => {
 
   /***** render 或者 component **********/
   const BarChart = (
-    _props: Props,
+    _props: Partial<Props>,
     {
       attrs,
     }: {

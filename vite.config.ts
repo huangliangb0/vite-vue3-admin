@@ -16,6 +16,8 @@ import ifdef from 'vite-plugin-ifdef'
 import { getThemeVariables } from 'ant-design-vue/dist/theme'
 import eslintPlugin from 'vite-plugin-eslint' //导入包
 import DefineOptions from 'unplugin-vue-define-options/vite'
+import resolveExternalsPlugin from 'vite-plugin-resolve-externals'
+import { visualizer } from 'rollup-plugin-visualizer'
 const path = require('path')
 /** vite-plugin-ifdef插件的配置项 */
 type IfdefConfig = { 'ifdef-define': any; 'ifdef-option': any }
@@ -72,6 +74,11 @@ export default ({ command }: ConfigEnv): UserConfig & IfdefConfig => {
         // failOnError: false,
         // throwOnWarning: false,
       }),
+      visualizer(),
+      resolveExternalsPlugin({
+        dayjs: 'dayjs',
+        lodash: 'lodash-es',
+      }),
     ],
     'ifdef-define': {
       COMMAND: command,
@@ -109,7 +116,7 @@ export default ({ command }: ConfigEnv): UserConfig & IfdefConfig => {
       port: 3000,
       proxy: {
         '/api': {
-          target: 'http://localhost:3004',
+          target: 'http://sandbox.b2b.51smart.com',
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, ''),
         },

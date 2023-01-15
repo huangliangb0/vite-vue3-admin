@@ -46,7 +46,7 @@ router.beforeEach(async (to, _from, next) => {
           await userStore.getUserInfo()
           const menus = await menuStore.getMenuList()
 
-          const data = treeData(menus)
+          const data = treeData<Menu.MenuItem>(menus)
 
           const accessRoutes = await permissionStore.setRoutes(data)
 

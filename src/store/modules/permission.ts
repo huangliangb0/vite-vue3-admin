@@ -23,7 +23,7 @@ const usePermissionStore = defineStore('permission', {
     dynamicRoutes: [],
   }),
   actions: {
-    setRoutes(menuList: MenuList): Promise<RouteRecordRaw[]> {
+    setRoutes(menuList: Menu.MenuList): Promise<RouteRecordRaw[]> {
       return new Promise((resolve) => {
         const accessedRoutes = generatePermissionRoutes(
           permissionRoutes,

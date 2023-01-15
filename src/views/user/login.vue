@@ -7,11 +7,12 @@
     EyeInvisibleOutlined,
     CodeOutlined,
   } from '@ant-design/icons-vue'
-  import { computed, reactive, ref, toRaw } from 'vue'
+  import { computed, onMounted, reactive, ref, toRaw } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
   import useUserStore from '@/store/modules/user'
   import { getImageUrl } from '@/assets'
   import { useForm } from 'ant-design-vue/lib/form'
+  import { getList } from '@/server/article'
 
   const route = useRoute()
   const userStore = useUserStore()
@@ -76,6 +77,9 @@
         console.log('error', err)
       })
   }
+  onMounted(() => {
+    getList()
+  })
 </script>
 <template>
   <div

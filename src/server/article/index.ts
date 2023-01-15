@@ -49,3 +49,9 @@ export const deleteArticle = (id: string) => {
     url: '/article/' + id,
   })
 }
+
+export const getList = () => {
+  return http.get({
+    url: '/client/flight/place?word=hkt',
+  })
+}
