@@ -8,7 +8,6 @@ import { ConfigEnv, UserConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 // import path from 'path' // ts如果报错 npm i @types/node -D
-const path = require('path')
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 import { createHtmlPlugin } from 'vite-plugin-html'
 import Components from 'unplugin-vue-components/vite'
