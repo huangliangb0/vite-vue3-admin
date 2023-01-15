@@ -1,4 +1,6 @@
-import { Button, ModalProps, Space } from 'ant-design-vue'
+import { ModalProps, Space } from 'ant-design-vue'
+import { Button } from '@/components/antd'
+
 import { computed, h, provide, ref, Slot } from 'vue'
 import 'ant-design-vue/lib/modal/style/index.css'
 import { Form, EditFormInstance } from '@/components/form'

@@ -45,7 +45,7 @@
 
 <template>
   <page-layout>
-    <div>
+    <page-content>
       <a-card>
         <template #title>
           <h3>过滤查询</h3>
@@ -59,6 +59,6 @@
         </template>
         <SearchForm @submit="handleSubmit" />
       </a-card>
-    </div>
+    </page-content>
   </page-layout>
 </template>

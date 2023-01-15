@@ -39,7 +39,7 @@ app.config.errorHandler = (err, vm, info) => {
 
 app.config.warnHandler = function (msg, vm, trace) {
   // `trace` 是组件的继承关系追踪
-  console.log('warnHandler trace', trace)
+  // console.log('warnHandler trace', trace)
 }
 
 setupStore(app)

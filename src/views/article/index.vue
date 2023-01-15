@@ -6,9 +6,7 @@
 </script>
 
 <template>
-  <div>
-    <HookModel />
-  </div>
+  <HookModel />
 </template>
 
 <style lang="less" scoped></style>

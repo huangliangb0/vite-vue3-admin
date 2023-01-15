@@ -56,11 +56,13 @@
 
 <template>
   <page-layout>
-    <template #header>
+    <page-header>
       <a-button @click="openFormModal">添加</a-button>
-    </template>
+    </page-header>
+    <page-content>
+      <MenuTable @edit="onEdit" />
+    </page-content>
     <FormModal @create-submit="onSubmit" @edit-submit="onEditSubmit" />
-    <MenuTable @edit="onEdit" />
   </page-layout>
 </template>
 <style lang="less" scoped></style>
