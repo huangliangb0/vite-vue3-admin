@@ -1,15 +1,3 @@
-<template>
-  <page-layout>
-    <page-header border="fdsf">
-      <div>
-        <h3> 普通表格 </h3>
-      </div>
-    </page-header>
-    <page-content>
-      <Table :pagination="pagination" />
-    </page-content>
-  </page-layout>
-</template>
 <script lang="tsx" setup>
   import useCommonTable from './hook/useCommonTable'
 
@@ -23,10 +11,14 @@
 </script>
 <template>
   <page-layout>
-    <template #header>
-      <h3> 普通表格 </h3>
-    </template>
-    <Table :pagination="pagination" />
+    <page-header border="fdsf">
+      <div>
+        <h3> 普通表格 </h3>
+      </div>
+    </page-header>
+    <page-content>
+      <Table :pagination="pagination" />
+    </page-content>
   </page-layout>
 </template>
 <style lang="less"></style>

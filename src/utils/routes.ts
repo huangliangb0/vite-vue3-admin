@@ -1,5 +1,5 @@
 import { RouteRecordRaw } from 'vue-router'
-import { cloneDeep } from 'lodash-es'
+import _ from 'lodash-es'
 import type { RoutesMap } from '@/router/permissionRoutes'
 import { isExternal } from './validate'
 import BasicLayout from '@/layout/basic-layout/index.vue'
@@ -106,7 +106,7 @@ export const generatePermissionRoutes = (
 
 // 对最外层路由的children进行扁平处理
 export function routesFlat(routes: RouteRecordRaw[]) {
-  const _routes = cloneDeep(routes)
+  const _routes = _.cloneDeep(routes)
 
   _routes.forEach((item) => {
     if (item.children && item.children.length >= 1) {

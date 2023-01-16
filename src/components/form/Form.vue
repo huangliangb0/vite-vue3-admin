@@ -13,7 +13,7 @@
   import FormList from './components/FormList.vue'
   import type { FormSchemas } from './type'
   import useAppStore from '@/store/modules/app'
-  import { omit, pick } from 'lodash-es'
+  import _ from 'lodash-es'
 
   export default defineComponent({
     name: 'BasicForm',
@@ -189,8 +189,8 @@
                   <a-form-item
                     label={item.label}
                     name={item.field}
-                    {...omit(formItemProps, ['label', 'extra', 'help'])}
-                    v-slots={pick(formItemProps, ['label', 'extra', 'help'])}
+                    {..._.omit(formItemProps, ['label', 'extra', 'help'])}
+                    v-slots={_.pick(formItemProps, ['label', 'extra', 'help'])}
                   >
                     {item.type === 'array' ? (
                       <FormList

@@ -1,7 +1,7 @@
 import { FilterSearch, FilterSearchInstance } from '@/components/form'
 import useAppStore from '@/store/modules/app'
 import { Button, Drawer, DrawerProps } from 'ant-design-vue'
-import { cloneDeep } from 'lodash-es'
+import _ from 'lodash-es'
 import { computed, watch, h, ref, Slot } from 'vue'
 import useModal from './modal'
 
@@ -22,7 +22,7 @@ const useSearchModal = (
     () => breakpoint.value,
     (size) => {
       initialState.value = searchRef.value
-        ? cloneDeep(searchRef.value.formState)
+        ? _.cloneDeep(searchRef.value.formState)
         : undefined
 
       isModal.value = !!modal[size]

@@ -93,11 +93,10 @@ const useCommonTable = () => {
           exception: 2,
         },
       ]
-      done()
     }, 3000)
   })
 
-  const { Table, done } = useTable({ columns, data, pagination })
+  const Table = useTable({ columns, data, pagination })
 
   return Table
 }

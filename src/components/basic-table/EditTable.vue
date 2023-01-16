@@ -2,7 +2,7 @@
   import { computed, defineComponent, PropType, ref, watch } from 'vue'
   import { TableColumns } from './type'
   import { Widget } from '../form/widgets'
-  import { cloneDeep } from 'lodash-es'
+  import _ from 'lodash-es'
 
   export default defineComponent({
     name: 'BasicTable',
@@ -19,12 +19,12 @@
     emits: ['finish'],
     setup(props, { attrs, emit, slots }) {
       const isEdit = ref(false)
-      const data = ref<any[]>(cloneDeep(props.data))
+      const data = ref<any[]>(_.cloneDeep(props.data))
       // const _data = computed(() => (isEdit.value ? data.value : props.data))
 
       const columns = computed(() => {
         if (isEdit.value) {
-          const columns = cloneDeep(props.columns)
+          const columns = _.cloneDeep(props.columns)
           return columns
             .filter((col) => !col.hideInEdit)
             .map((col) => {
@@ -78,13 +78,13 @@
       }
       const onCancel = () => {
         isEdit.value = false
-        data.value = cloneDeep(props.data)
+        data.value = _.cloneDeep(props.data)
       }
 
       watch(
         () => props.data,
         (d) => {
-          data.value = cloneDeep(d)
+          data.value = _.cloneDeep(d)
         },
       )
       return () => (

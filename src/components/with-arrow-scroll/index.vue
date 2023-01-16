@@ -8,7 +8,7 @@
   import { ref, onMounted, onUnmounted } from 'vue'
   import { LeftOutlined, RightOutlined } from '@ant-design/icons-vue'
   import elementResizeDetectorMaker from 'element-resize-detector'
-  import { debounce } from 'lodash-es'
+  import _ from 'lodash-es'
   const wrapperRef = ref<HTMLDivElement>()
   const contentRef = ref<HTMLDivElement>()
   const isVisibleArrow = ref(false)
@@ -62,7 +62,7 @@
     contentRef.value!.style.transform = `translateX(${-moveDis}px)`
   }
 
-  const onResize = debounce(() => {
+  const onResize = _.debounce(() => {
     isVisibleArrow.value = getStyle().w_dif > 0
     if (!isVisibleArrow.value) {
       contentRef.value!.style.transform = `translateX(0px)`

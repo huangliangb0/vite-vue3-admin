@@ -3,7 +3,7 @@
 
   import { useFormModal } from '@/hook'
   import { Rule } from 'ant-design-vue/lib/form'
-  import { omit, pick } from 'lodash-es'
+  import _ from 'lodash-es'
   const checkLinkman = (
     _rule: Rule,
     value: Array<{ name: string; phone: string }>,
@@ -134,13 +134,13 @@
 
   /**
    * 编辑
-   * record 往往结合 omit 和 pick 工具方法使用,因为我们往往编辑数据的时候会从列表拿最初值 rocord
+   * record 往往结合 _.omit 和 _.pick 工具方法使用,因为我们往往编辑数据的时候会从列表拿最初值 rocord
    * 而rocord的值可能不是全部都需要
    */
   const editClick = (record: Recordable) => {
-    console.log(111, omit(record, ['updateTime'])) // {  grade: 1}
-    console.log(222, pick(record, ['grade'])) // {  grade: 1}
-    openEditFormModal(pick(record, ['grade']))
+    console.log(111, _.omit(record, ['updateTime'])) // {  grade: 1}
+    console.log(222, _.pick(record, ['grade'])) // {  grade: 1}
+    openEditFormModal(_.pick(record, ['grade']))
   }
   // 新增
   const addClick = () => {

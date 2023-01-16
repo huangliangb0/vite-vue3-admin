@@ -12,7 +12,7 @@ type Props = Partial<
   loading?: Ref<boolean> | boolean
 }
 
-const useTable = (props: Props) => {
+const useTable = (props: Partial<Props>) => {
   const { data, columns, loading, ...reset } = toRefs(props)
 
   /***** render 或者 component **********/

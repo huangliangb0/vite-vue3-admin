@@ -1,4 +1,4 @@
-import { uniqueId } from 'lodash-es'
+import _ from 'lodash-es'
 
 export enum Role {
   admin = 'admin',
@@ -17,5 +17,5 @@ export interface UserInfo {
 export default {
   name: '超级管理员',
   roles: ['admin'],
-  token: uniqueId(),
+  token: _.uniqueId(),
 } as UserInfo

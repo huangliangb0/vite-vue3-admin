@@ -98,7 +98,7 @@ export default ({ command }: ConfigEnv): UserConfig & IfdefConfig => {
       visualizer(),
       resolveExternalsPlugin({
         dayjs: 'dayjs',
-        lodash: 'lodash-es',
+        'lodash-es': '_',
       }),
     ],
     'ifdef-define': {
