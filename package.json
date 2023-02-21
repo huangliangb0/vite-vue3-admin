@@ -17,9 +17,9 @@
   },
   "dependencies": {
     "@ant-design/icons-vue": "^6.1.0",
-    "ant-design-vue": "^3.2.10",
+    "ant-design-vue": "^3.2.15",
     "axios": "^0.27.2",
-    "dayjs": "^1.11.3",
+    "dayjs": "^1.11.7",
     "echarts": "^5.4.0",
     "element-resize-detector": "^1.2.4",
     "js-cookie": "^3.0.1",
