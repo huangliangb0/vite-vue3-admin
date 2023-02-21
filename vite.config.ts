@@ -137,7 +137,7 @@ export default ({ command }: ConfigEnv): UserConfig & IfdefConfig => {
       port: 3000,
       proxy: {
         '/api': {
-          target: 'http://sandbox.b2b.51smart.com',
+          target: 'http://localhost:3004',
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api/, ''),
         },
