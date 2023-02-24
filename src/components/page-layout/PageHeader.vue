@@ -28,6 +28,7 @@
   .page--layout_header {
     padding: @margin @margin 0 @margin;
     position: relative;
+    background-color: #fff;
     &.border {
       padding-bottom: @margin;
       &::after {

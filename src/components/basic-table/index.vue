@@ -27,7 +27,7 @@
         default: () => ({}),
       },
       pagination: {
-        type: Object as PropType<PaginationType>,
+        type: [Object, Boolean] as PropType<PaginationType | false>,
         default: () => ({
           current: 1,
           pageSize: 10,

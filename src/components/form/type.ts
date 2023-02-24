@@ -22,26 +22,32 @@ export type WidgetProps = InputProps &
 
 export type WidgetKeys = keyof typeof widgets
 
-export interface FormSchemaItem {
-  type?: 'default' | 'array'
+export interface FormSchemaItem<T = Recordable> {
+  type?: 'default' | 'array' | 'table'
   // 字段名
   field: string
   component?: WidgetKeys | DefineComponent<Recordable, Recordable, any>
   label?: string
   // 默认值
   default?: any
+  // width type为table的时候可能有用
+  width?: number
   // 动态控件时，即type = 'array'，设置默认值格式
   valueFormat?: string | number | boolean | Recordable
-  // 这个再编辑表单中有用，因为多个表单控件会在同一行
+  // 这个再编辑表单中有用，因为多个表单控件可能会在同一行
   grid?: GridColType
-  // 插槽
-
   // widget 组件的属性，比如Input、Select
-  componentProps?: WidgetProps | ((formState: Recordable) => WidgetProps)
+  componentProps?: WidgetProps | ((formState: T) => WidgetProps)
   // a-form-item的属性
-  formItemProps?: FormItemProps | ((formState: Recordable) => FormItemProps)
+  formItemProps?: FormItemProps | ((formState: T) => FormItemProps)
   // 动态控件时，即type = 'array'，设置的组件类型
-  schemas?: Array<FormSchemaItem>
+  schemas?: Array<
+    Omit<FormSchemaItem, 'formItemProps'> & {
+      formItemProps?:
+        | FormItemProps
+        | ((record: T, index: number) => FormItemProps)
+    }
+  >
 }
 
 export type FormSchemas = Array<FormSchemaItem>

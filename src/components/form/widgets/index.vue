@@ -25,7 +25,7 @@
       },
       change: {
         type: Function as PropType<(e: any) => void>,
-        required: true,
+        // required: true,
       },
       modifier: {
         type: Object as PropType<WidgetModifier>,
@@ -35,7 +35,8 @@
         type: [Function, String] as PropType<string | (() => VNode)>,
       },
     },
-    setup(props, { attrs }) {
+    emits: ['update:value'],
+    setup(props, { attrs, emit }) {
       const { onChange, ...reset } = attrs as any
 
       const handleChange = (e: any) => {
@@ -45,7 +46,8 @@
           value = value.trim()
         }
 
-        props.change(value)
+        emit('update:value', value)
+        props.change?.(value)
         onChange && onChange(value)
       }
 

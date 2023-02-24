@@ -1,7 +1,7 @@
 <script lang="tsx">
   import { computed, defineComponent, PropType } from 'vue'
   import { Widget } from '../widgets'
-  import type { FormSchemaItem, FormSchemas, WidgetProps } from '../type'
+  import type { FormSchemaItem, WidgetProps } from '../type'
   import _ from 'lodash-es'
   import { MinusOutlined } from '@ant-design/icons-vue'
   import { GRID_KEYS } from '@/constant/app'
@@ -12,8 +12,9 @@
       Widget,
     },
     props: {
+      field: String,
       schemas: {
-        type: Array as PropType<FormSchemas>,
+        type: Array as PropType<FormSchemaItem['schemas']>,
         default: () => [],
       },
       value: {
@@ -47,7 +48,7 @@
       const grid = computed(() => {
         const o: GridColType = {}
         GRID_KEYS.forEach((key) => {
-          o[key] = props.grid[key] || 24 / props.schemas.length
+          o[key] = props.grid[key] || 24 / props.schemas!.length
         })
         return o
       })
@@ -81,12 +82,25 @@
         return typeof valueFormat === 'object' ? (
           <a-space size={20} direction="vertical" style={{ width: '100%' }}>
             {value.map((_p, p_index) => (
-              <a-row gutter={[20, 0]} class="form--list" align="bottom">
+              <a-row gutter={[20, 0]} class="form--list" align="top">
                 <a-col key={p_index} style="flex: 1">
-                  <a-row gutter={[20, 0]}>
-                    {props.schemas.map((item) => (
-                      <a-col key={item.field} {...grid.value}>
-                        <a-form-item label={item.label} name={item.field}>
+                  <a-row gutter={[20, 20]}>
+                    {props.schemas!.map((item) => (
+                      <a-col
+                        key={item.field}
+                        {...Object.assign({}, grid.value, item.grid)}
+                      >
+                        <a-form-item
+                          {...Object.assign(
+                            {
+                              label: item.label,
+                              name: [props.field, p_index, item.field],
+                            },
+                            typeof item.formItemProps === 'function'
+                              ? item.formItemProps(item, p_index)
+                              : item.formItemProps || {},
+                          )}
+                        >
                           <Widget
                             component={item.component}
                             value={value[p_index][item.field]}
@@ -125,15 +139,25 @@
           </a-space>
         ) : (
           <a-space size={20} direction="vertical" style={{ width: '100%' }}>
-            {props.value.map((_item, index) => (
-              <a-form-item key={index}>
+            {props.value.map((item, p_index) => (
+              <a-form-item
+                key={p_index}
+                {...Object.assign(
+                  {
+                    name: [props.field, p_index],
+                  },
+                  typeof item.formItemProps === 'function'
+                    ? item.formItemProps(item, p_index)
+                    : item.formItemProps || {},
+                )}
+              >
                 <a-row gutter={[20, 20]}>
                   <a-col style="flex: 1">
                     <Widget
                       component={props.component}
-                      value={value[index]}
+                      value={value[p_index]}
                       change={(value) => {
-                        handleChange(index, value)
+                        handleChange(p_index, value)
                       }}
                       {...props.componentProps}
                     ></Widget>
@@ -148,7 +172,7 @@
                           ></MinusOutlined>
                         ),
                       }}
-                      onClick={() => handleRemove(index)}
+                      onClick={() => handleRemove(p_index)}
                     ></a-button>
                   </a-col>
                 </a-row>

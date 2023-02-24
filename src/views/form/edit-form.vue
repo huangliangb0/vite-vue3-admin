@@ -3,8 +3,20 @@
   import { DatePicker } from 'ant-design-vue'
   import { Rule } from 'ant-design-vue/lib/form'
   import { Dayjs } from 'dayjs'
-  import { onMounted, reactive } from 'vue'
+  import { onMounted } from 'vue'
   import { Form } from '@/components/form'
+
+  interface State {
+    title?: string
+    startTime?: string
+    endTime?: string
+    status?: string
+    members: Array<{
+      name?: string
+      sex: string
+    }>
+  }
+
   const schemas: FormSchemas = [
     {
       field: 'title',
@@ -27,6 +39,9 @@
       field: 'startTime',
       label: '开始时间',
       component: DatePicker,
+      grid: {
+        xs: 12,
+      },
       formItemProps: (formState) => {
         const validator = async (_rule: Rule, value: Dayjs) => {
           if (!value) {
@@ -61,6 +76,9 @@
       field: 'endTime',
       label: '结束时间',
       component: DatePicker,
+      grid: {
+        xs: 12,
+      },
       formItemProps: (formState) => {
         const validator = async (_rule: Rule, value: Dayjs) => {
           if (!value) {
@@ -124,7 +142,7 @@
     },
     {
       type: 'array',
-      field: 'person',
+      field: 'members',
       label: '执行人员',
       formItemProps: {
         rules: [
@@ -144,6 +162,13 @@
         {
           field: 'name',
           label: '姓名',
+          formItemProps: (_record, _index) => ({
+            rules: {
+              required: true,
+              message: 'Missing name',
+            },
+          }),
+
           componentProps: () => ({
             placeholder: '请输入',
             modifier: {
@@ -155,6 +180,13 @@
           field: 'sex',
           label: '性别',
           component: 'Select',
+          formItemProps: (_record, _index) => ({
+            rules: {
+              required: true,
+              message: 'Missing sex',
+              trigger: 'change',
+            },
+          }),
           componentProps: () => ({
             placeholder: '请选择',
             options: [
@@ -172,24 +204,19 @@
       ],
     },
   ]
-  const initialState = reactive<{
-    classLevel: number | undefined
-    className: string
-    info: any[]
-    info2: any[]
-  }>({
-    classLevel: undefined,
-    className: '',
-    info: [],
-    info2: [],
+  const initialState = ref<State>({
+    members: [],
   })
   const handleSubmit = (e: any) => {
     console.log('handleSubmit', e)
   }
   onMounted(() => {
+    // 异步赋予初始值
     setTimeout(() => {
-      initialState.info2 = ['波仔', '小花']
-      initialState.classLevel = 1
+      initialState.value = {
+        ...initialState.value,
+        title: '标题',
+      }
     }, 1000)
   })
 </script>
@@ -200,7 +227,7 @@
       <Form
         :schemas="schemas"
         :initialState="initialState"
-        :label-col="{ span: 4 }"
+        :label-col="{ style: '100px' }"
         @create-submit="handleSubmit"
       />
     </page-content>

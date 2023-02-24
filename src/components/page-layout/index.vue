@@ -1,14 +1,10 @@
 <script lang="ts" setup>
-  import { computed, StyleValue } from 'vue'
+  import { computed, CSSProperties } from 'vue'
 
   defineOptions({
     name: 'pageLayout',
   })
   const props = defineProps({
-    backgroundColor: {
-      type: String,
-      default: '#fff',
-    },
     minHeight: {
       type: [Number, String],
       default: 'auto',
@@ -16,14 +12,13 @@
   })
 
   const style = computed(() => {
-    let { backgroundColor, minHeight } = props
+    let { minHeight } = props
 
     minHeight === 'auto' ? minHeight : ~~minHeight + 'px'
 
     return {
-      backgroundColor,
       minHeight,
-    } as StyleValue
+    } as CSSProperties
   })
 </script>
 

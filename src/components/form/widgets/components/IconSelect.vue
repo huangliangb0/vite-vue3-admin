@@ -7,7 +7,7 @@
     props: {
       value: String,
       onChange: {
-        type: Function as PropType<(arg: string) => void>,
+        type: Function as PropType<(arg?: string) => void>,
       },
     },
     setup(props, { attrs }) {
