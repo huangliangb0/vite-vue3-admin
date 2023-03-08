@@ -13,6 +13,19 @@
     },
     props: {
       field: String,
+      min: {
+        type: Number,
+        default: 1,
+        validator(value: number) {
+          return value >= 0
+        },
+      },
+      max: {
+        type: Number,
+        validator(value?: number) {
+          return value === undefined || value >= 1
+        },
+      },
       schemas: {
         type: Array as PropType<FormSchemaItem['schemas']>,
         default: () => [],

@@ -54,6 +54,8 @@
       type: 'table',
       field: 'orderInfo',
       default: [],
+      min: 2,
+      max: 5,
       formItemProps: {
         rules: [
           {
@@ -65,8 +67,8 @@
         ],
       },
       valueFormat: {
-        name: '',
-        sex: undefined,
+        order_no: '3131232131231',
+        status: 1,
       },
       schemas: [
         {
@@ -176,7 +178,7 @@
 <template>
   <page-layout>
     <page-header><h3>分块表单的使用</h3></page-header>
-    <page-content background-color="''">
+    <page-content background-color="''" style="padding: 0; margin-top: 20px">
       <Form
         :initialState="initialState"
         :label-col="{ style: '100px' }"

@@ -5,11 +5,12 @@
   import { Dayjs } from 'dayjs'
   import { onMounted } from 'vue'
   import { Form } from '@/components/form'
+  import { disabledEndDate, disabledBeginDate } from '@/utils/disabled-date'
 
   interface State {
     title?: string
-    startTime?: string
-    endTime?: string
+    startTime?: Dayjs
+    endTime?: Dayjs
     status?: string
     members: Array<{
       name?: string
@@ -17,7 +18,7 @@
     }>
   }
 
-  const schemas: FormSchemas = [
+  const schemas: FormSchemas<State> = [
     {
       field: 'title',
       label: '任务名称',
@@ -64,12 +65,8 @@
       },
       componentProps: (formState) => ({
         placeholder: '请选择开始时间',
-        disabledDate: (current: Dayjs) => {
-          if (formState.endTime) {
-            return current > formState.endTime
-          }
-          return false
-        },
+        disabledDate: (current: Dayjs) =>
+          disabledEndDate(formState.endTime)(current),
       }),
     },
     {
@@ -84,7 +81,7 @@
           if (!value) {
             return Promise.reject('请输入结束时间')
           }
-          if (formState.endTime && value < formState.startTime) {
+          if (formState.startTime && value < formState.startTime) {
             return Promise.reject('结束时间不能小于于开始时间')
           }
           return Promise.resolve()
@@ -101,12 +98,8 @@
       },
       componentProps: (formState) => ({
         placeholder: '请选择结束时间',
-        disabledDate: (current: Dayjs) => {
-          if (formState.startTime) {
-            return current < formState.startTime
-          }
-          return false
-        },
+        disabledDate: (current: Dayjs) =>
+          disabledBeginDate(formState.startTime)(current),
       }),
     },
     {

@@ -4,6 +4,7 @@
   import type { FormSchemas } from '../type'
   import _ from 'lodash-es'
   import { FormList, FormItem } from './'
+  import { useInjectFormState } from '../hooks/useFormContext'
 
   export default defineComponent({
     name: 'BasicForm',
@@ -25,8 +26,7 @@
       },
     },
     setup(props, { slots }) {
-      const formState =
-        (inject('__formState__') as Recordable) || props.formState
+      const formState = useInjectFormState()
 
       return () => (
         <a-row class="edit--form_row" gutter={[20, 20]}>

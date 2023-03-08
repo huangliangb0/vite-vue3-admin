@@ -11,7 +11,7 @@ declare interface PaginationType {
 declare type OptionsType = Array<{
   label: string
   value: any
-  disabled?: Boolean
+  disabled?: boolean
   color?: Color
 }>
 

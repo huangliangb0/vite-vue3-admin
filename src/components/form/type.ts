@@ -36,6 +36,9 @@ export interface FormSchemaItem<T = Recordable> {
   valueFormat?: string | number | boolean | Recordable
   // 这个再编辑表单中有用，因为多个表单控件可能会在同一行
   grid?: GridColType
+  // 当 type 为list、table时，可限制list或者table的列表长度
+  min?: number
+  max?: number
   // widget 组件的属性，比如Input、Select
   componentProps?: WidgetProps | ((formState: T) => WidgetProps)
   // a-form-item的属性
@@ -50,7 +53,7 @@ export interface FormSchemaItem<T = Recordable> {
   >
 }
 
-export type FormSchemas = Array<FormSchemaItem>
+export type FormSchemas<T = Recordable> = Array<FormSchemaItem<T>>
 
 export type EditFormInstance = InstanceType<typeof Form> & {
   // 从 Form 暴露出的方法或者属性

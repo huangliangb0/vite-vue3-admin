@@ -1,5 +1,5 @@
 export { default as ExpandToggle } from './ExpandToggle.vue'
 export { default as FormItem } from './FormItem.vue'
 export { default as FormList } from './FormList.vue'
-export { default as FormTable } from './FormTable.vue'
 export { default as FormContent } from './FormContent.vue'
+export { default as TableFormList } from './TableFormList.vue'

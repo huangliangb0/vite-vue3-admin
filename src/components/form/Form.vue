@@ -14,6 +14,7 @@
   import useAppStore from '@/store/modules/app'
   import _ from 'lodash-es'
   import { FormList, FormContent } from './components'
+  import { useProvideFormState } from './hooks/useFormContext'
 
   export default defineComponent({
     name: 'BasicForm',
@@ -58,7 +59,7 @@
       props.schemas.forEach((item) => {
         o[item.field] = item.default
       })
-      const formState = reactive({ ...o, ...props.initialState })
+      const formState = reactive<Recordable>({ ...o, ...props.initialState })
       const formRef = ref<FormInstance>()
       const appStore = useAppStore()
 
@@ -152,7 +153,7 @@
         })
       }
 
-      provide('__formState__', formState)
+      useProvideFormState(formState)
 
       expose({
         formState,

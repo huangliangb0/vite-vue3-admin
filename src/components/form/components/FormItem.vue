@@ -5,6 +5,7 @@
   import _ from 'lodash-es'
   import { FormSchemaItem, WidgetProps } from '../type'
   import TableFormList from './TableFormList.vue'
+  import { useInjectFormState } from '../hooks/useFormContext'
 
   export default defineComponent({
     name: 'BasicFormItem',
@@ -28,7 +29,7 @@
     },
     emits: ['create-submit', 'reset', 'edit-submit'],
     setup(props) {
-      const formState = inject('__formState__') as Record<string, any[]>
+      const formState = useInjectFormState()
 
       return () => (
         <a-form-item
@@ -55,6 +56,8 @@
             ></FormList>
           ) : props.item.type === 'table' ? (
             <TableFormList
+              min={props.item.min}
+              max={props.item.max}
               field={props.item.field}
               valueFormat={props.item.valueFormat as Recordable}
               schemas={props.item.schemas}
