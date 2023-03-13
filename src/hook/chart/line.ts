@@ -52,7 +52,7 @@ const useLineChart = (props: Partial<Props>) => {
     },
   ) => {
     return h(Chart, {
-      name: 'Pie',
+      name: 'line',
       loading: loading.value,
       option: o.value,
       ...reset,

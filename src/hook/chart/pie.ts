@@ -65,6 +65,7 @@ const usePieChart = (props: Partial<Props>) => {
       attrs?: Partial<Props>
     },
   ) => {
+    console.log('attrs', attrs)
     return h(Chart, {
       name: 'Pie',
       loading: loading.value,

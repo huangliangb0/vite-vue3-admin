@@ -1,3 +1,4 @@
+import { DefineComponent, VNode } from 'vue'
 import { BarSeriesOption, LineSeriesOption } from 'echarts/charts'
 import {
   TitleComponentOption,
@@ -15,3 +16,11 @@ export type ECOption = echarts.ComposeOption<
   | GridComponentOption
   | DatasetComponentOption
 >
+
+export type ChartDataType = Array<{ name: string; value: number }>
+export type ChartType = 'line' | 'bar' | 'pie'
+export type ChartIconType = 'chart-bar' | 'chart-line' | 'chart-pie'
+export type ChartOptionsType = {
+  icon: ChartIconType
+  type: ChartType
+}[]
