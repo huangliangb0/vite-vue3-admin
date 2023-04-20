@@ -396,6 +396,19 @@
       "alwayShowChildInMenu": false,
       "children": [],
       "id": "02174352-b189-4e96-81be-07cf95540280"
+    },
+    {
+      "id": "543b8db6-f8ff-479d-abbf-aa06ab7a2ad4",
+      "name": "Location",
+      "path": "/location",
+      "title": "定位",
+      "icon": "map",
+      "sort": 10,
+      "isCache": false,
+      "hideInMenu": false,
+      "hideInTags": false,
+      "affixInTags": false,
+      "alwayShowChildInMenu": false
     }
   ],
   "student": [

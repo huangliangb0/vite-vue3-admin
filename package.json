@@ -16,6 +16,7 @@
     "add:commit": "git add . && git-cz"
   },
   "dependencies": {
+    "@amap/amap-jsapi-loader": "^1.0.1",
     "@ant-design/icons-vue": "^6.1.0",
     "ant-design-vue": "^3.2.15",
     "axios": "^0.27.2",

@@ -31,6 +31,11 @@ module.exports = defineConfig({
       jsx: true,
     },
   },
+  globals: {
+    AMap: true,
+    AMapUI: true,
+    Loca: true,
+  },
   plugins: ['vue', '@typescript-eslint'],
   extends: [
     'eslint:recommended',

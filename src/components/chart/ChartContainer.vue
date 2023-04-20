@@ -82,22 +82,6 @@
       </Space>
     </div>
     <div class="chart-body">
-      <!--  <template v-for="(item, key, i) in $slots" :key="i">
-        <ChartContent
-          :columns="columns"
-          :fieldNames="fieldNames"
-          v-show="type === key"
-        >
-          <template #default="slotProps">
-            <slot
-              :name="key"
-              :instance="myChart"
-              :title="props.title"
-              v-bind="slotProps"
-            ></slot>
-          </template>
-        </ChartContent>
-      </template> -->
       <ChartContent :columns="columns" v-bind="$attrs">
         <template #default="slotProps">
           <slot

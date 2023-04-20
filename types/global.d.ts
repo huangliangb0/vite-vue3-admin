@@ -4,6 +4,11 @@ import { GRID_KEYS, GRID_VALUES } from '@/constant/app'
 import type { VNodeChild, PropType as VuePropType } from 'vue'
 
 declare global {
+  interface Window {
+    poiPicker: any
+    AMapUI: any
+  }
+
   declare type PropType<T> = VuePropType<T>
   declare type VueNode = VNodeChild | JSX.Element
 
