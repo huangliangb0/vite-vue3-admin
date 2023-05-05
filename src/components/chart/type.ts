@@ -1,5 +1,9 @@
 import { DefineComponent, VNode } from 'vue'
-import { BarSeriesOption, LineSeriesOption } from 'echarts/charts'
+import {
+  BarSeriesOption,
+  LineSeriesOption,
+  CustomSeriesOption,
+} from 'echarts/charts'
 import {
   TitleComponentOption,
   TooltipComponentOption,
@@ -15,6 +19,7 @@ export type ECOption = echarts.ComposeOption<
   | TooltipComponentOption
   | GridComponentOption
   | DatasetComponentOption
+  | CustomSeriesOption
 >
 
 export type ChartDataType = Array<{ name: string; value: number }>

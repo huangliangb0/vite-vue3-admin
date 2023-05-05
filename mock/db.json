@@ -409,6 +409,19 @@
       "hideInTags": false,
       "affixInTags": false,
       "alwayShowChildInMenu": false
+    },
+    {
+      "id": "429c8d4d-6a7d-45b7-97fe-a4f5e6be4026",
+      "name": "Dashboard",
+      "path": "/dashboard",
+      "title": "Dashboard",
+      "icon": "dashboard",
+      "sort": 0,
+      "isCache": false,
+      "hideInMenu": false,
+      "hideInTags": false,
+      "affixInTags": false,
+      "alwayShowChildInMenu": false
     }
   ],
   "student": [

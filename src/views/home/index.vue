@@ -9,6 +9,7 @@
     const scroll = document.getElementById(link.href)
     scroll && scroll.scrollIntoView({ block: 'start', behavior: 'smooth' })
   }
+  const value = ref('')
 </script>
 <template>
   <a-layout theme="light">

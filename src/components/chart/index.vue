@@ -1,7 +1,7 @@
 <script lang="ts" setup>
   import { ECharts, use } from 'echarts/core'
   import { CanvasRenderer } from 'echarts/renderers'
-  import { BarChart, LineChart, PieChart } from 'echarts/charts'
+  import { BarChart, LineChart, PieChart, CustomChart } from 'echarts/charts'
   import {
     TitleComponent,
     TooltipComponent,
@@ -23,6 +23,7 @@
     LegendComponent,
     ToolboxComponent,
     GridComponent,
+    CustomChart,
   ])
 
   defineOptions({
@@ -106,7 +107,7 @@
 </script>
 
 <template>
-  <v-chart ref="instance" autoresize v-bind="$attrs" :style="style" />
+  <v-chart ref="instance" autoresize :style="style" v-bind="$attrs" />
 </template>
 
 <style scoped></style>
