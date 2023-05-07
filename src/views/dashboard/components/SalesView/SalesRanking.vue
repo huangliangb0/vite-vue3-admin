@@ -34,15 +34,40 @@
 <template>
   <ul class="list-wrap">
     <li class="list-item" v-for="(item, index) in data" :key="item.no">
-      <span class="no" :class="{ 'top-np': index < 3 }">{{ index + 1 }}</span>
-      <span class="name">{{ item.name }}</span>
+      <a-space :size="6">
+        <span class="no" :class="{ 'top-no': index < 3 }">
+          <strong>{{ index + 1 }}</strong>
+        </span>
+        <span class="name">{{ item.name }}</span>
+      </a-space>
     </li>
   </ul>
 </template>
 
 <style lang="less" scoped>
   .list-item {
-    line-height: 36px;
-    list-style: none;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    span {
+      font-size: 12px;
+    }
+    .no {
+      display: block;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      &.top-no {
+        background: #3398db;
+        color: #fff;
+        border-radius: 50%;
+      }
+    }
+    .name {
+      display: block;
+      line-height: 20px;
+    }
   }
 </style>

@@ -62,7 +62,7 @@
   }
   .content-wrap {
     display: flex;
-    height: 270px;
+    height: 250px;
   }
   .chart-wrap {
     flex: 0 0 70%;
