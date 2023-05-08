@@ -5,6 +5,7 @@
     TotalUsersBarChart,
   } from '.'
   import Compare from '@/components/compare'
+  import { MinBar, MinLine, StatisBox } from '../common'
 
   defineOptions({
     name: 'TopView',
@@ -19,12 +20,12 @@
   <a-row :gutter="[20, 20]" class="top-view">
     <a-col :span="6">
       <a-card :body-style="cardBodyStyle">
-        <p class="name">累计销售额</p>
-        <p class="value">￥342423423</p>
-        <div class="chart-box align-center">
-          <Compare name="日同比" :value="-10" />
-          <Compare name="月同比" :value="10" />
-        </div>
+        <StatisBox title="累计销售额" value="￥342423423">
+          <div class="align-center" style="height: 100%">
+            <Compare name="日同比" :value="-10" />
+            <Compare name="月同比" :value="10" />
+          </div>
+        </StatisBox>
         <a-divider class="divider" type="horizontal" />
         <div class="foot">
           <a-space>
@@ -36,11 +37,15 @@
     </a-col>
     <a-col :span="6">
       <a-card :body-style="cardBodyStyle">
-        <p class="name">累计订单量</p>
-        <p class="value">234234324</p>
-        <div class="chart-box">
-          <TotalOrderLineChart />
-        </div>
+        <StatisBox title="累计订单量" value="234234324">
+          <MinLine
+            :data="[
+              620, 658, 580, 220, 360, 480, 790, 399, 432, 439, 750, 592, 330,
+              890, 620,
+            ]"
+            :areaStyle="{ color: 'purple' }"
+          />
+        </StatisBox>
         <a-divider class="divider" type="horizontal" />
         <div class="foot">
           <a-space>
@@ -52,11 +57,32 @@
     </a-col>
     <a-col :span="6">
       <a-card :body-style="cardBodyStyle">
-        <p class="name">今日交易用户数</p>
-        <p class="value">234324324</p>
-        <div class="chart-box">
-          <TodayOrderBarChart />
-        </div>
+        <StatisBox title="今日交易用户数" value="234324324">
+          <MinBar
+            :columns="[
+              '00:00',
+              '01:00',
+              '02:00',
+              '03:00',
+              '04:00',
+              '05:00',
+              '06:00',
+              '07:00',
+              '08:00',
+              '09:00',
+              '10:00',
+              '11:00',
+              '12:00',
+              '13:00',
+              '14:00',
+            ]"
+            :data="[
+              620, 658, 580, 220, 360, 480, 790, 399, 432, 439, 750, 592, 330,
+              890,
+            ]"
+          />
+        </StatisBox>
+
         <a-divider class="divider" type="horizontal" />
         <div class="foot">
           <a-space>
@@ -68,11 +94,9 @@
     </a-col>
     <a-col :span="6">
       <a-card :body-style="cardBodyStyle">
-        <p class="name">累计用户数</p>
-        <p class="value">234233345</p>
-        <div class="chart-box">
+        <StatisBox title="累计用户数" value="234233345">
           <TotalUsersBarChart />
-        </div>
+        </StatisBox>
         <a-divider class="divider" type="horizontal" />
         <div class="foot">
           <a-space>
@@ -89,18 +113,7 @@
     p {
       margin: 0;
     }
-    .name {
-      font-size: 12px;
-      color: #999;
-    }
-    .value {
-      font-size: 25px;
-      color: #000;
-      margin-top: 5px;
-    }
-    .chart-box {
-      height: 50px;
-    }
+
     .divider {
       margin: 10px 0 0 0;
     }

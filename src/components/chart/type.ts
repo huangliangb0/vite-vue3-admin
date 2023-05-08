@@ -2,6 +2,7 @@ import { DefineComponent, VNode } from 'vue'
 import {
   BarSeriesOption,
   LineSeriesOption,
+  PieSeriesOption,
   CustomSeriesOption,
 } from 'echarts/charts'
 import {
@@ -9,6 +10,7 @@ import {
   TooltipComponentOption,
   GridComponentOption,
   DatasetComponentOption,
+  LegendComponentOption,
 } from 'echarts/components'
 import * as echarts from 'echarts/core'
 // 通过 ComposeOption 来组合出一个只有必须组件和图表的 Option 类型
@@ -20,6 +22,8 @@ export type ECOption = echarts.ComposeOption<
   | GridComponentOption
   | DatasetComponentOption
   | CustomSeriesOption
+  | PieSeriesOption
+  | LegendComponentOption
 >
 
 export type ChartDataType = Array<{ name: string; value: number }>
